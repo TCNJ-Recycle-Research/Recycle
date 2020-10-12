@@ -1,9 +1,9 @@
 jQuery(function(){
 
-    var userEmail, userPwd;
+    var userEmail, pwd, pwdRepeat, first, last;
     var submitted = false;
 
-    $(document).on("submit", "#admin-login", function(e){
+    $(document).on("submit", "#admin-signup", function(e){
 
         // Prevent form submission which refreshes page
         e.preventDefault();
@@ -12,45 +12,42 @@ jQuery(function(){
             
             submitted = true;
 
-            userEmail = $("#email-input").val();
-            userPwd = $("#password-input").val();
+            userEmail = $("#email").val();
+            pwd = $("#password").val();
+            pwdRepeat = $("#password-repeat").val();
+            first = $("#first-name").val();
+            last = $("#last-name").val();
 
-            if(userEmail == '' || userPwd == ''){
-                console.log("Login info missing input");
+            if(userEmail == '' || pwd == '' || pwdRepeat == '' || first == '' || last == ''){
+                console.log("Signup info missing input");
+
+            }
+            else if(!(pwd === pwdRepeat)){
+                console.log("Passwords don't match");
+
             }
             else{
 
-                var obj = {func: "try_login", email: userEmail, password: userPwd};
+                var obj = {func: "sign_up", email: userEmail, password: pwd, firstName: first, lastName: last};
 
                 $.post("php/admins-handler.php", JSON.stringify(obj), function(response) {
 
                     // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
-                    if(response["loginSuccess"]){
+                    if(response["signupSuccess"]){
 
                         // output success and move to next html page
-                        console.log("Login Success");
-                        
-                        //set the session on the login page
-                        sessionStorage.setItem("loggedIn", true);
+                        console.log("Signup Success");
 
-                        var loc = window.location.pathname;
-                        var dir = loc.substring(0, loc.lastIndexOf('/'));
-                        // Go to the material listing page where we will load in the info associated with the material ID
-                        window.location.href = dir + "/index.html";
                     }
                     else if(response["missingInput"]){
-
                         // output missing info
                         console.log("Missing post data input");
-                        
                     }
                     else{
                         // output failure message 
-                        console.log("Login Failed, incorrect email or password!");
+                        console.log("Signup Failed, an account with that email already exists!");
                         
                     }
-
-                    
 
                 }, "json").fail(function(xhr, thrownError) {
                         console.log(xhr.status);
@@ -58,11 +55,14 @@ jQuery(function(){
                 });
             }
             
+
             submitted = false;
             
         }
 
+
     });
+
 
 
 });
