@@ -164,8 +164,8 @@ class Table {
     }
 
     
-    // select a single row from the table by giving it specific data of the row e.g. ....WHERE Material_Name = "Cardboard";
-    // and return it as an associative array (you access it by column name) e.g array["Material_ID"] to get the Materials ID
+    // select a row from the table by giving it specific data of the row e.g. ....WHERE Material_Name = "Cardboard";
+    // and return it as an array of associative arrays (you access it by column name) e.g array["Material_ID"] to get the Materials ID
     protected function select_row(&$columnArray, &$dataArray){
 
         $sqlCode = $this->get_sql_code($columnArray, "select");
@@ -179,13 +179,16 @@ class Table {
         // get the result of the SQL code
         $result = $preparedStmt->get_result();
 
-        // get the associative array of the row's values
-        $rowArray = $result->fetch_assoc();
+        $rowsArray = array();
+        
+        // keep storing selected rows into rowsArray until it returns NULL
+        while($row = $result->fetch_assoc())
+        {    $rowsArray[] = $row;   }
 
         // free and close  to deallocate resources for the result and statement
         $preparedStmt->close();
 
-        return $rowArray;
+        return $rowsArray;
 
     }
 
@@ -366,7 +369,8 @@ class Table {
 
             break;
             default:
-                return NULL;
+                // Error unexpected data type passed
+                exit(1);
             break;
 
         }
@@ -427,6 +431,12 @@ class Table {
         // "Prepare" creates an SQL statement and sends it to the database so it knows what to expect
         // and doesn't interpret incoming input as code and thus stops SQL injection attempts
         $stmt = $this->mysqli->prepare($sqlCode); 
+
+        /*
+        if(!$stmt){
+            // Error occured in preparing statement
+            exit(1);
+        }*/
 
         // We use "call_user_func_array" so we can send $stmt->bind_param() a variable amount of parameters
         call_user_func_array(array($stmt, 'bind_param'), $bindingParams);

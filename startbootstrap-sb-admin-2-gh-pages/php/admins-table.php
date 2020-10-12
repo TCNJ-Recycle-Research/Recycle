@@ -10,7 +10,7 @@ class Admins extends Table{
     // name of the table to be used for SQL statements
     private $name = "admins";
 
-    private $adminColumns = array("Admin_Email", "Admin_Password", "Admin_Name", "Date_Created", "Last_Login");
+    private $adminColumns = array("Admin_Email", "Admin_Password", "Admin_First_Name", "Admin_Last_Name", "Date_Created", "Last_Login");
     
     // Constructor requires database connection, name of the table being accessed, and the columns in the table
     function __construct()
@@ -19,6 +19,7 @@ class Admins extends Table{
     }
 
 
+    // Allows handler scripts to retreive a static instance of the Admins table class without declaring one everytime
     public static function get_instance(){
 
         if(!self::$adminsTable){
@@ -31,28 +32,22 @@ class Admins extends Table{
     // Try to add new admin to admin database and returns true if the admin was succesfully added.
     // Additionally this function only checks for if the admin already exists in database so any other 
     // input validation (checking if user entered anything) must be done on the front end or added to this later
-    function add_admin($adminEmail, $rawPassword, $name){
+    function add_admin($adminEmail, $rawPassword, $firstName, $lastName){
 
-        // Prepare info for sending to select_row()
-        $columnArray = array($this->adminColumns[0]);
-        $dataArray = array($adminEmail);
-
-        // Search for existing entry with this email
-        $existingAdmin = $this->select_row($columnArray, $dataArray);
+        // Check if the email entered exists as an admin in the database
+        $existingAdmin = $this->get_admin($adminEmail);
         
         // If we couldn't find an already existing admin with entered email, then add it
-        if($existingAdmin == NULL){
+        if(count($existingAdmin) == 0){
             
             // Hash the raw password passed
             $hashedPassword = password_hash($rawPassword, PASSWORD_DEFAULT);
 
-            //Get current date to save as last login date for admin
-            $date = getdate();
-
-            $yearMonthDay = "".$date['year']."-".$date['mon']."-".$date['mday'];
+            //Get current date to save as the date created and last login date for admin
+            $date = date('Y-m-d');
 
             // Get all of the data in an array and store date created twice since it's also the "last login" date
-            $adminData = array($adminEmail, $hashedPassword, $name, $yearMonthDay, $yearMonthDay);
+            $adminData = array($adminEmail, $hashedPassword, $firstName, $lastName, $date, $date);
 
             $this->insert_row($this->adminColumns, $adminData);
             
@@ -69,30 +64,27 @@ class Admins extends Table{
     // Returns true if the password was correct and false if password or email was wrong
     function verify_admin($adminEmail, $rawPassword){
 
-        $columnArray = array($this->adminColumns[0]);
-        $dataArray = array($adminEmail);
-
         // Check if the email entered exists as an admin in the database
-        $existingAdmin = $this->select_row($columnArray, $dataArray);
+        $existingAdmin = $this->get_admin($adminEmail);
 
         // If we couldn't find an already existing admin with entered email, then add it
-        if($existingAdmin != NULL){
+        if(count($existingAdmin) > 0){
             
-            $hashedPassword = $existingAdmin["Admin_Password"]; 
+            $hashedPassword = $existingAdmin[0]["Admin_Password"]; 
 
             $success = password_verify($rawPassword, $hashedPassword);
             
             if($success){
                 
                 //Get current date to save as last login date for admin
-                $date = getdate();
+                $date = date('Y-m-d');
 
-                $yearMonthDay = "".$date['year']."-".$date['mon']."-".$date['mday'];
+                $updatingColumn = array($this->adminColumns[5]);
+                $updatingValue = array($date);
+                $whereColumn = array("Admin_ID");
+                $whereValue = array($existingAdmin[0]["Admin_ID"]);
 
-                $updatingColumn = array($this->adminColumns[4]);
-                $updatingValue = array($yearMonthDay);
-
-                $this->update_row($updatingColumn, $updatingValue, $columnArray, $dataArray);
+                $this->update_row($updatingColumn, $updatingValue, $whereColumn, $whereValue);
             }
 
             return $success;
@@ -104,20 +96,34 @@ class Admins extends Table{
 
     }
 
+    function get_admin($adminEmail){
 
-    function delete_admin($adminEmail){
-
-        // Prepare info for sending to select_row()
         $columnArray = array($this->adminColumns[0]);
         $dataArray = array($adminEmail);
 
-        // Search for existing entry with this email
+        // Check if the email entered exists as an user in the database
         $existingAdmin = $this->select_row($columnArray, $dataArray);
+
+        return $existingAdmin;
+    }
+
+    function get_all_admins(){
+
+        $allAdmins = $this->select_all_rows(NULL, NULL);
+
+        return $allAdmins;
+    }
+
+
+    function delete_admin($adminEmail){
+
+        // Check if the email entered exists as an admin in the database
+        $existingAdmin = $this->get_admin($adminEmail);
         
         // If we couldn't find an already existing admin with entered email, then add it
-        if($existingAdmin != NULL){
+        if(count($existingAdmin) > 0){
             
-            $adminData = array($existingAdmin['Admin_ID']);
+            $adminData = array($existingAdmin[0]['Admin_ID']);
             $adminColumn = array("Admin_ID");
 
             $this->delete_row($adminColumn, $adminData);
@@ -133,19 +139,15 @@ class Admins extends Table{
 
     function edit_admin($adminEmail, $newPassword, $newName){
 
-        // Prepare info for sending to select_row()
-        $columnArray = array($this->adminColumns[0]);
-        $dataArray = array($adminEmail);
-
-        // Search for existing entry with this email
-        $existingAdmin = $this->select_row($columnArray, $dataArray);
+        // Check if the email entered exists as an admin in the database
+        $existingAdmin = $this->get_admin($adminEmail);
         
         // If we couldn't find an already existing admin with entered email, then add it
-        if($existingAdmin != NULL){
+        if(count($existingAdmin) > 0){
             
             $updatingData = array();
             $updatingColumns = array();
-            $whereData = array($existingAdmin["Admin_ID"]);
+            $whereData = array($existingAdmin[0]["Admin_ID"]);
             $whereColumns = array("Admin_ID");
             
             // If a new password was passed 
