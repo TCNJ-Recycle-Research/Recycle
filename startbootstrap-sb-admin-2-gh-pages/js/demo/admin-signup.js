@@ -18,7 +18,7 @@ jQuery(function(){
             first = $("#first-name").val();
             last = $("#last-name").val();
 
-            if(userEmail == '' || pwd == '' || pwdRepeat == '' || first == '' || last == ''){
+            if(userEmail === "" || pwd  === "" || pwdRepeat  === "" || first  === "" || last  === ""){
                 console.log("Signup info missing input");
 
             }
@@ -30,7 +30,7 @@ jQuery(function(){
 
                 var obj = {func: "sign_up", email: userEmail, password: pwd, firstName: first, lastName: last};
 
-                $.post("php/admins-handler.php", JSON.stringify(obj), function(response) {
+                $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
                     // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                     if(response["signupSuccess"]){

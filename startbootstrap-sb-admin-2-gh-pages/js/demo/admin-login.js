@@ -22,7 +22,7 @@ jQuery(function(){
 
                 var obj = {func: "try_login", email: userEmail, password: userPwd};
 
-                $.post("php/admins-handler.php", JSON.stringify(obj), function(response) {
+                $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
                     // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                     if(response["loginSuccess"]){
