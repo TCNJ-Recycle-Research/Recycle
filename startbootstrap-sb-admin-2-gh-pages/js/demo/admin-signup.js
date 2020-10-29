@@ -9,7 +9,7 @@ jQuery(function(){
         e.preventDefault();
 
         if(!submitted){
-            
+
             submitted = true;
 
             userEmail = $("#email").val();
@@ -19,11 +19,13 @@ jQuery(function(){
             last = $("#last-name").val();
 
             if(userEmail === "" || pwd  === "" || pwdRepeat  === "" || first  === "" || last  === ""){
-                console.log("Signup info missing input");
+                alert("Signup info missing input");
+                //console.log("Signup info missing input");
 
             }
             else if(!(pwd === pwdRepeat)){
-                console.log("Passwords don't match");
+                alert("Passwords don't match");
+                //console.log("Passwords don't match");
 
             }
             else{
@@ -36,17 +38,20 @@ jQuery(function(){
                     if(response["signupSuccess"]){
 
                         // output success and move to next html page
-                        console.log("Signup Success");
+                        alert("Signup Success");
+                        //console.log("Signup Success");
 
                     }
                     else if(response["missingInput"]){
                         // output missing info
-                        console.log("Missing post data input");
+                        alert("Missing post data input");
+                        //console.log("Missing post data input");
                     }
                     else{
-                        // output failure message 
-                        console.log("Signup Failed, an account with that email already exists!");
-                        
+                        // output failure message
+                        alert("Signup Failed, an account with that email already exists!");
+                        //console.log("Signup Failed, an account with that email already exists!");
+
                     }
 
                 }, "json").fail(function(xhr, thrownError) {
@@ -54,10 +59,10 @@ jQuery(function(){
                         console.log(thrownError);
                 });
             }
-            
+
 
             submitted = false;
-            
+
         }
 
 

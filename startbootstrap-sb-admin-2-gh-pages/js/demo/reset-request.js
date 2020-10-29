@@ -1,5 +1,5 @@
 jQuery(function(){
-    
+
     var email;
     var submitted = false;
 
@@ -9,15 +9,16 @@ jQuery(function(){
         e.preventDefault();
 
         if(!submitted){
-            
+
             console.log("Submitted");
-            
+
             submitted = true;
 
             email = $("#email").val();
 
             if(email === ""){
-                console.log("JS side info missing input");
+                alert("Missing input");
+                //console.log("JS side info missing input");
                 submitted = false;
             }
             else{
@@ -27,31 +28,30 @@ jQuery(function(){
                 $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-    
+
                         // output missing info
-                        console.log("Reset Request missing input");
+                        alert("Reset Request missing input");
+                        //console.log("Reset Request missing input");
                     }
 
                     submitted = false;
                     alert("If an account with that email exists and password reset link will be sent");
-                    
-    
+
+
                 }, "json").fail(function(xhr, thrownError) {
                         console.log(xhr.status);
                         console.log(thrownError);
                 });
             }
 
-            
-            
+
+
         }
 
 
     });
 
-    
+
 
 
 });
-
-

@@ -9,14 +9,15 @@ jQuery(function(){
         e.preventDefault();
 
         if(!submitted){
-            
+
             submitted = true;
 
             userEmail = $("#email-input").val();
             userPwd = $("#password-input").val();
 
             if(userEmail == '' || userPwd == ''){
-                console.log("Login info missing input");
+                alert("Login info missing input");
+                //console.log("Login info missing input");
             }
             else{
 
@@ -29,7 +30,7 @@ jQuery(function(){
 
                         // output success and move to next html page
                         console.log("Login Success");
-                        
+
                         //set the session on the login page
                         sessionStorage.setItem("loggedIn", true);
 
@@ -41,25 +42,27 @@ jQuery(function(){
                     else if(response["missingInput"]){
 
                         // output missing info
-                        console.log("Missing post data input");
-                        
+                        alert("Missing post data input");
+                        // console.log("Missing post data input");
+
                     }
                     else{
-                        // output failure message 
-                        console.log("Login Failed, incorrect email or password!");
-                        
+                        // output failure message
+                        alert("Login Failed, incorrect email or password!");
+                        //console.log("Login Failed, incorrect email or password!");
+
                     }
 
-                    
+
 
                 }, "json").fail(function(xhr, thrownError) {
                         console.log(xhr.status);
                         console.log(thrownError);
                 });
             }
-            
+
             submitted = false;
-            
+
         }
 
     });

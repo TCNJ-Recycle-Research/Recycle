@@ -2,10 +2,10 @@ jQuery(function(){
 
     var submitted = false;
 
-    $(document).on("submit", "#reset-form", function(e){ 
+    $(document).on("submit", "#reset-form", function(e){
 
         var email, pwd, pwdRepeat, select, valid;
-        
+
 
         // Prevent form submission which refreshes page
         e.preventDefault();
@@ -19,11 +19,13 @@ jQuery(function(){
             pwdRepeat = $("#password-repeat").val();
 
             if(email === "" || pwd === "" || pwdRepeat === ""){
-                console.log("Reset info missing input");
+                alert("Missing input");
+                //console.log("Reset info missing input");
                 submitted = false;
             }
             else if(!(pwd === pwdRepeat)){
-                console.log("Passwords don't match");
+                alert("Passwords don't match")
+                //console.log("Passwords don't match");
                 submitted = false;
             }
             else{
@@ -45,24 +47,28 @@ jQuery(function(){
 
                         // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                         if(response["resetSuccess"]){
-        
+
                             // output success and move to next html page
-                            console.log("Password Reset Success");
+                            alert("Password Reset Success");
+                            //console.log("Password Reset Success");
 
                         }
                         else if(response["missingInput"]){
-        
+
                             // output missing info
-                            console.log("Password reset info missing input");
+                            alert("Password reset info missing input");
+                            //console.log("Password reset info missing input");
                         }
                         else if(response["passwordMismatch"]){
-                            console.log("Passwords don't match");
+                            alert("Passwords don't match");
+                            //console.log("Passwords don't match");
                         }
                         else{
-                            // output failure message 
-                            console.log("Password Reset Failed. Please try to send another password reset request!");
+                            // output failure message
+                            alert("Password Reset Failed. Please try to send another password reset request!");
+                            //console.log("Password Reset Failed. Please try to send another password reset request!");
                         }
-        
+
                         submitted = false;
 
                     }, "json").fail(function(xhr, thrownError) {
@@ -70,18 +76,18 @@ jQuery(function(){
                             console.log(thrownError);
                     });
                 }
-                
-                
+
+
             }
-            
-            
-            
+
+
+
         }
 
 
     });
 
-    
+
 
 
 });
