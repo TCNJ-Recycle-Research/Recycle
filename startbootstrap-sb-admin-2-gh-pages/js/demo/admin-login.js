@@ -1,7 +1,12 @@
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
 jQuery(function(){
 
     var userEmail, userPwd;
     var submitted = false;
+    var emailErr = passwordError = true;
 
     $(document).on("submit", "#admin-login", function(e){
 
@@ -15,10 +20,25 @@ jQuery(function(){
             userEmail = $("#email-input").val();
             userPwd = $("#password-input").val();
 
-            if(userEmail == '' || userPwd == ''){
-                alert("Login info missing input");
-                //console.log("Login info missing input");
+            if(userEmail == ''){
+              printError("emailErr", "  Please enter your email address");
+            }else{
+              printError("emailErr", "");
+              emailErr = false;
             }
+
+            if(userPwd == ''){
+              printError("passwordError", "  Please enter your password");
+            }
+            // }else{
+            //   printError("passwordError", "");
+            //   passwordError = false;
+            // }
+            // if(userEmail == '' || userPwd == ''){
+            //     setErrorFor(userEmail, 'Username cannot be blank');
+            //     //alert("Login info missing input");
+            //     //console.log("Login info missing input");
+            // }
             else{
 
                 var obj = {func: "try_login", email: userEmail, password: userPwd};
@@ -48,9 +68,11 @@ jQuery(function(){
                     }
                     else{
                         // output failure message
-                        alert("Login Failed, incorrect email or password!");
+                        //setErrorFor("Login Failed, incorrect email or password!");
+                        //alert("Login Failed, incorrect email or password!");
                         //console.log("Login Failed, incorrect email or password!");
-
+                        printError("emailErr", "Login Failed, incorrect email or password!");
+                        printError("passwordError", "Login Failed, incorrect email or password!");
                     }
 
 

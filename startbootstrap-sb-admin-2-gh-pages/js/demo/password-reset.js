@@ -1,6 +1,11 @@
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
 jQuery(function(){
 
     var submitted = false;
+    var emailErr = passwordError = passwordRErr = true;
 
     $(document).on("submit", "#reset-form", function(e){
 
@@ -18,13 +23,23 @@ jQuery(function(){
             pwd = $("#password").val();
             pwdRepeat = $("#password-repeat").val();
 
-            if(email === "" || pwd === "" || pwdRepeat === ""){
-                alert("Missing input");
-                //console.log("Reset info missing input");
-                submitted = false;
+
+            if(email == ""){
+              printError("emailErr", "  Please enter your email address");
             }
-            else if(!(pwd === pwdRepeat)){
-                alert("Passwords don't match")
+
+            if(pwd == ""){
+              printError("passwordError", "  Please enter your password");
+            }
+
+            if(pwdRepeat== ""){
+              printError("passwordRErr", "  Please enter your password");
+            }
+
+            if(!(pwd === pwdRepeat)){
+              printError("passwordError", "Passwords don't match");
+              printError("passwordRErr", "Passwords don't match");
+              //alert("Passwords don't match")
                 //console.log("Passwords don't match");
                 submitted = false;
             }

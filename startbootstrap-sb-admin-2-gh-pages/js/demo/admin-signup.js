@@ -1,7 +1,12 @@
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
 jQuery(function(){
 
     var userEmail, pwd, pwdRepeat, first, last;
     var submitted = false;
+    var emailErr = passwordError = passwordRErr= fnameErr= lnameError = true;
 
     $(document).on("submit", "#admin-signup", function(e){
 
@@ -18,13 +23,31 @@ jQuery(function(){
             first = $("#first-name").val();
             last = $("#last-name").val();
 
-            if(userEmail === "" || pwd  === "" || pwdRepeat  === "" || first  === "" || last  === ""){
-                alert("Signup info missing input");
-                //console.log("Signup info missing input");
+            if(first  == ""){
+              printError("fnameErr", "  Please enter your first name.");
 
+              //submitted = false;
+            }
+            if(last  == ""){
+              printError("lnameError", "  Please enter your last name.");
+
+              //submitted = false;
+            }
+            if(userEmail == ""){
+              printError("emailErr", "Please enter your email.");
+            }
+
+            if(pwd == ""){
+              printError("passwordError", "Please enter your password.");
+            }
+
+            if(pwdRepeat == ""){
+              printError("passwordRErr", "Please enter your password.");
             }
             else if(!(pwd === pwdRepeat)){
-                alert("Passwords don't match");
+              printError("passwordError", "Passwords don't match");
+              printError("passwordRErr", "Passwords don't match");
+                //alert("Passwords don't match");
                 //console.log("Passwords don't match");
 
             }
