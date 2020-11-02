@@ -1798,6 +1798,11 @@ pre code {
   background-color: rgba(255, 255, 255, 0.075);
 }
 
+.active-row {
+  color: #fff;
+  background-color: var(--danger);
+}
+
 @media (max-width: 575.98px) {
   .table-responsive-sm {
     display: block;

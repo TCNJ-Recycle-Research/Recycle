@@ -53,7 +53,7 @@ jQuery(function(){
             }
             else{
 
-                var obj = {func: "sign_up", email: userEmail, password: pwd, firstName: first, lastName: last};
+                var obj = {func: "sign_up", email: userEmail, password: pwd, passwordRepeat: pwdRepeat, firstName: first, lastName: last};
 
                 $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
