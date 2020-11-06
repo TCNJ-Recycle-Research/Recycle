@@ -2,12 +2,6 @@ jQuery(function(){
 
     var submitted = false;
 
-    var deleteMode = false;
-
-    var dataTable = $("#data-table");
-
-    var activeRows = [];
-
     getAdmins();
 
     $(document).on("click", ".clickable-row", function(){
