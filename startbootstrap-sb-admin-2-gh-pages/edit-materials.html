@@ -17,7 +17,10 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet"> 
 
 </head>
 
@@ -276,21 +279,9 @@
               </div>
             </div>
           </div>
-
-          <div id="modal-buttons">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-modal">
-              Add Material
-            </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">
-              Edit Material
-            </button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">
-              Delete Materials
-            </button>
-          </div>
           
           <!-- Add Modal -->
-          <div class="modal" id="add-modal">
+          <div class="modal fade" id="add-modal">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
 
@@ -300,26 +291,26 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form autocomplete="off">
+                  <form id="add-material-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <p>Add the new material to the database for ALL users.</p>
+                      <p>Add a new material to the database for all users to see.</p>
                       <label for="material-name">Material Name</label>
-                      <input type="text" id="material-name" name="material-name"><br>
+                      <input type="text" class="form-control form-control-user material-name" required><br>
                       <label for="material-type">Material Type</label>
-                      <input type="text" id="material-type" name="material-type"><br>
+                      <input type="text" class="form-control form-control-user material-type" required><br>
                       <label for="material-description">Material Description</label>
-                      <textarea id="material-description" name="material-description" rows="4" cols="50"></textarea><br>
+                      <textarea class="form-control form-control-user material-description"  rows="4" cols="50" required></textarea><br>
                       <label for="image-path">Image Path</label>
-                      <input type="text" id="image-path" name="image-path">
+                      <input class="form-control form-control-user image-path" type="text">
                     </div>
                   </div>
                   
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="button" id="confirm-delete" class="btn btn-success" data-dismiss="modal">Add</button>
+                    <input type="submit" class="btn btn-success" value="Add">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -330,7 +321,7 @@
 
 
           <!-- Edit Modal -->
-          <div class="modal" id="edit-modal">
+          <div class="modal fade" id="edit-modal">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
 
@@ -340,26 +331,26 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form autocomplete="off">
+                  <form id="edit-material-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <p>Click edit to confirm changes.</p>
                       <label for="material-name">Material Name</label>
-                      <input type="text" id="material-name" name="material-name"><br>
+                      <input type="text" class="form-control form-control-user material-name" name="material-name" required><br>
                       <label for="material-type">Material Type</label>
-                      <input type="text" id="material-type" name="material-type"><br>
+                      <input type="text" class="form-control form-control-user material-type" name="material-type" required><br>
                       <label for="material-description">Material Description</label>
-                      <textarea id="material-description" name="material-description" rows="4" cols="50"></textarea><br>
+                      <textarea class="form-control form-control-user material-description" name="material-description" rows="4" cols="50" required></textarea><br>
                       <label for="image-path">Image Path</label>
-                      <input type="text" id="image-path" name="image-path">
+                      <input type="text" class="form-control form-control-user image-path" name="image-path">
                     </div>
                   </div>
                   
 
+                  
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="button" id="confirm-delete" class="btn btn-primary" data-dismiss="modal">Edit</button>
+                    <input type="submit" class="btn btn-primary" value="Edit">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -369,29 +360,29 @@
           <!--End of Edit Modal-->
 
           <!-- Delete Modal -->
-          <div class="modal" id="delete-modal">
+          <div class="modal fade" id="delete-modal">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Delete Confirmation</h4>
+                  <h4 class="modal-title">Delete Materials</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form autocomplete="off">
+                  <form id="delete-material-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
                       <p>Type DELETE to permanently delete these materials.</p>
-                      <input type="text" id="confirm-string" name="confirm-string">
+                      <input type="text" id="confirm-string" class="form-control form-control-user" required>
                     </div>
                   </div>
                   
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="button" id="confirm-delete" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -460,6 +451,8 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="vendor/datatables/datatables.ellipsis.min.js"></script>
+  <script src="vendor/datatables/datatables.buttons.min.js"></script>
+  <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/demo/view-materials.js"></script>
