@@ -67,7 +67,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Event Tasks:</h6>
-            <a class="collapse-item" href="create-events.html">Events Table</a>
+            <a class="collapse-item" href="events-table.html">Events Table</a>
           </div>
         </div>
       </li>
@@ -81,7 +81,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Material Tasks</h6>
-            <a class="collapse-item" href="edit-materials.html">Materials Table</a>
+            <a class="collapse-item" href="materials-table.html">Materials Table</a>
           </div>
         </div>
       </li>
@@ -94,7 +94,7 @@
         <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">News Tasks</h6>
-            <a class="collapse-item" href="create-article.html">News Table</a>
+            <a class="collapse-item" href="news-table.html">News Table</a>
           </div>
         </div>
       </li>
@@ -130,7 +130,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">User Settings:</h6>
-            <a class="collapse-item" href="edit-student.html">Users Table</a>
+            <a class="collapse-item" href="user-table.html">Users Table</a>
           </div>
         </div>
       </li>
@@ -143,7 +143,7 @@
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Admin Settings:</h6>
-            <a class="collapse-item" href="view-admin.html">Admin Table</a>
+            <a class="collapse-item" href="admin-table.html">Admin Table</a>
           </div>
         </div>
       </li>
@@ -240,65 +240,72 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Edit User Table</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Event Table</h1>
             <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
           </div>
-
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">User Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Event Table</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="data-table" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Member ID</th>
-                      <th>Member Type</th>
-                      <th>Email</th>
-                      <th>Name</th>
-                      <th>Phone Number</th>
+                      <th>Event ID</th>
+                      <th>Event Name</th>
+                      <th>Event Description</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Allowed Users</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Member ID</th>
-                      <th>Member Type</th>
-                      <th>Email</th>
-                      <th>Name</th>
-                      <th>Phone Number</th>
+                      <th>Event ID</th>
+                      <th>Event Name</th>
+                      <th>Event Description</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Allowed Users</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>TCNJ Student</td>
-                      <td>blah@tcnj.edu</td>
-                      <td>Some student</td>
-                      <td>555-555-5555</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Faculty</td>
-                      <td>faculty1@tcnj.edu</td>
-                      <td>faculty teacher</td>
-                      <td>555-555-6666</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-          <a href="#" class="btn btn-danger btn-icon-split">
+          <a href="#" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Create New Event</span>
+          </a>
+
+          <a href="#" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-flag"></i>
+            </span>
+            <span class="text">Edit Event</span>
+          </a>
+
+          <button id="#" class="btn btn-danger btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-trash"></i>
             </span>
-            <span class="text">Delete User</span>
-          </a>
+            <span class="text">Delete Event</span>
+          </button>
 
+          <a href="#" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Check Attendance</span>
+          </a>
     </div>
     <!-- End of Content Wrapper -->
 
