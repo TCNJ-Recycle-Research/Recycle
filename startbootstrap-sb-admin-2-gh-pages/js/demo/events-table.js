@@ -16,6 +16,7 @@ jQuery(function(){
 
         table.button(1).enable(selectedRows === 1);
         table.button(2).enable(selectedRows > 0);
+        table.button(3).enable(selectedRows === 1);
 
         var thisRow;
         var text;
@@ -101,7 +102,7 @@ jQuery(function(){
                             {
                                 text: 'Edit Event', className: 'btn btn-primary',
                                 action: function(){
-                                    editModal();
+                                    editModal();generateQR
                                 }
                             },
                             {
@@ -110,7 +111,13 @@ jQuery(function(){
                                     $("#delete-modal").modal("toggle");
                                     //$(".active-row").css("background-color", "var(--danger)");
                                 }
-                            }
+                            },
+                            {
+                                text: 'Generate QR Code', className: 'btn btn-info',
+                                action: function(){
+                                    generateQR();
+                                }
+                            },
                         ]
                     }
                 });
@@ -122,7 +129,7 @@ jQuery(function(){
             selectedRows = 0;
             table.button(1).enable(false);
             table.button(2).enable(false);
-
+            table.button(3).enable(false);
 
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
@@ -130,7 +137,6 @@ jQuery(function(){
         });
 
     }
-
 
     // --------------ADD EVENT MODAL------------------
     $(document).on("submit", "#add-event-form", function(e){
@@ -320,4 +326,45 @@ jQuery(function(){
             
     });
 
+    // --------------GENERATE EVENT QR CODE MODAL------------------
+    function generateQR(){
+
+        var activeRows = table.rows( { selected: true } );
+
+        if(activeRows == null || activeRows.length != 1){
+            return;
+        }
+
+        var rowData = table.row(activeRows[0]).data();
+
+        $("#QR-code-holder").empty();
+
+        $('#QR-code-holder').qrcode({
+            text	: JSON.stringify(rowData),
+            render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
+            background : "#ffffff",
+            foreground : "#000000",
+            width : 150,
+            height: 150
+        });
+
+        $("#QR-modal").modal("toggle");
+        
+    }
+
+
+    function convertTime(time){
+
+        var suffix;
+
+        var hours = parseInt(time.substring(0, 2));
+
+        //it is pm if hours from 12 onwards
+        suffix = (hours >= 12)? 'pm' : 'am';
+        
+        //only -12 from hours if it is greater than 12 (if not back at mid night)
+        hours = ((hours + 11) % 12 + 1);
+
+        return "" + hours + time.substring(2) + suffix;
+    }
 });

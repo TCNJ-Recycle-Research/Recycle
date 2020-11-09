@@ -388,6 +388,34 @@
               </div>
             </div>
           </div>
+          <!--End of Delete Modal--> 
+          
+          <!-- Delete Modal -->
+          <div class="modal fade" id="QR-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Event QR Code</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                      <p>Have users scan this QR code to mark their attendance at an event.</p>
+                      <div id="QR-code-holder" style="text-align: center;"></div>
+                  </div>
+                  
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-info" value="Print">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
           <!--End of Delete Modal-->    
 
         </div>
@@ -454,10 +482,9 @@
   <script src="vendor/datatables/datatables.buttons.min.js"></script>
   <script src="vendor/datatables/datatables.select.min.js"></script>
 
-  <!-- Page level custom scripts 
-    <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>-->
-  <script src="js/demo/view-events.js"></script>
+  <!-- Page level custom scripts -->
+  <script src="js/demo/events-table.js"></script>
+  <script src="js/jquery.qrcode.min.js"></script>
 
 </body>
 
