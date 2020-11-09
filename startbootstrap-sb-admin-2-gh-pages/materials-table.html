@@ -290,13 +290,13 @@
                     <div class="form-group">
                       <p>Add a new material to the database for all users to see.</p>
                       <label for="material-name">Material Name</label>
-                      <input type="text" class="form-control form-control-user material-name" required><br>
+                      <input type="text" class="form-control form-control-user material-name" name="material-name" required><br>
                       <label for="material-type">Material Type</label>
-                      <input type="text" class="form-control form-control-user material-type" required><br>
+                      <input type="text" class="form-control form-control-user material-type" name="material-type" required><br>
                       <label for="material-description">Material Description</label>
-                      <textarea class="form-control form-control-user material-description"  rows="4" cols="50" required></textarea><br>
+                      <textarea class="form-control form-control-user material-description"  name="material-description" rows="4" cols="50" required></textarea><br>
                       <label for="image-path">Image Path</label>
-                      <input class="form-control form-control-user image-path" type="text">
+                      <input class="form-control form-control-user image-path" type="text" name="image-path" required>
                     </div>
                   </div>
 
@@ -335,7 +335,7 @@
                       <label for="material-description">Material Description</label>
                       <textarea class="form-control form-control-user material-description" name="material-description" rows="4" cols="50" required></textarea><br>
                       <label for="image-path">Image Path</label>
-                      <input type="text" class="form-control form-control-user image-path" name="image-path">
+                      <input type="text" class="form-control form-control-user image-path" name="image-path" required>
                     </div>
                   </div>
 
@@ -368,7 +368,7 @@
                   <div class="modal-body">
                     <div class="form-group">
                       <p>Type DELETE to permanently delete these materials.</p>
-                      <input type="text" id="confirm-string" class="form-control form-control-user" required>
+                      <input type="text" class="form-control form-control-user confirm-string" name="confirm-string" required>
                     </div>
                   </div>
 

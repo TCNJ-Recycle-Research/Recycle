@@ -8,9 +8,9 @@ jQuery(function(){
 
     var table;
     
-    getMaterials();
+    getEvents();
 
-    $("#materialsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
+    $("#eventsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
 
         selectedRows = table.rows( { selected: true } ).count();
 
@@ -36,40 +36,41 @@ jQuery(function(){
     });
 
 
-    function getMaterials(){
+    function getEvents(){
 
-        var obj = {func: "get_all_materials"};
+        var obj = {func: "get_all_events"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
-            if($.fn.dataTable.isDataTable("#materialsTable")){
-                $('#materialsTable').DataTable().destroy();
+            if($.fn.dataTable.isDataTable("#eventsTable")){
+                $('#eventsTable').DataTable().destroy();
             }
 
-            var tableBody = $("#materialsTable tbody");
+            var tableBody = $("#eventsTable tbody");
             tableBody.empty();
 
             var html;
 
             for(i = 0; i < response.length; i++){
 
-                html += '<tr class="clickable-row">';
-                html += '<td>' + response[i]["material_id"] + '</td>';
-                html += '<td>' + response[i]["material_name"] + '</td>';
-                html += '<td>' + response[i]["material_type"] + '</td>';
-                html += '<td>' + response[i]["material_description"] + '</td>';
-                html += '<td>' + response[i]["image_path"] + '</td>';
+                html += '<tr>';
+                html += '<td>' + response[i]["event_id"] + '</td>';
+                html += '<td>' + response[i]["event_name"] + '</td>';
+                html += '<td>' + response[i]["event_description"] + '</td>';
+                html += '<td>' + response[i]["event_date"] + '</td>';
+                html += '<td>' + response[i]["start_time"] + '</td>';
+                html += '<td>' + response[i]["end_time"] + '</td>';
                 html += '</tr>';
                 
             }
 
             tableBody.append(html);
 
-            if($.fn.dataTable.isDataTable("#materialsTable")){
-                $('#materialsTable').DataTable().draw();
+            if($.fn.dataTable.isDataTable("#eventsTable")){
+                $('#eventsTable').DataTable().draw();
             }
             else{
-                table = $('#materialsTable').DataTable({
+                table = $('#eventsTable').DataTable({
                     order: [[ 0, "asc" ]],
                     pageLength: 25,
                     select: {
@@ -92,19 +93,19 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: 'Add Material', className: 'btn btn-success',
+                                text: 'Add Event', className: 'btn btn-success',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
                                 }
                             },
                             {
-                                text: 'Edit Material', className: 'btn btn-primary',
+                                text: 'Edit Event', className: 'btn btn-primary',
                                 action: function(){
                                     editModal();
                                 }
                             },
                             {
-                                text: 'Delete Materials', className: 'btn btn-danger',
+                                text: 'Delete Events', className: 'btn btn-danger',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                     //$(".active-row").css("background-color", "var(--danger)");
@@ -114,7 +115,7 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#materialsTable_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo( '#eventsTable_wrapper .col-md-6:eq(0)');
 
             }
 
@@ -131,21 +132,24 @@ jQuery(function(){
     }
 
 
-    // --------------ADD MATERIAL MODAL------------------
-    $(document).on("submit", "#add-material-form", function(e){
+    // --------------ADD EVENT MODAL------------------
+    $(document).on("submit", "#add-event-form", function(e){
 
         e.preventDefault();
 
         // Get all the info from the form
         var form = $(this).serializeArray();
-        var matName = form[0].value;
-        var matType = form[1].value;
-        var matDescription = form[2].value;
-        var imgPath = form[3].value;
+        var eventName = form[0].value;
+        var eventDescription = form[1].value;
+        var eventDate = form[2].value;
+        var startTime = form[3].value;
+        var endTime = form[4].value;
+        //var allowedTypes = form[5].value;
 
-        var obj = {func: "add_material", materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+        var obj = {func: "add_event", eventName: eventName, eventDescription: eventDescription, eventDate: eventDate, startTime: startTime,
+        endTime: endTime, };
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
 
@@ -153,15 +157,15 @@ jQuery(function(){
                 console.log("Add Request missing input.");
             }
             else if(response["addSuccess"]){
-                console.log("Add material operation successful");
+                console.log("Add event operation successful");
             }
             else{
-                console.log("Add material operation failed!");
+                console.log("Add event operation failed!");
             }
 
-            getMaterials();
+            getEvents();
             $("#add-modal").modal("toggle");
-            $("#add-material-form")[0].reset();
+            $("#add-event-form")[0].reset();
             
 
         }, "json").fail(function(xhr, thrownError) {
@@ -172,7 +176,7 @@ jQuery(function(){
         
     });
     
-    // --------------EDIT MATERIAL MODAL------------------
+    // --------------EDIT EVENT MODAL------------------
 
     // OPEN Edit modal
     function editModal(){
@@ -187,23 +191,21 @@ jQuery(function(){
 
         $("#edit-modal").modal("toggle");
 
-        $("#edit-material-form").attr("data-id", rowData[0]);
-        $("#edit-material-form .material-name").val(rowData[1]);
-        $("#edit-material-form .material-type").val(rowData[2]);
-        $("#edit-material-form .material-description").val(rowData[3]);
-        $("#edit-material-form .image-path").val(rowData[4]);
+        $("#edit-event-form .event-name").val(rowData[1]);
+        $("#edit-event-form .event-description").val(rowData[2]);
+        $("#edit-event-form .event-date").val(rowData[3]);
+        $("#edit-event-form .start-time").val(rowData[4]);
+        $("#edit-event-form .end-time").val(rowData[5]);
 
         
     }
 
     // SUBMIT Edit modal
-    $(document).on("submit", "#edit-material-form", function(e){
+    $(document).on("submit", "#edit-event-form", function(e){
 
         e.preventDefault();
         // Get all the info from the form
         var form = $(this).serializeArray();
-        
-        var matID = $(this).attr("data-id");
 
         var activeRows = table.rows( { selected: true } );
 
@@ -222,19 +224,22 @@ jQuery(function(){
         }
 
         if(i == form.length){
-            console.log("No change in material information so edit request not submitted!");
+            console.log("No change in event information so edit request not submitted!");
             $("#edit-modal").modal("toggle");
             return;
         }
 
-        var matName = form[0].value;
-        var matType = form[1].value;
-        var matDescription = form[2].value;
-        var imgPath = form[3].value;
+        var eventID = rowData[0];
+        var eventName = form[0].value;
+        var eventDescription = form[1].value;
+        var eventDate = form[2].value;
+        var startTime = form[3].value;
+        var endTime = form[4].value;
 
-        var obj = {func: "edit_material", materialID: matID, materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+        var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventDescription: eventDescription, eventDate: eventDate, 
+        startTime: startTime, endTime: endTime};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
 
@@ -242,13 +247,13 @@ jQuery(function(){
                 console.log("Edit Request missing input.");
             }
             else if(response["editSuccess"]){
-                console.log("Edit material operation successful");
+                console.log("Edit event operation successful");
             }
             else{
-                console.log("Edit material operation failed!");
+                console.log("Edit event operation failed!");
             }
 
-            getMaterials();
+            getEvents();
             $("#edit-modal").modal("toggle");
 
         }, "json").fail(function(xhr, thrownError) {
@@ -259,8 +264,8 @@ jQuery(function(){
         
     });
 
-    // --------------DELETE MATERIAL MODAL------------------
-    $(document).on("submit", "#delete-material-form", function(e){
+    // --------------DELETE event MODAL------------------
+    $(document).on("submit", "#delete-event-form", function(e){
 
         e.preventDefault();
 
@@ -271,25 +276,25 @@ jQuery(function(){
 
         if(!(confirmString === "DELETE")){
             $("#delete-modal").modal("toggle");
-            $("#delete-material-form")[0].reset();
+            $("#delete-event-form")[0].reset();
             return;
         }
 
         var rowsData = table.rows( { selected: true } ).data();
 
-        var materialsDataArray = [];
+        var eventsDataArray = [];
 
         for(i = 0; i < rowsData.length; i++){
-            materialsDataArray.push(rowsData[i][0]);
+            eventsDataArray.push(rowsData[i][0]);
         }
 
-        if(materialsDataArray.length < 1){
-            console.log("No materials selected!");
+        if(eventsDataArray.length < 1){
+            console.log("No events selected!");
         }
         else{
-            var obj = {func: "delete_materials", materialIDs: materialsDataArray};
+            var obj = {func: "delete_events", eventIDs: eventsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+            $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
 
@@ -297,15 +302,15 @@ jQuery(function(){
                         console.log("Delete Request missing input.");
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete material operation successful");
+                        console.log("Delete event operation successful");
                     }
                     else{
-                        console.log("Delete material operation failed!");
+                        console.log("Delete event operation failed!");
                     }
 
-                    getMaterials();
+                    getEvents();
                     $("#delete-modal").modal("toggle");
-                    $("#delete-material-form")[0].reset();
+                    $("#delete-event-form")[0].reset();
 
             }, "json").fail(function(xhr, thrownError) {
                     console.log(xhr.status);
