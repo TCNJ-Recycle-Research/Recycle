@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Events - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +35,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-recycle"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Green TCNJ</div>
       </a>
@@ -55,48 +55,26 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Admin Actions
+        Initiatives Tables
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <!-- <i class="fas fa-fw fa-cog"></i> -->
+        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
           <span>Events</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Event Tasks:</h6>
-            <a class="collapse-item" href="events-table.html">Events Table</a>
-          </div>
-        </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
           <span>Materials</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Material Tasks</h6>
-            <a class="collapse-item" href="materials-table.html">Materials Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseevents" aria-expanded="true" aria-controls="collapseevents">
-          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
           <span>News</span>
         </a>
-        <div id="collapseevents" class="collapse" aria-labelledby="headingevents" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">News Tasks</h6>
-            <a class="collapse-item" href="news-table.html">News Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
@@ -113,39 +91,27 @@
         </div>
       </li>
 
+      
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        User Settings
+        Account Tables
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Nav Item - Accounts Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <!-- <i class="fas fa-fw fa-folder"></i> -->
+        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
           <span>Users</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">User Settings:</h6>
-            <a class="collapse-item" href="user-table.html">Users Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
-          <!-- <i class="fas fa-fw fa-folder"></i> -->
-          <span>Admin</span>
+        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+          <span>Admins</span>
         </a>
-        <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Admin Settings:</h6>
-            <a class="collapse-item" href="admin-table.html">Admin Table</a>
-          </div>
-        </div>
       </li>
 
       <!-- Divider -->
@@ -238,12 +204,11 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Events Table</h1>
 
           <!-- DataTables Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Events</h6>
+              <h4 class="m-0 font-weight-bold text-primary">Events</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -252,20 +217,18 @@
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
-                      <th>Event Description</th>
-                      <th>Event Date</th>
-                      <th>Start Time</th>
-                      <th>End Time</th>
+                      <th class="paragraph">Event Description</th>
+                      <th class="events-date">Event Date</th>
+                      <th>Event Time</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
-                      <th>Event Description</th>
-                      <th>Event Date</th>
-                      <th>Start Time</th>
-                      <th>End Time</th>
+                      <th class="paragraph">Event Description</th>
+                      <th class="events-date">Event Date</th>
+                      <th>Event Time</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -276,8 +239,8 @@
           </div>
           
           <!-- Add Modal -->
-          <div class="modal fade" id="add-modal">
-            <div class="modal-dialog modal-dialog-centered">
+          <div class="modal fade" id="add-modal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -289,26 +252,85 @@
                   <form id="add-event-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
+                    <p>Add a new event to the database for all users to see.</p>
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label for="event-name">Event Name</label>
+                        <input type="text" class="form-control form-control-user event-name" name="event-name" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="event-location">Event Location</label>
+                        <input type="text" class="form-control form-control-user event-location" name="event-location" required>
+                      </div>
+                    </div>
                     <div class="form-group">
-                      <p>Add a new event to the database for all users to see.</p>
-                      <label for="event-name">Event Name</label>
-                      <input type="text" class="form-control form-control-user event-name" name="event-name" required><br>
                       <label for="event-description">Event Description</label>
-                      <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea><br>
-                      <label for="event-date">Event Date</label>
-                      <input type="date" class="form-control form-control-user event-date" name="event-date" required><br>
-                      <label for="start-time">Start Time</label>
-                      <input type="time" class="form-control form-control-user start-time" name="start-time" required>
-                      <label for="end-time">End Time</label>
-                      <input type="time" class="form-control form-control-user end-time" name="end-time" required>
+                      <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea>
+                    </div>
+                    
+                    <div class="form-row" id="event-time">
+                        <div class="form-group col-md-4">
+                          <label for="event-date">Event Date</label>
+                          <input type="date" class="form-control form-control-user event-date" name="event-date" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="start-time">Start Time</label>
+                          <input type="time" class="form-control form-control-user start-time" name="start-time" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="end-time">End Time</label>
+                          <input type="time" class="form-control form-control-user end-time" name="end-time" required>
+                        </div>
+                    </div>
+
+                    <span>Allowed Users</span>
+
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="student-add">
+                          <label class="custom-control-label" for="student-add">Student</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="staff-add">
+                          <label class="custom-control-label" for="staff-add">Staff</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="faculty-add">
+                          <label class="custom-control-label" for="faculty-add">Faculty</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="visitors-add">
+                          <label class="custom-control-label" for="visitors-add">Visitors</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="community-add">
+                          <label class="custom-control-label" for="community-add">Community Members</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="outreach-add">
+                          <label class="custom-control-label" for="outreach-add">Outreach Partners</label>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Add">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Add">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>
@@ -318,8 +340,8 @@
 
 
           <!-- Edit Modal -->
-          <div class="modal fade" id="edit-modal">
-            <div class="modal-dialog modal-dialog-centered">
+          <div class="modal fade" id="edit-modal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -331,17 +353,78 @@
                   <form id="edit-event-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
+                    <p>Add a new event to the database for all users to see.</p>
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label for="event-name">Event Name</label>
+                        <input type="text" class="form-control form-control-user event-name" name="event-name" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="event-location">Event Location</label>
+                        <input type="text" class="form-control form-control-user event-location" name="event-location" required>
+                      </div>
+                    </div>
                     <div class="form-group">
-                      <label for="event-name">Event Name</label>
-                      <input type="text" class="form-control form-control-user event-name" name="event-name" required><br>
                       <label for="event-description">Event Description</label>
-                      <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea><br>
-                      <label for="event-date">Event Date</label>
-                      <input type="date" class="form-control form-control-user event-date" name="event-date" required><br>
-                      <label for="start-time">Start Time</label>
-                      <input type="time" class="form-control form-control-user start-time" name="start-time" required>
-                      <label for="start-time">End Time</label>
-                      <input type="time" class="form-control form-control-user end-time" name="end-time" required>
+                      <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea>
+                    </div>
+                    
+                    <div class="form-row" id="event-time">
+                        <div class="form-group col-md-4">
+                          <label for="event-date">Event Date</label>
+                          <input type="date" class="form-control form-control-user event-date" name="event-date" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="start-time">Start Time</label>
+                          <input type="time" class="form-control form-control-user start-time" name="start-time" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="end-time">End Time</label>
+                          <input type="time" class="form-control form-control-user end-time" name="end-time" required>
+                        </div>
+                    </div>
+
+                    <span>Allowed Users</span>
+
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="student-edit">
+                          <label class="custom-control-label" for="student-edit">Student</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="staff-edit">
+                          <label class="custom-control-label" for="staff-edit">Staff</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="faculty-edit">
+                          <label class="custom-control-label" for="faculty-edit">Faculty</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="visitors-edit">
+                          <label class="custom-control-label" for="visitors-edit">Visitors</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="community-edit">
+                          <label class="custom-control-label" for="community-edit">Community Members</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="allow-outreach">
+                          <label class="custom-control-label" for="allow-outreach">Outreach Partners</label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
@@ -349,8 +432,8 @@
                   
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="Edit">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>
@@ -359,7 +442,7 @@
           <!--End of Edit Modal-->
 
           <!-- Delete Modal -->
-          <div class="modal fade" id="delete-modal">
+          <div class="modal fade" id="delete-modal" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
 
@@ -382,7 +465,7 @@
                   <!-- Modal footer -->
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-danger" value="Delete">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>
@@ -411,7 +494,7 @@
                   <!-- Modal footer -->
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-info" value="Print">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
               </div>
             </div>

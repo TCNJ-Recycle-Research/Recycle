@@ -6,28 +6,29 @@ jQuery(function(){
 
     var table;
     
-    getAdmins();
+    getUsers();
 
-    $("#adminsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
+    $("#usersTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
 
         selectedRows = table.rows( { selected: true } ).count();
 
         table.button(1).enable(selectedRows > 0);
 
+        
     });
 
 
-    function getAdmins(){
+    function getUsers(){
 
-        var obj = {func: "get_all_admins"};
+        var obj = {func: "get_all_users"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
-            if($.fn.dataTable.isDataTable("#adminsTable")){
-                $('#adminsTable').DataTable().destroy();
+            if($.fn.dataTable.isDataTable("#usersTable")){
+                $('#usersTable').DataTable().destroy();
             }
 
-            var tableBody = $("#adminsTable tbody");
+            var tableBody = $("#usersTable tbody");
             tableBody.empty();
 
             var html;
@@ -35,23 +36,24 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["admin_id"] + '</td>';
-                html += '<td>' + response[i]["admin_email"] + '</td>';
-                html += '<td>' + response[i]["admin_first_name"] + '</td>';
-                html += '<td>' + response[i]["admin_last_name"] + '</td>';
-                html += '<td>' + convertDate(response[i]["date_created"], true) + '</td>';
-                html += '<td>' + convertDate(response[i]["last_login"], true) + '</td>';
+                html += '<td>' + response[i]["user_id"] + '</td>';
+                html += '<td>' + response[i]["user_email"] + '</td>';
+                html += '<td>' + response[i]["user_first_name"] + '</td>';
+                html += '<td>' + response[i]["user_last_name"] + '</td>';
+                html += '<td>' + response[i]["user_type"] + '</td>';
+                html += '<td>' + response[i]["date_created"] + '</td>';
+                html += '<td>' + response[i]["last_login"] + '</td>';
                 html += '</tr>';
                 
             }
 
             tableBody.append(html);
 
-            if($.fn.dataTable.isDataTable("#adminsTable")){
-                $('#adminsTable').DataTable().draw();
+            if($.fn.dataTable.isDataTable("#usersTable")){
+                $('#usersTable').DataTable().draw();
             }
             else{
-                table = $('#adminsTable').DataTable({
+                table = $('#usersTable').DataTable({
                     order: [[ 0, "asc" ]],
                     pageLength: 25,
                     select: {
@@ -65,14 +67,14 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Admin</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add User</span>', 
                                 className: 'btn btn-primary btn-icon-split',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
                                 }
                             },
                             {
-                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Admin</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete User</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
@@ -83,7 +85,7 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#adminsTable_wrapper .row:eq(0)');
+                table.buttons().container().appendTo( '#usersTable_wrapper .row:eq(0)');
 
             }
 
@@ -99,38 +101,39 @@ jQuery(function(){
     }
 
 
-    // --------------ADD admin MODAL------------------
-    $(document).on("submit", "#add-admin-form", function(e){
+    // --------------ADD user MODAL------------------
+    $(document).on("submit", "#add-user-form", function(e){
 
         e.preventDefault();
 
         // Get all the info from the form
         var form = $(this).serializeArray();
-        var adminEmail = form[0].value;
+        var userEmail = form[0].value;
         var first = form[1].value;
         var last = form[2].value;
         var pwd = form[3].value;
         var pwdRepeat = form[4].value;
+        var type = form[5].value;
 
-        var obj = {func: "add_admin", email: adminEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat};
+        var obj = {func: "sign_up", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, userType: type};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
 
                 // output missing info
                 console.log("Add Request missing input.");
             }
-            else if(response["addSuccess"]){
-                console.log("Add admin operation successful");
+            else if(response["signupSuccess"]){
+                console.log("Add user operation successful");
             }
             else{
-                console.log("Add admin operation failed!");
+                console.log("Add user operation failed!");
             }
 
-            getAdmins();
+            getUsers();
             $("#add-modal").modal("toggle");
-            $("#add-admin-form")[0].reset();
+            $("#add-user-form")[0].reset();
             
 
         }, "json").fail(function(xhr, thrownError) {
@@ -142,8 +145,8 @@ jQuery(function(){
     });
     
 
-    // --------------DELETE admin MODAL------------------
-    $(document).on("submit", "#delete-admin-form", function(e){
+    // --------------DELETE user MODAL------------------
+    $(document).on("submit", "#delete-user-form", function(e){
 
         e.preventDefault();
 
@@ -154,25 +157,25 @@ jQuery(function(){
 
         if(!(confirmString === "DELETE")){
             $("#delete-modal").modal("toggle");
-            $("#delete-admin-form")[0].reset();
+            $("#delete-user-form")[0].reset();
             return;
         }
 
         var rowsData = table.rows( { selected: true } ).data();
 
-        var adminsDataArray = [];
+        var usersDataArray = [];
 
         for(i = 0; i < rowsData.length; i++){
-            adminsDataArray.push(rowsData[i][0]);
+            usersDataArray.push(rowsData[i][0]);
         }
 
-        if(adminsDataArray.length < 1){
-            console.log("No admins selected!");
+        if(usersDataArray.length < 1){
+            console.log("No users selected!");
         }
         else{
-            var obj = {func: "delete_admins", adminIDs: adminsDataArray};
+            var obj = {func: "delete_users", userIDs: usersDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+            $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
 
@@ -180,15 +183,15 @@ jQuery(function(){
                         console.log("Delete Request missing input.");
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete admin operation successful");
+                        console.log("Delete user operation successful");
                     }
                     else{
-                        console.log("Delete admin operation failed!");
+                        console.log("Delete user operation failed!");
                     }
 
-                    getAdmins();
+                    getUsers();
                     $("#delete-modal").modal("toggle");
-                    $("#delete-admin-form")[0].reset();
+                    $("#delete-user-form")[0].reset();
 
             }, "json").fail(function(xhr, thrownError) {
                     console.log(xhr.status);
@@ -199,37 +202,27 @@ jQuery(function(){
     });
 
 
-    function convertDate(date, isYMD){
+    function convertDates(){
 
+        var allData = table.columns(".date").data();
+        var thisRow;
         var year, month, day;
+        var date;
 
-        if(isYMD === true){
+        for(var i = 0; i < allData[0].length; i++){
+
+            thisRow = table.cell(i, ".date").nodes().to$();
+
+            date = allData[0][i];
+            console.log("DATE: " + date);
+
             year = date.substring(0, 4);
 
             month = date.substring(5, 7);
 
             day = date.substring(8, 10);
 
-            date = "" + month + "-" + day + "-" + year;
+            thisRow.text("" + month + "-" + day + "-" + year);
         }
-        else{
-
-            if(date[2] != '-' || date[5] != '-' || date.length() != 10){
-                console.log("Invalid date format passed");
-                return null;
-            }
-
-            year = date.substring(0, 2);
-
-            month = date.substring(3, 5);
-
-            day = date.substring(6, 10);
-
-            date = "" + year + "-" + month + "-" + day;
-
-            console.log("Converted back is " + date);
-        }
-
-        return date;
     }
 });

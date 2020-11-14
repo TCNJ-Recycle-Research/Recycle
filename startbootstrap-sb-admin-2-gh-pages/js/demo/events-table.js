@@ -2,7 +2,7 @@ jQuery(function(){
 
     var submitted = false;
 
-    var columnToTrunc = 3;      // Column where we will truncate the string inside
+    var columnToTrunc = 2;      // Column where we will truncate the string inside
     var maxStringLen = 100;     // Max length of truncated string to display
     var selectedRows = 0;
 
@@ -18,22 +18,22 @@ jQuery(function(){
         table.button(2).enable(selectedRows > 0);
         table.button(3).enable(selectedRows === 1);
 
-        var thisRow;
+        var cell;
         var text;
 
         for(var i = 0; i < indexes.length; i++){
 
-            thisRow = table[ type ]( indexes[i] ).nodes().to$();
+            cell = table.cell(indexes[i], ".paragraph").nodes().to$();
 
-            text = table.row(indexes[i]).data()[columnToTrunc];
-            
-            if (!thisRow.hasClass("selected") && text.length > maxStringLen + 3 ) {
-                text = table.row(indexes[i]).data()[columnToTrunc].substring(0,maxStringLen - 1) + '...';
+            text = table.cell(indexes[i], ".paragraph").data();
+
+            if (!table.row(indexes[i]).nodes().to$().hasClass("selected") && text.length > maxStringLen + 3 ) {
+                text = text.substring(0,maxStringLen - 1) + '...';
             }
             
-            thisRow.children('td:eq(' + columnToTrunc + ')').text(text);
+            cell.text(text);
         }
-        
+
     });
 
 
@@ -59,8 +59,7 @@ jQuery(function(){
                 html += '<td>' + response[i]["event_name"] + '</td>';
                 html += '<td>' + response[i]["event_description"] + '</td>';
                 html += '<td>' + response[i]["event_date"] + '</td>';
-                html += '<td>' + response[i]["start_time"] + '</td>';
-                html += '<td>' + response[i]["end_time"] + '</td>';
+                html += '<td>' + convertTime(response[i]["start_time"]) + "-"+ convertTime(response[i]["end_time"]) + '</td>';
                 html += '</tr>';
                 
             }
@@ -94,26 +93,30 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: 'Add Event', className: 'btn btn-success',
+                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Event</span>', 
+                                className: 'btn btn-primary btn-icon-split',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
                                 }
                             },
                             {
-                                text: 'Edit Event', className: 'btn btn-primary',
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Event</span>', 
+                                className: 'btn btn-blue btn-icon-split',
                                 action: function(){
                                     editModal();generateQR
                                 }
                             },
                             {
-                                text: 'Delete Events', className: 'btn btn-danger',
+                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Event</span>', 
+                                className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                     //$(".active-row").css("background-color", "var(--danger)");
                                 }
                             },
                             {
-                                text: 'Generate QR Code', className: 'btn btn-info',
+                                text: '<span class="icon text-white-50"><i class="fas fa-qrcode"></i></span><span class="text">QR Code</span>', 
+                                className: 'btn btn-info btn-icon-split',
                                 action: function(){
                                     generateQR();
                                 }
@@ -122,11 +125,12 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#eventsTable_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo( '#eventsTable_wrapper .row:eq(0)');
 
             }
 
             selectedRows = 0;
+            convertDates();
             table.button(1).enable(false);
             table.button(2).enable(false);
             table.button(3).enable(false);
@@ -200,6 +204,7 @@ jQuery(function(){
         $("#edit-event-form .event-name").val(rowData[1]);
         $("#edit-event-form .event-description").val(rowData[2]);
         $("#edit-event-form .event-date").val(rowData[3]);
+        
         $("#edit-event-form .start-time").val(rowData[4]);
         $("#edit-event-form .end-time").val(rowData[5]);
 
@@ -352,19 +357,49 @@ jQuery(function(){
         
     }
 
+    function convertDates(){
+
+        var allData = table.columns(".events-date").data();
+        var thisRow;
+        var year, month, day;
+        var date;
+
+        for(var i = 0; i < allData[0].length; i++){
+
+            thisRow = table.cell(i, ".events-date").nodes().to$();
+
+            date = allData[0][i];
+            console.log("DATE: " + date);
+
+            year = date.substring(0, 4);
+
+            month = date.substring(5, 7);
+
+            day = date.substring(8, 10);
+
+            thisRow.text("" + month + "-" + day + "-" + year);
+        }
+    }
 
     function convertTime(time){
 
         var suffix;
 
         var hours = parseInt(time.substring(0, 2));
+        var minutes = parseInt(time.substring(3, 5));
 
-        //it is pm if hours from 12 onwards
-        suffix = (hours >= 12)? 'pm' : 'am';
+        // Check whether AM or PM 
+        var newformat = hours >= 12 ? 'PM' : 'AM';  
+                
+        // Find current hour in AM-PM Format 
+        hours = hours % 12;  
         
-        //only -12 from hours if it is greater than 12 (if not back at mid night)
-        hours = ((hours + 11) % 12 + 1);
+        // To display "0" as "12" 
+        hours = hours ? hours : 12;  
+        minutes = minutes < 10 ? '0' + minutes : minutes; 
 
-        return "" + hours + time.substring(2) + suffix;
+        return "" + hours + ':' + minutes + newformat; 
     }
+
+
 });

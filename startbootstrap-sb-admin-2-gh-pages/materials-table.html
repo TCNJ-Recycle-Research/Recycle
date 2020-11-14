@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Materials - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +35,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-recycle"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Green TCNJ</div>
       </a>
@@ -55,48 +55,26 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Admin Actions
+        Initiatives Tables
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <!-- <i class="fas fa-fw fa-cog"></i> -->
+        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
           <span>Events</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Event Tasks:</h6>
-            <a class="collapse-item" href="events-table.html">Events Table</a>
-          </div>
-        </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
           <span>Materials</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Material Tasks</h6>
-            <a class="collapse-item" href="materials-table.html">Materials Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
-          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
           <span>News</span>
         </a>
-        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">News Tasks</h6>
-            <a class="collapse-item" href="news-table.html">News Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
@@ -113,39 +91,27 @@
         </div>
       </li>
 
+      
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        User Settings
+        Account Tables
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Nav Item - Accounts Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <!-- <i class="fas fa-fw fa-folder"></i> -->
+        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
           <span>Users</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">User Settings:</h6>
-            <a class="collapse-item" href="user-table.html">Users Table</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
-          <!-- <i class="fas fa-fw fa-folder"></i> -->
-          <span>Admin</span>
+        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+          <span>Admins</span>
         </a>
-        <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Admin Settings:</h6>
-            <a class="collapse-item" href="admin-table.html">Admin Table</a>
-          </div>
-        </div>
       </li>
 
       <!-- Divider -->
@@ -238,12 +204,11 @@
       <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Materials Table</h1>
 
           <!-- DataTables Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Materials</h6>
+              <h4 class="m-0 font-weight-bold text-primary">Materials</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -253,7 +218,7 @@
                       <th>Material ID</th>
                       <th>Material Name</th>
                       <th>Material Type</th>
-                      <th>Material Description</th>
+                      <th class="paragraph">Material Description</th>
                       <th>Image Path</th>
                     </tr>
                   </thead>
@@ -303,8 +268,8 @@
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Add">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Add">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>
@@ -343,8 +308,8 @@
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="Edit">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>
@@ -376,7 +341,7 @@
                   <!-- Modal footer -->
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-danger" value="Delete">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
               </div>

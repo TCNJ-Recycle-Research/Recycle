@@ -17,20 +17,20 @@ jQuery(function(){
         table.button(1).enable(selectedRows === 1);
         table.button(2).enable(selectedRows > 0);
 
-        var thisRow;
+        var cell;
         var text;
 
         for(var i = 0; i < indexes.length; i++){
 
-            thisRow = table[ type ]( indexes[i] ).nodes().to$();
+            cell = table.cell(indexes[i], ".paragraph").nodes().to$();
 
-            text = table.row(indexes[i]).data()[columnToTrunc];
-            
-            if (!thisRow.hasClass("selected") && text.length > maxStringLen + 3 ) {
-                text = table.row(indexes[i]).data()[columnToTrunc].substring(0,maxStringLen - 1) + '...';
+            text = table.cell(indexes[i], ".paragraph").data();
+
+            if (!table.row(indexes[i]).nodes().to$().hasClass("selected") && text.length > maxStringLen + 3 ) {
+                text = text.substring(0,maxStringLen - 1) + '...';
             }
             
-            thisRow.children('td:eq(' + columnToTrunc + ')').text(text);
+            cell.text(text);
         }
         
     });
@@ -92,19 +92,23 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: 'Add Material', className: 'btn btn-success',
+                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Material</span>', 
+                                className: 'btn btn-primary btn-icon-split',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
                                 }
                             },
                             {
-                                text: 'Edit Material', className: 'btn btn-primary',
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Material</span>', 
+                                className: 'btn btn-blue btn-icon-split',
                                 action: function(){
                                     editModal();
                                 }
                             },
                             {
-                                text: 'Delete Materials', className: 'btn btn-danger',
+                               
+                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Material</span>', 
+                                className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                     //$(".active-row").css("background-color", "var(--danger)");
@@ -114,7 +118,7 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#materialsTable_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo( '#materialsTable_wrapper .row:eq(0)');
 
             }
 
