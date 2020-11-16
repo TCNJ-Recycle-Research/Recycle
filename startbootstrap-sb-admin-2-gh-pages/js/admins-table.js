@@ -39,8 +39,8 @@ jQuery(function(){
                 html += '<td>' + response[i]["admin_email"] + '</td>';
                 html += '<td>' + response[i]["admin_first_name"] + '</td>';
                 html += '<td>' + response[i]["admin_last_name"] + '</td>';
-                html += '<td>' + convertDate(response[i]["date_created"], true) + '</td>';
-                html += '<td>' + convertDate(response[i]["last_login"], true) + '</td>';
+                html += '<td>' + response[i]["date_created"] + '</td>';
+                html += '<td>' + response[i]["last_login"] + '</td>';
                 html += '</tr>';
                 
             }
@@ -88,6 +88,7 @@ jQuery(function(){
             }
 
             selectedRows = 0;
+            convertDates(table);
             table.button(1).enable(false);
 
 
