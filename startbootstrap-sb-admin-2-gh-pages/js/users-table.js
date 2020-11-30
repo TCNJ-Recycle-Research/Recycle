@@ -156,7 +156,7 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString === "DELETE")){
+        if(!(confirmString == "delete")){
             $("#delete-modal").modal("toggle");
             $("#delete-user-form")[0].reset();
             return;

@@ -377,7 +377,7 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString === "DELETE")){
+        if(!(confirmString == "delete")){
             $("#delete-modal").modal("toggle");
             $("#delete-event-form")[0].reset();
             return;
@@ -477,7 +477,7 @@ jQuery(function(){
         $("#view-event .event-time").append(row.children("td:eq(5)").text());
         $("#view-event .allowed-users").append(convertUserTypes(rowData[6]));
 
-        getParticipants();
+        getParticipants(rowData[0]);
     }
 
     function getUserTypes(response){

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Events - Green TCNJ</title>
+  <title>News - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -135,139 +135,234 @@
 
     </ul>
     <!-- End of Sidebar -->
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+              <form class="form-inline mr-auto w-100 navbar-search">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
                   </div>
-                </form>
-              </div>
-            </li>
+                </div>
+              </form>
+            </div>
+          </li>
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+          <div class="topbar-divider d-none d-sm-block"></div>
 
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+            </a>
+            <!-- Dropdown - User Information -->
+             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Logout
               </a>
-              <!-- Dropdown - User Information -->
-               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
+            </div>
+          </li>
 
-          </ul>
+        </ul>
 
-        </nav>
-        <!-- End of Topbar -->
+      </nav>
+      <!-- End of Topbar -->
 
-        <!-- Begin Page Content -->
+      <!-- Begin Page Content -->
         <div class="container-fluid">
-
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">News Table</h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-          </div>
 
-          <!-- DataTales Example -->
+          <!-- DataTables Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">News Table</h6>
+              <h4 class="m-0 font-weight-bold text-primary">News</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="data-table" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="newsTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>News ID</th>
+                      <th>Article ID</th>
                       <th>Article Title</th>
-                      <th>Author</th>
-                      <th>Date Published</th>
-                      <th>Article Text</th>
+                      <th>Article Author</th>
+                      <th class="paragraph">Article Text</th>
+                      <th class="date">Date Published</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>News ID</th>
+                      <th>Article ID</th>
                       <th>Article Title</th>
-                      <th>Author</th>
-                      <th>Date Published</th>
+                      <th>Article Author</th>
                       <th>Article Text</th>
+                      <th>Date Published</th>
                     </tr>
                   </tfoot>
                   <tbody>
                   </tbody>
-                </table>
+              </table>
               </div>
             </div>
           </div>
 
-          <a href="#" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-check"></i>
-            </span>
-            <span class="text">Create New Article</span>
-          </a>
+          <!-- Add Modal -->
+          <div class="modal fade" id="add-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
 
-          <a href="#" class="btn btn-primary btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-flag"></i>
-            </span>
-            <span class="text">Edit Article</span>
-          </a>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Article</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
-          <button id="#" class="btn btn-danger btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-trash"></i>
-            </span>
-            <span class="text">Delete Article</span>
-          </button>
+                  <form id="add-article-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <p>Add a news article to the database for all users to see.</p>
+                    <div class="form-group">
+                      <label for="article-title">Article Title</label>
+                      <input type="text" class="form-control form-control-user article-title" name="article-title" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="article-author">Article Author</label>
+                      <input type="text" class="form-control form-control-user article-author" name="article-author" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="article-text">Article Text</label>
+                      <textarea class="form-control form-control-user article-text"  name="article-text" rows="4" cols="50" required></textarea>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Add Modal-->
+
+
+          <!-- Edit Modal -->
+          <div class="modal fade" id="edit-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Article</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <form id="edit-article-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="article-title">Article Title</label>
+                      <input type="text" class="form-control form-control-user article-title" name="article-title" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="article-author">Article Author</label>
+                      <input type="text" class="form-control form-control-user article-author" name="article-author" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="article-text">Article Text</label>
+                      <textarea class="form-control form-control-user article-text" name="article-text" rows="4" cols="50" required></textarea>
+                    </div>
+                  </div>
+
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Edit Modal-->
+
+          <!-- Delete Modal -->
+          <div class="modal fade" id="delete-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Article</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <form id="delete-article-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <p>Type <b>delete</b> to permanently delete the selected articles.</p>
+                      <input type="text" class="form-control form-control-user confirm-string" name="confirm-string" required>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Delete Modal-->
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer Copyright &copy; -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Green TCNJ 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
     </div>
     <!-- End of Content Wrapper -->
 
@@ -309,11 +404,15 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/datatables/datatables.ellipsis.min.js"></script>
+  <script src="vendor/datatables/datatables.buttons.min.js"></script>
+  <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/chart-area-demo.js"></script>
-  <script src="js/chart-pie-demo.js"></script>
+  <script src="js/table-conversions.js"></script>
+  <script src="js/news-table.js"></script>
 
 </body>
 
