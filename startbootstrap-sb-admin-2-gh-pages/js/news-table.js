@@ -8,9 +8,9 @@ jQuery(function(){
 
     var table;
     
-    getMaterials();
+    getArticles();
 
-    $("#materialsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
+    $("#newsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
 
         selectedRows = table.rows( { selected: true } ).count();
 
@@ -36,17 +36,17 @@ jQuery(function(){
     });
 
 
-    function getMaterials(){
+    function getArticles(){
 
-        var obj = {func: "get_all_materials"};
+        var obj = {func: "get_all_articles"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
-            if($.fn.dataTable.isDataTable("#materialsTable")){
-                $('#materialsTable').DataTable().destroy();
+            if($.fn.dataTable.isDataTable("#newsTable")){
+                $('#newsTable').DataTable().destroy();
             }
 
-            var tableBody = $("#materialsTable tbody");
+            var tableBody = $("#newsTable tbody");
             tableBody.empty();
 
             var html;
@@ -54,22 +54,22 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["material_id"] + '</td>';
-                html += '<td>' + response[i]["material_name"] + '</td>';
-                html += '<td>' + response[i]["material_type"] + '</td>';
-                html += '<td>' + response[i]["material_description"] + '</td>';
-                html += '<td>' + response[i]["image_path"] + '</td>';
+                html += '<td>' + response[i]["article_id"] + '</td>';
+                html += '<td>' + response[i]["article_title"] + '</td>';
+                html += '<td>' + response[i]["article_author"] + '</td>';
+                html += '<td>' + response[i]["article_text"] + '</td>';
+                html += '<td>' + response[i]["publish_date"] + '</td>';
                 html += '</tr>';
                 
             }
 
             tableBody.append(html);
 
-            if($.fn.dataTable.isDataTable("#materialsTable")){
-                $('#materialsTable').DataTable().draw();
+            if($.fn.dataTable.isDataTable("#newsTable")){
+                $('#newsTable').DataTable().draw();
             }
             else{
-                table = $('#materialsTable').DataTable({
+                table = $('#newsTable').DataTable({
                     order: [[ 0, "asc" ]],
                     pageLength: 25,
                     select: {
@@ -92,14 +92,14 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Material</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Article</span>', 
                                 className: 'btn btn-primary btn-icon-split',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
                                 }
                             },
                             {
-                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Material</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Article</span>', 
                                 className: 'btn btn-blue btn-icon-split',
                                 action: function(){
                                     editModal();
@@ -107,7 +107,7 @@ jQuery(function(){
                             },
                             {
                                
-                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Material</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Article</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
@@ -118,14 +118,13 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#materialsTable_wrapper .row:eq(0)');
+                table.buttons().container().appendTo( '#newsTable_wrapper .row:eq(0)');
 
             }
 
-            selectedRows = 0;
             table.button(1).enable(false);
             table.button(2).enable(false);
-
+            convertDates(table);
 
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
@@ -135,21 +134,20 @@ jQuery(function(){
     }
 
 
-    // --------------ADD MATERIAL MODAL------------------
-    $(document).on("submit", "#add-material-form", function(e){
+    // --------------ADD article MODAL------------------
+    $(document).on("submit", "#add-article-form", function(e){
 
         e.preventDefault();
 
         // Get all the info from the form
         var form = $(this).serializeArray();
-        var matName = form[0].value;
-        var matType = form[1].value;
-        var matDescription = form[2].value;
-        var imgPath = form[3].value;
+        var articleTitle = form[0].value;
+        var articleAuthor = form[1].value;
+        var articleText = form[2].value;
 
-        var obj = {func: "add_material", materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+        var obj = {func: "add_article", title: articleTitle, author: articleAuthor, text: articleText};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
 
@@ -157,15 +155,15 @@ jQuery(function(){
                 console.log("Add Request missing input.");
             }
             else if(response["addSuccess"]){
-                console.log("Add material operation successful");
+                console.log("Add article operation successful");
             }
             else{
-                console.log("Add material operation failed!");
+                console.log("Add article operation failed!");
             }
 
-            getMaterials();
+            getArticles();
             $("#add-modal").modal("toggle");
-            $("#add-material-form")[0].reset();
+            $("#add-article-form")[0].reset();
             
 
         }, "json").fail(function(xhr, thrownError) {
@@ -176,7 +174,7 @@ jQuery(function(){
         
     });
     
-    // --------------EDIT MATERIAL MODAL------------------
+    // --------------EDIT article MODAL------------------
 
     // OPEN Edit modal
     function editModal(){
@@ -191,23 +189,19 @@ jQuery(function(){
 
         $("#edit-modal").modal("toggle");
 
-        $("#edit-material-form").attr("data-id", rowData[0]);
-        $("#edit-material-form .material-name").val(rowData[1]);
-        $("#edit-material-form .material-type").val(rowData[2]);
-        $("#edit-material-form .material-description").val(rowData[3]);
-        $("#edit-material-form .image-path").val(rowData[4]);
+        $("#edit-article-form .article-title").val(rowData[1]);
+        $("#edit-article-form .article-author").val(rowData[2]);
+        $("#edit-article-form .article-text").val(rowData[3]);
 
         
     }
 
     // SUBMIT Edit modal
-    $(document).on("submit", "#edit-material-form", function(e){
+    $(document).on("submit", "#edit-article-form", function(e){
 
         e.preventDefault();
         // Get all the info from the form
         var form = $(this).serializeArray();
-        
-        var matID = $(this).attr("data-id");
 
         var activeRows = table.rows( { selected: true } );
 
@@ -226,19 +220,19 @@ jQuery(function(){
         }
 
         if(i == form.length){
-            console.log("No change in material information so edit request not submitted!");
+            console.log("No change in article information so edit request not submitted!");
             $("#edit-modal").modal("toggle");
             return;
         }
 
-        var matName = form[0].value;
-        var matType = form[1].value;
-        var matDescription = form[2].value;
-        var imgPath = form[3].value;
+        var articleID = rowData[0];
+        var articleTitle = form[0].value;
+        var articleAuthor = form[1].value;
+        var articleText = form[2].value;
 
-        var obj = {func: "edit_material", materialID: matID, materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+        var obj = {func: "edit_article", articleID: articleID, title: articleTitle, author: articleAuthor, text: articleText};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
 
@@ -246,13 +240,13 @@ jQuery(function(){
                 console.log("Edit Request missing input.");
             }
             else if(response["editSuccess"]){
-                console.log("Edit material operation successful");
+                console.log("Edit article operation successful");
             }
             else{
-                console.log("Edit material operation failed!");
+                console.log("Edit article operation failed!");
             }
 
-            getMaterials();
+            getArticles();
             $("#edit-modal").modal("toggle");
 
         }, "json").fail(function(xhr, thrownError) {
@@ -263,8 +257,8 @@ jQuery(function(){
         
     });
 
-    // --------------DELETE MATERIAL MODAL------------------
-    $(document).on("submit", "#delete-material-form", function(e){
+    // --------------DELETE article MODAL------------------
+    $(document).on("submit", "#delete-article-form", function(e){
 
         e.preventDefault();
 
@@ -273,27 +267,27 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString == "delete")){
+        if(confirmString != "delete" && confirmString != "DELETE"){
             $("#delete-modal").modal("toggle");
-            $("#delete-material-form")[0].reset();
+            $("#delete-article-form")[0].reset();
             return;
         }
 
         var rowsData = table.rows( { selected: true } ).data();
 
-        var materialsDataArray = [];
+        var articlesDataArray = [];
 
         for(i = 0; i < rowsData.length; i++){
-            materialsDataArray.push(rowsData[i][0]);
+            articlesDataArray.push(rowsData[i][0]);
         }
 
-        if(materialsDataArray.length < 1){
-            console.log("No materials selected!");
+        if(articlesDataArray.length < 1){
+            console.log("No articles selected!");
         }
         else{
-            var obj = {func: "delete_materials", materialIDs: materialsDataArray};
+            var obj = {func: "delete_articles", articleIDs: articlesDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+            $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
 
@@ -301,15 +295,15 @@ jQuery(function(){
                         console.log("Delete Request missing input.");
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete material operation successful");
+                        console.log("Delete article operation successful");
                     }
                     else{
-                        console.log("Delete material operation failed!");
+                        console.log("Delete article operation failed!");
                     }
 
-                    getMaterials();
+                    getArticles();
                     $("#delete-modal").modal("toggle");
-                    $("#delete-material-form")[0].reset();
+                    $("#delete-article-form")[0].reset();
 
             }, "json").fail(function(xhr, thrownError) {
                     console.log(xhr.status);

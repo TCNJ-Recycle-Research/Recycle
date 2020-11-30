@@ -134,9 +134,9 @@ jQuery(function(){
 
                         // output success and move to next html page
                         console.log("Login Success");
-
                         //set the session on the login page
                         sessionStorage.setItem("loggedIn", true);
+                        sessionStorage.setItem("adminName", response["adminName"]);
 
                         var loc = window.location.pathname;
                         var dir = loc.substring(0, loc.lastIndexOf('/'));

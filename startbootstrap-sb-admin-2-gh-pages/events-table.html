@@ -150,17 +150,6 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -211,7 +200,7 @@
         <div class="container-fluid">
           <!-- Page Heading -->
 
-          <!-- DataTables Example -->
+          <!-- Events Table -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h4 class="m-0 font-weight-bold text-primary">Events</h4>
@@ -466,7 +455,7 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <p>Type DELETE to permanently delete these events.</p>
+                      <p>Type <b>delete</b> to permanently delete the selected events.</p>
                       <input type="text" class="form-control form-control-user confirm-string" name="confirm-string" required>
                     </div>
                   </div>
@@ -535,24 +524,22 @@
 
                               <dl class="row">
                                 <dt class="col-sm-3">Event Name</dt>
-                                <dd class="col-sm-9 event-name">Earth Day</dd>
+                                <dd class="col-sm-9 event-name"></dd>
                               
                                 <dt class="col-sm-3">Event Location</dt>
-                                <dd class="col-sm-9 event-location">Brower Student Center</dd>
+                                <dd class="col-sm-9 event-location"></dd>
 
                                 <dt class="col-sm-3">Event Description</dt>
-                                <dd class="col-sm-9 event-description">
-                                  Environmental awareness event at the TCNJ Campus Garden bringing together Green orgs on campus and local community.
-                                </dd>
+                                <dd class="col-sm-9 event-description"></dd>
 
                                 <dt class="col-sm-3">Event Date:</dt>
-                                <dd class="col-sm-9 event-date">04/22/2021</dd>
+                                <dd class="col-sm-9 event-date"></dd>
 
                                 <dt class="col-sm-3">Event Time:</dt>
-                                <dd class="col-sm-9 event-time">3:00PM-5:00PM</dd>
+                                <dd class="col-sm-9 event-time"></dd>
 
                                 <dt class="col-sm-3">Allowed Users:</dt>
-                                <dd class="col-sm-9 allowed-users">Students, Faculty, Staff, Visitors, Community Members, Outreach Partners</dd>
+                                <dd class="col-sm-9 allowed-users"></dd>
 
                               </dl>
                               
@@ -569,6 +556,7 @@
                               <table class="table table-bordered" id="participantsTable" width="100%" cellspacing="0">
                                 <thead>
                                   <tr>
+                                    <th>Participant ID</th>
                                     <th>User ID</th>
                                     <th>User Email</th>
                                     <th>User First Name</th>
@@ -579,6 +567,7 @@
                                 </thead>
                                 <tfoot>
                                   <tr>
+                                    <th>Participant ID</th>
                                     <th>User ID</th>
                                     <th>User Email</th>
                                     <th>User First Name</th>
@@ -594,6 +583,40 @@
                           </div>
                         </div>
                       
+                        <!-- Add Participant Modal -->
+                        <div class="modal fade" id="add-participant-modal" role="dialog">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Add Participant</h4>
+                                <button type="button" class="close" onclick="$('#add-participant-modal').modal('hide');">&times;</button>
+                              </div>
+
+                                <form id="add-participant-form" autocomplete="off">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                  <div class="form-group">
+                                    <label for="user-id">
+                                      Enter the <b>User Email</b> or <b>User ID</b> of the account you want to sign up. 
+                                      This information can be found in the <b>Users Table</b>.
+                                    </label>
+                                    <input type="text" class="form-control form-control-user user-identifier" name="user-identifier" required>
+                                  </div>
+                                </div>
+
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <input type="submit" class="btn btn-primary" value="Add">
+                                  <button type="button" class="btn btn-secondary" onclick="$('#add-participant-modal').modal('hide');">Close</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!--End of Add Participant Modal-->   
                   </div>
                   
 
