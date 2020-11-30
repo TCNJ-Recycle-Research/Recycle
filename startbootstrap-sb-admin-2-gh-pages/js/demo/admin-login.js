@@ -30,15 +30,7 @@ jQuery(function(){
             if(userPwd == ''){
               printError("passwordError", "  Please enter your password");
             }
-            // }else{
-            //   printError("passwordError", "");
-            //   passwordError = false;
-            // }
-            // if(userEmail == '' || userPwd == ''){
-            //     setErrorFor(userEmail, 'Username cannot be blank');
-            //     //alert("Login info missing input");
-            //     //console.log("Login info missing input");
-            // }
+
             else{
 
                 var obj = {func: "try_login", email: userEmail, password: userPwd};
@@ -68,9 +60,6 @@ jQuery(function(){
                     }
                     else{
                         // output failure message
-                        //setErrorFor("Login Failed, incorrect email or password!");
-                        //alert("Login Failed, incorrect email or password!");
-                        //console.log("Login Failed, incorrect email or password!");
                         printError("emailErr", "Login Failed, incorrect email or password!");
                         printError("passwordError", "Login Failed, incorrect email or password!");
                     }
