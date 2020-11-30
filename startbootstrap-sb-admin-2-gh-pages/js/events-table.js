@@ -2,8 +2,8 @@ jQuery(function(){
 
     var submitted = false;
 
-    var columnToTrunc = 2;      // Column where we will truncate the string inside
-    var maxStringLen = 100;     // Max length of truncated string to display
+    var columnToTrunc = 3;      // Column where we will truncate the string inside
+    var maxStringLen = 50;     // Max length of truncated string to display
     var selectedRows = 0;
 
     var table;
@@ -17,6 +17,7 @@ jQuery(function(){
         table.button(1).enable(selectedRows === 1);
         table.button(2).enable(selectedRows > 0);
         table.button(3).enable(selectedRows === 1);
+        table.button(4).enable(selectedRows === 1);
 
         var cell;
         var text;
@@ -28,7 +29,7 @@ jQuery(function(){
             text = table.cell(indexes[i], ".paragraph").data();
 
             if (!table.row(indexes[i]).nodes().to$().hasClass("selected") && text.length > maxStringLen + 3 ) {
-                text = text.substring(0,maxStringLen - 1) + '...';
+                text = text.substring(0, maxStringLen - 1) + '...';
             }
             
             cell.text(text);
@@ -57,11 +58,12 @@ jQuery(function(){
                 html += '<tr>';
                 html += '<td>' + response[i]["event_id"] + '</td>';
                 html += '<td>' + response[i]["event_name"] + '</td>';
+                html += '<td>' + "Brower Student Center" + '</td>';
                 html += '<td>' + response[i]["event_description"] + '</td>';
                 html += '<td>' + response[i]["event_date"] + '</td>';
-                html += '<td>' + convertTime(response[i]["start_time"]) + "-"+ convertTime(response[i]["end_time"]) + '</td>';
+                html += '<td>' + response[i]["start_time"] + "-" + response[i]["end_time"] + '</td>';
+                html += '<td>' + getUserTypes(response[i]) + '</td>';
                 html += '</tr>';
-                
             }
 
             tableBody.append(html);
@@ -84,6 +86,11 @@ jQuery(function(){
                         }
                         return data;
                         }
+                    },
+                    {
+                        targets: 6,
+                        visible: false,
+                        searchable: false
                     }],
                     buttons: {
                         dom: {
@@ -103,7 +110,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Event</span>', 
                                 className: 'btn btn-blue btn-icon-split',
                                 action: function(){
-                                    editModal();generateQR
+                                    editModal();
                                 }
                             },
                             {
@@ -121,6 +128,13 @@ jQuery(function(){
                                     generateQR();
                                 }
                             },
+                            {
+                                text: '<span class="icon text-white-50"><i class="fas fa-list"></i></span><span class="text">View Event</span>', 
+                                className: 'btn btn-success btn-icon-split',
+                                action: function(){
+                                    viewModal();
+                                }
+                            }
                         ]
                     }
                 });
@@ -130,10 +144,13 @@ jQuery(function(){
             }
 
             selectedRows = 0;
-            convertDates();
+            convertDates(table);
+            convertTimes(table);
+            convertUserTypes();
             table.button(1).enable(false);
             table.button(2).enable(false);
             table.button(3).enable(false);
+            table.button(4).enable(false);
 
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
@@ -149,15 +166,45 @@ jQuery(function(){
 
         // Get all the info from the form
         var form = $(this).serializeArray();
+        console.log(form);
         var eventName = form[0].value;
-        var eventDescription = form[1].value;
-        var eventDate = form[2].value;
-        var startTime = form[3].value;
-        var endTime = form[4].value;
-        //var allowedTypes = form[5].value;
+        var eventLocation = form[1].value;
+        var eventDescription = form[2].value;
+        var eventDate = form[3].value;
+        var startTime = form[4].value;
+        var endTime = form[5].value;
+        var allowedTypes = {"allowStudent":0, "allowFaculty":0, "allowStaff":0,
+             "allowVisitor":0, "allowCommunity":0 , "allowOutreach":0 };
+        
+        for(var i = 6; i < form.length; i++){
 
-        var obj = {func: "add_event", eventName: eventName, eventDescription: eventDescription, eventDate: eventDate, startTime: startTime,
-        endTime: endTime, };
+            switch(form[i].name){
+
+                case "student":
+                    allowedTypes["allowStudent"] = 1;
+                break;
+                case "faculty":
+                    allowedTypes["allowFaculty"] = 1;
+                break;
+                case "staff":
+                    allowedTypes["allowStaff"] = 1;
+                break;
+                case "visitor":
+                    allowedTypes["allowVisitor"] = 1;
+                break;
+                case "community":
+                    allowedTypes["allowCommunity"] = 1;
+                break;
+                case "outreach":
+                    allowedTypes["allowOutreach"] = 1;
+                break;
+                default:
+                break;
+            }
+        }
+
+        var obj = {func: "add_event", eventName: eventName, eventLocation: eventLocation, eventDescription: eventDescription, eventDate: eventDate, 
+                startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
         $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
@@ -191,6 +238,15 @@ jQuery(function(){
     // OPEN Edit modal
     function editModal(){
 
+        $("#edit-event-form")[0].reset();
+
+        $("#edit-event-form #student-edit").prop("checked", false);
+        $("#edit-event-form #faculty-edit").prop("checked", false);
+        $("#edit-event-form #staff-edit").prop("checked", false);
+        $("#edit-event-form #visitor-edit").prop("checked", false);
+        $("#edit-event-form #community-edit").prop("checked", false);
+        $("#edit-event-form #outreach-edit").prop("checked", false);  
+
         var activeRows = table.rows( { selected: true } );
 
         if(activeRows == null || activeRows.length != 1){
@@ -202,13 +258,19 @@ jQuery(function(){
         $("#edit-modal").modal("toggle");
 
         $("#edit-event-form .event-name").val(rowData[1]);
-        $("#edit-event-form .event-description").val(rowData[2]);
-        $("#edit-event-form .event-date").val(rowData[3]);
-        
-        $("#edit-event-form .start-time").val(rowData[4]);
-        $("#edit-event-form .end-time").val(rowData[5]);
+        $("#edit-event-form .event-location").val(rowData[2]);
+        $("#edit-event-form .event-description").val(rowData[3]);
+        $("#edit-event-form .event-date").val(rowData[4]);
+        $("#edit-event-form .start-time").val(rowData[5].split("-")[0]);
+        $("#edit-event-form .end-time").val(rowData[5].split("-")[1]);
 
-        
+        if(rowData[6] & 1)  {   $("#edit-event-form #student-edit").prop("checked", true);  }
+        if(rowData[6] & 2)  {  $("#edit-event-form #faculty-edit").prop("checked", true);   }
+        if(rowData[6] & 4)  {   $("#edit-event-form #staff-edit").prop("checked", true);    }
+        if(rowData[6] & 8)  {    $("#edit-event-form #visitor-edit").prop("checked", true); }
+        if(rowData[6] & 16) {    $("#edit-event-form #community-edit").prop("checked", true);   }
+        if(rowData[6] & 32) {    $("#edit-event-form #outreach-edit").prop("checked", true);    }
+
     }
 
     // SUBMIT Edit modal
@@ -242,13 +304,43 @@ jQuery(function(){
 
         var eventID = rowData[0];
         var eventName = form[0].value;
-        var eventDescription = form[1].value;
-        var eventDate = form[2].value;
-        var startTime = form[3].value;
-        var endTime = form[4].value;
+        var eventLocation = form[1].value;
+        var eventDescription = form[2].value;
+        var eventDate = form[3].value;
+        var startTime = form[4].value;
+        var endTime = form[5].value;
+        var allowedTypes = {"allowStudent":0, "allowFaculty":0, "allowStaff":0,
+             "allowVisitor":0, "allowCommunity":0 , "allowOutreach":0 };
+        
+        for(var i = 6; i < form.length; i++){
 
-        var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventDescription: eventDescription, eventDate: eventDate, 
-        startTime: startTime, endTime: endTime};
+            switch(form[i].name){
+
+                case "student":
+                    allowedTypes["allowStudent"] = 1;
+                break;
+                case "faculty":
+                    allowedTypes["allowFaculty"] = 1;
+                break;
+                case "staff":
+                    allowedTypes["allowStaff"] = 1;
+                break;
+                case "visitor":
+                    allowedTypes["allowVisitor"] = 1;
+                break;
+                case "community":
+                    allowedTypes["allowCommunity"] = 1;
+                break;
+                case "outreach":
+                    allowedTypes["allowOutreach"] = 1;
+                break;
+                default:
+                break;
+            }
+        }
+        
+        var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventLocation: eventLocation, eventDescription: eventDescription, 
+        eventDate: eventDate, startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
         $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
@@ -275,7 +367,7 @@ jQuery(function(){
         
     });
 
-    // --------------DELETE event MODAL------------------
+    // --------------DELETE EVENT MODAL------------------
     $(document).on("submit", "#delete-event-form", function(e){
 
         e.preventDefault();
@@ -340,12 +432,12 @@ jQuery(function(){
             return;
         }
 
-        var rowData = table.row(activeRows[0]).data();
+        var rowData = table.row(activeRows[0]).data()[0];
 
         $("#QR-code-holder").empty();
 
         $('#QR-code-holder').qrcode({
-            text	: JSON.stringify(rowData),
+            text	: rowData,
             render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
             background : "#ffffff",
             foreground : "#000000",
@@ -357,49 +449,73 @@ jQuery(function(){
         
     }
 
-    function convertDates(){
-
-        var allData = table.columns(".events-date").data();
-        var thisRow;
-        var year, month, day;
-        var date;
-
-        for(var i = 0; i < allData[0].length; i++){
-
-            thisRow = table.cell(i, ".events-date").nodes().to$();
-
-            date = allData[0][i];
-            console.log("DATE: " + date);
-
-            year = date.substring(0, 4);
-
-            month = date.substring(5, 7);
-
-            day = date.substring(8, 10);
-
-            thisRow.text("" + month + "-" + day + "-" + year);
-        }
-    }
-
-    function convertTime(time){
-
-        var suffix;
-
-        var hours = parseInt(time.substring(0, 2));
-        var minutes = parseInt(time.substring(3, 5));
-
-        // Check whether AM or PM 
-        var newformat = hours >= 12 ? 'PM' : 'AM';  
-                
-        // Find current hour in AM-PM Format 
-        hours = hours % 12;  
+    // --------------VIEW EVENT MODAL------------------
+    function viewModal(){
         
-        // To display "0" as "12" 
-        hours = hours ? hours : 12;  
-        minutes = minutes < 10 ? '0' + minutes : minutes; 
+        var activeRows = table.rows( { selected: true } );
 
-        return "" + hours + ':' + minutes + newformat; 
+        if(activeRows == null || activeRows.length != 1){
+            return;
+        }
+
+        $("#view-event .event-name").empty();
+        $("#view-event .event-location").empty();
+        $("#view-event .event-description").empty();
+        $("#view-event .event-date").empty();
+        $("#view-event .event-time").empty();
+        $("#view-event .allowed-users").empty();
+
+        var rowData = table.row(activeRows[0]).data();
+        var row = table.row(activeRows[0]).nodes().to$();
+       
+        $("#view-modal").modal("toggle");
+
+        $("#view-event .event-name").append(rowData[1]);
+        $("#view-event .event-location").append(rowData[2]);
+        $("#view-event .event-description").append(rowData[3]);
+        $("#view-event .event-date").append(row.children("td:eq(4)").text());
+        $("#view-event .event-time").append(row.children("td:eq(5)").text());
+        $("#view-event .allowed-users").append(convertUserTypes(rowData[6]));
+
+        getParticipants();
     }
+
+    function getUserTypes(response){
+        
+        var bitString = 0;
+
+        if(response["allow_student"] == 1)    { bitString += 1 << 0; }
+        if(response["allow_faculty"] == 1)    { bitString += 1 << 1; }
+        if(response["allow_staff"] == 1)      { bitString += 1 << 2; }
+        if(response["allow_visitor"] == 1)    { bitString += 1 << 3; }
+        if(response["allow_community"] == 1)  { bitString += 1 << 4; }
+        if(response["allow_outreach"] == 1)   { bitString += 1 << 5; }
+
+        return bitString;
+    }
+
+    function convertUserTypes(userBitString){
+
+        var allowedUsers = [];
+        var string = "";
+
+        if(userBitString & 1)  {   allowedUsers.push("Students");  }
+        if(userBitString & 2)  {  allowedUsers.push("Faculty");   }
+        if(userBitString & 4)  {   allowedUsers.push("Staff");    }
+        if(userBitString & 8)  {    allowedUsers.push("Visitors"); }
+        if(userBitString & 16) {    allowedUsers.push("Community Members");   }
+        if(userBitString & 32) {    allowedUsers.push("Outreach Partners");    }
+
+        for(var i = 0; i < allowedUsers.length - 1; i++){
+            string += allowedUsers[i] + ", ";
+        }
+
+        string += allowedUsers[allowedUsers.length - 1];
+        
+        return string;
+    }
+
+
 
 
 });

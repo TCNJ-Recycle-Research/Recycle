@@ -190,7 +190,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout?</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
               </a>
               <!-- Dropdown - User Information -->
                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -223,18 +223,22 @@
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
+                      <th>Event Location</th>
                       <th class="paragraph">Event Description</th>
-                      <th class="events-date">Event Date</th>
-                      <th>Event Time</th>
+                      <th class="date">Event Date</th>
+                      <th class="time">Event Time</th>
+                      <th class="allowed-users">Allowed Users</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
+                      <th>Event Location</th>
                       <th class="paragraph">Event Description</th>
-                      <th class="events-date">Event Date</th>
-                      <th>Event Time</th>
+                      <th class="date">Event Date</th>
+                      <th class="time">Event Time</th>
+                      <th class="allowed-users">Allowed Users</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -273,8 +277,8 @@
                       <label for="event-description">Event Description</label>
                       <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea>
                     </div>
-
-                    <div class="form-row" id="event-time">
+                    
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="event-date">Event Date</label>
                           <input type="date" class="form-control form-control-user event-date" name="event-date" required>
@@ -294,39 +298,39 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="student-add">
+                          <input type="checkbox" class="custom-control-input" id="student-add" name="student" checked>
                           <label class="custom-control-label" for="student-add">Student</label>
                         </div>
                       </div>
                       <div class="wrap">
-                        <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="staff-add">
-                          <label class="custom-control-label" for="staff-add">Staff</label>
+                        <div class="custom-control custom-checkbox custom-control-inline" >
+                          <input type="checkbox" class="custom-control-input" id="faculty-add" name="faculty" checked="checked">
+                          <label class="custom-control-label" for="faculty-add">Faculty</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="faculty-add">
-                          <label class="custom-control-label" for="faculty-add">Faculty</label>
+                          <input type="checkbox" class="custom-control-input" id="staff-add" name="staff" checked="checked">
+                          <label class="custom-control-label" for="staff-add">Staff</label>
                         </div>
                       </div>
                     </div>
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="visitors-add">
+                          <input type="checkbox" class="custom-control-input" id="visitors-add" name="visitor" checked="checked">
                           <label class="custom-control-label" for="visitors-add">Visitors</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="community-add">
+                          <input type="checkbox" class="custom-control-input" id="community-add" name="community" checked="checked">
                           <label class="custom-control-label" for="community-add">Community Members</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="outreach-add">
+                          <input type="checkbox" class="custom-control-input" id="outreach-add" name="outreach" checked="checked">
                           <label class="custom-control-label" for="outreach-add">Outreach Partners</label>
                         </div>
                       </div>
@@ -374,8 +378,8 @@
                       <label for="event-description">Event Description</label>
                       <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea>
                     </div>
-
-                    <div class="form-row" id="event-time">
+                    
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="event-date">Event Date</label>
                           <input type="date" class="form-control form-control-user event-date" name="event-date" required>
@@ -395,40 +399,40 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="student-edit">
+                          <input type="checkbox" class="custom-control-input" id="student-edit" name="student" checked="checked">
                           <label class="custom-control-label" for="student-edit">Student</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="staff-edit">
-                          <label class="custom-control-label" for="staff-edit">Staff</label>
+                          <input type="checkbox" class="custom-control-input" id="faculty-edit" name="faculty" checked="checked">
+                          <label class="custom-control-label" for="faculty-edit">Faculty</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="faculty-edit">
-                          <label class="custom-control-label" for="faculty-edit">Faculty</label>
+                          <input type="checkbox" class="custom-control-input" id="staff-edit" name="staff" checked="checked">
+                          <label class="custom-control-label" for="staff-edit">Staff</label>
                         </div>
                       </div>
                     </div>
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="visitors-edit">
+                          <input type="checkbox" class="custom-control-input" id="visitor-edit" name="visitor" checked="checked">
                           <label class="custom-control-label" for="visitors-edit">Visitors</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="community-edit">
+                          <input type="checkbox" class="custom-control-input" id="community-edit" name="community" checked="checked">
                           <label class="custom-control-label" for="community-edit">Community Members</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="allow-outreach">
-                          <label class="custom-control-label" for="allow-outreach">Outreach Partners</label>
+                          <input type="checkbox" class="custom-control-input" id="outreach-edit" name="outreach" checked="checked">
+                          <label class="custom-control-label" for="outreach-edit">Outreach Partners</label>
                         </div>
                       </div>
                     </div>
@@ -477,9 +481,9 @@
               </div>
             </div>
           </div>
-          <!--End of Delete Modal-->
-
-          <!-- Delete Modal -->
+          <!--End of Delete Modal--> 
+          
+          <!-- QR Modal -->
           <div class="modal fade" id="QR-modal">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -505,7 +509,102 @@
               </div>
             </div>
           </div>
-          <!--End of Delete Modal-->
+          <!--End of QR Modal-->    
+
+          <!-- View Modal -->
+          <div class="modal fade" id="view-modal">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">View Event</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                        
+
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h4 class="m-0 font-weight-bold text-primary">Event Information</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="container" id="view-event">
+
+                              <dl class="row">
+                                <dt class="col-sm-3">Event Name</dt>
+                                <dd class="col-sm-9 event-name">Earth Day</dd>
+                              
+                                <dt class="col-sm-3">Event Location</dt>
+                                <dd class="col-sm-9 event-location">Brower Student Center</dd>
+
+                                <dt class="col-sm-3">Event Description</dt>
+                                <dd class="col-sm-9 event-description">
+                                  Environmental awareness event at the TCNJ Campus Garden bringing together Green orgs on campus and local community.
+                                </dd>
+
+                                <dt class="col-sm-3">Event Date:</dt>
+                                <dd class="col-sm-9 event-date">04/22/2021</dd>
+
+                                <dt class="col-sm-3">Event Time:</dt>
+                                <dd class="col-sm-9 event-time">3:00PM-5:00PM</dd>
+
+                                <dt class="col-sm-3">Allowed Users:</dt>
+                                <dd class="col-sm-9 allowed-users">Students, Faculty, Staff, Visitors, Community Members, Outreach Partners</dd>
+
+                              </dl>
+                              
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h4 class="m-0 font-weight-bold text-primary">Participants Table</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-bordered" id="participantsTable" width="100%" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>User ID</th>
+                                    <th>User Email</th>
+                                    <th>User First Name</th>
+                                    <th>User Last Name</th>
+                                    <th>User Type</th>
+                                    <th>Attended</th>
+                                  </tr>
+                                </thead>
+                                <tfoot>
+                                  <tr>
+                                    <th>User ID</th>
+                                    <th>User Email</th>
+                                    <th>User First Name</th>
+                                    <th>User Last Name</th>
+                                    <th>User Type</th>
+                                    <th>Attended</th>
+                                  </tr>
+                                </tfoot>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            </div>
+                          </div>
+                        </div>
+                      
+                  </div>
+                  
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!--End of View Modal-->  
 
         </div>
         <!-- /.container-fluid -->
@@ -513,6 +612,17 @@
       </div>
       <!-- End of Main Content -->
 
+      <!-- Footer Copyright &copy; -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Green TCNJ 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+          
     </div>
     <!-- End of Content Wrapper -->
 
@@ -561,8 +671,11 @@
   <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/events-table.js"></script>
+  <script src="js/table-conversions.js"></script>
+  <script src="js/participants-table.js"></script>
+  <script src="js/events-table.js"></script>
   <script src="js/jquery.qrcode.min.js"></script>
+  
 
 </body>
 

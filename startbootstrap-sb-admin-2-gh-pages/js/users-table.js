@@ -90,6 +90,7 @@ jQuery(function(){
             }
 
             selectedRows = 0;
+            convertDates(table);
             table.button(1).enable(false);
 
 
@@ -201,28 +202,4 @@ jQuery(function(){
             
     });
 
-
-    function convertDates(){
-
-        var allData = table.columns(".date").data();
-        var thisRow;
-        var year, month, day;
-        var date;
-
-        for(var i = 0; i < allData[0].length; i++){
-
-            thisRow = table.cell(i, ".date").nodes().to$();
-
-            date = allData[0][i];
-            console.log("DATE: " + date);
-
-            year = date.substring(0, 4);
-
-            month = date.substring(5, 7);
-
-            day = date.substring(8, 10);
-
-            thisRow.text("" + month + "-" + day + "-" + year);
-        }
-    }
 });
