@@ -1,4 +1,4 @@
-if(sessionStorage.getItem("loggedIn") === true && sessionStorage.getItem("adminName") != null){
+if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("adminName") != null){
 
     // !!!! Probably don't need to do this POST request as we're doing a POST request to get the Datatable and it can return whether
     // !!!! the request was valid or not
@@ -22,13 +22,14 @@ if(sessionStorage.getItem("loggedIn") === true && sessionStorage.getItem("adminN
     $("#username").append(sessionStorage.getItem("adminName"));
     */
 
-    document.getElementById("username").innerHTML = sessionStorage.getItem("adminName");
+    document.getElementById("admin-name").innerHTML = sessionStorage.getItem("adminName");
 }
 else{
-    //redirectToLogin();
+    redirectToLogin();
 }
 
 function logoutAdmin(){
+    
     /*
     $.post("http://recycle.hpc.tcnj.edu/php/admin-logout.php").success(function(){
 
@@ -37,9 +38,9 @@ function logoutAdmin(){
     }).fail(function(xhr, thrownError) {
         console.log(xhr.status);
         console.log(thrownError);
-    });           
-    */
-
+    });          
+*/
+    sessionStorage.clear();
     redirectToLogin();
 }
 
