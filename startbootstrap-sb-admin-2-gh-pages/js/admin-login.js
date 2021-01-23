@@ -1,6 +1,11 @@
 jQuery(function(){
 
-    var userEmail, userPassword;
+    if(localStorage.getItem("adminEmail") !== null){
+        $("#email-input").val(localStorage.getItem("adminEmail"));
+        $("#rememberMe").prop("checked", true);
+    }
+
+    var email, password;
     var submitted = false, isValid = false;
 
     function printError(elemId, hintMsg) {
@@ -18,10 +23,10 @@ jQuery(function(){
 
             submitted = true;
 
-            userEmail = $("#email-input").val();
-            userPassword = $("#password-input").val();
+            email = $("#email-input").val();
+            password = $("#password-input").val();
 
-            if(userEmail == ''){
+            if(email == ''){
               printError("email-error", "Please enter your email address");
               isValid = false;
             }
@@ -29,7 +34,7 @@ jQuery(function(){
                 printError("email-error", "");
             }
 
-            if(userPassword == ''){
+            if(password == ''){
               printError("password-error", "Please enter your password");
               isValid = false;
             }
@@ -42,7 +47,7 @@ jQuery(function(){
             }
             else{
 
-                var obj = {func: "try_login", email: userEmail, password: userPassword};
+                var obj = {func: "try_login", email: email, password: password};
 
                 $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
@@ -52,6 +57,13 @@ jQuery(function(){
                         //set the session on the login page
                         sessionStorage.setItem("loggedIn", true);
                         sessionStorage.setItem("adminName", response["adminName"]);
+
+                        if($("#rememberMe").prop('checked')){
+                            localStorage.setItem("adminEmail", email);
+                        }
+                        else{
+                            localStorage.removeItem("adminEmail");
+                        }
 
                         var loc = window.location.pathname;
                         var dir = loc.substring(0, loc.lastIndexOf('/'));
