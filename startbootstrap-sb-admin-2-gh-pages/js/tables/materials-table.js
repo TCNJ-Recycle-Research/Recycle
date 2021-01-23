@@ -130,6 +130,7 @@ jQuery(function(){
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
+                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
         });
 
     }
@@ -145,41 +146,95 @@ jQuery(function(){
         var matName = form[0].value;
         var matType = form[1].value;
         var matDescription = form[2].value;
-        var imgPath = form[3].value;
 
-        var obj = {func: "add_material", materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+        var imgFile = $("#add-material-form .image-upload")[0].files;
+
+        var formData = new FormData();
+
+        var obj = {func: "add_material", materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: null};
+
+        // Check file selected or not
+        if(imgFile.length > 0 ){
+
+            formData.append('file', imgFile[0]);
+
+            obj.imagePath = imgFile[0].name;
+
+            $.ajax({
+                url: 'http://recycle.hpc.tcnj.edu/php/image-upload.php',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+
+                    if(response["maxFiles"] == true){
+                        console.log("SERVER REACHED MAX OF 200 IMAGE UPLOADS. FREE MEMORY BY DELETING MATERIALS/IMAGES TO UPLOAD MORE!");
+                        return;
+                    }
+                    else if(response["missingFile"] == true){
+                        // output missing info
+                        console.log("Upload material image operation missing file input.");
+                        return;
+                    }
+                    else if(response["uploadSuccess"] == true){
+
+                        console.log("Upload material image operation successful");
+                        addMaterial(obj);
+                    }
+                    else{
+                        console.log("Upload material image operation failed! Make sure the file is a jpg, jpeg, or png file type and is less than 2MB.");
+                        return;
+                    }
+
+                },
+                error: function(xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    return;
+                },
+             });
+        }
+        else{
+            addMaterial(obj);
+        }
+        
+                   
+
+        
+    });
+
+    function addMaterial(obj){
 
         $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Add Request missing input.");
+                failureAlert("Add Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["addSuccess"]){
-                console.log("Add material operation successful");
+                successAlert("Add Request Completed!", "The material listing specified was created!", true);
             }
             else{
-                console.log("Add material operation failed!");
+                failureAlert("Add Request Failed!", "Server error please try again!", true);
             }
 
             getMaterials();
             $("#add-modal").modal("toggle");
             $("#add-material-form")[0].reset();
-            
+                
 
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
-        });           
-
-        
-    });
+        });    
+    }
     
     // --------------EDIT MATERIAL MODAL------------------
 
     // OPEN Edit modal
     function editModal(){
+
+        $("#edit-material-form")[0].reset();
 
         var activeRows = table.rows( { selected: true } );
 
@@ -195,9 +250,13 @@ jQuery(function(){
         $("#edit-material-form .material-name").val(rowData[1]);
         $("#edit-material-form .material-type").val(rowData[2]);
         $("#edit-material-form .material-description").val(rowData[3]);
-        $("#edit-material-form .image-path").val(rowData[4]);
 
-        
+        if(rowData[4] != null && rowData[4] != "null"){
+            $("#edit-image").attr("src", "http://recycle.hpc.tcnj.edu/materialImages/" + rowData[4]);
+        }
+        else{
+            $("#edit-image").attr("src", "http://recycle.hpc.tcnj.edu/materialImages/not-found.jpg");
+        }
     }
 
     // SUBMIT Edit modal
@@ -225,31 +284,77 @@ jQuery(function(){
             }
         }
 
-        if(i == form.length){
+        var matName = form[0].value;
+        var matType = form[1].value;
+        var matDescription = form[2].value;
+
+        var imgFile = $("#edit-material-form .image-upload")[0].files;
+
+        var formData = new FormData();
+
+        var obj = {func: "edit_material", materialID: matID, materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: null};
+
+        if(i == form.length && imgFile.length <= 0){
             console.log("No change in material information so edit request not submitted!");
             $("#edit-modal").modal("toggle");
             return;
         }
 
-        var matName = form[0].value;
-        var matType = form[1].value;
-        var matDescription = form[2].value;
-        var imgPath = form[3].value;
+        // Check file selected or not
+        if(imgFile.length > 0){
 
-        var obj = {func: "edit_material", materialID: matID, materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: imgPath};
+            formData.append('file', imgFile[0]);
+
+            obj.imagePath = imgFile[0].name;
+
+            $.ajax({
+                url: 'http://recycle.hpc.tcnj.edu/php/image-upload.php',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+
+
+                    if(response["maxFiles"] == true){
+                        failureAlert("SERVER REACHED MAX IMAGE UPLOADS(200)!", "Delete saved materials/images to free space!", true);
+                    }
+                    else if(response["missingFile"] == true){
+                        failureAlert("Upload Image Request Failed!", "Server request was missing file input!", true);
+                    }
+                    else if(response["uploadSuccess"] == true){
+                        editMaterial(obj);
+                    }
+                    else{
+                        failureAlert("Upload Image Request Failed!", "Make sure the file is a .jpg/.jpeg/.png and is less than 2MB in size!", true);
+                    }
+
+                },
+                error: function(xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    return;
+                },
+            });
+        }
+        else{
+            editMaterial(obj);
+        }
+        
+    });
+
+    function editMaterial(obj){
 
         $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Edit Request missing input.");
+                failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["editSuccess"]){
-                console.log("Edit material operation successful");
+                successAlert("Edit Request Completed!", "The selected material was successfully edited!", true);
             }
             else{
-                console.log("Edit material operation failed!");
+                failureAlert("Edit Request Failed!", "Server error please try again!", true);
             }
 
             getMaterials();
@@ -258,10 +363,8 @@ jQuery(function(){
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
-        });           
-        
-        
-    });
+        });       
+    }
 
     // --------------DELETE MATERIAL MODAL------------------
     $(document).on("submit", "#delete-material-form", function(e){
@@ -296,15 +399,13 @@ jQuery(function(){
             $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-
-                        // output missing info
-                        console.log("Delete Request missing input.");
+                        failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete material operation successful");
+                        successAlert("Delete Request Completed!", "The selected materials were successfully deleted!", true);
                     }
                     else{
-                        console.log("Delete material operation failed!");
+                        failureAlert("Delete Request Failed!", "Server error please try again!", true);
                     }
 
                     getMaterials();

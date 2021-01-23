@@ -1,7 +1,5 @@
-
 // This file converts dates and times to human readable American format for any tables
 // on the admin portal
-
 
 function convertDates(table){
 
@@ -13,6 +11,7 @@ function convertDates(table){
     var allData = table.columns(".date").data();
     var allCols = table.columns(".date").nodes().to$();
 
+    // If there is more than one date column we must concat the returned arrays
     if(typeof(allData[0]) == "object"){
 
         var savedData = allData.slice();

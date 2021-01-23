@@ -66,9 +66,16 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
           <span>Materials</span>
         </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -145,45 +152,41 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
+          <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
+            <div class="row justify-content-center ">
+              <div class="alert alert-success alert-dismissible animated--grow-in fade my-2" id="success-alert">
+                <strong id="success-alert-strong"></strong> <span id="success-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center ">
+              <div class="alert alert-danger alert-dismissible animated--grow-in fade my-2" id="failure-alert">
+                <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
+          <ul class="navbar-nav">
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
               </a>
               <!-- Dropdown - User Information -->
                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -212,6 +215,7 @@
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
+                      <th>Event Type</th>
                       <th>Event Location</th>
                       <th class="paragraph">Event Description</th>
                       <th class="date">Event Date</th>
@@ -223,6 +227,7 @@
                     <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>
+                      <th>Event Type</th>
                       <th>Event Location</th>
                       <th class="paragraph">Event Description</th>
                       <th class="date">Event Date</th>
@@ -237,14 +242,14 @@
             </div>
           </div>
 
-          <!-- Add Modal -->
+          <!-- Add Event Modal -->
           <div class="modal fade" id="add-modal" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Add event</h4>
+                  <h4 class="modal-title">Add Event</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -253,18 +258,28 @@
                   <div class="modal-body">
                     <p>Add a new event to the database for all users to see.</p>
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="event-name">Event Name</label>
                         <input type="text" class="form-control form-control-user event-name" name="event-name" required>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
+                        <label for="event-type">Event Type</label>
+                        <select class="custom-select event-type" name="event-type">
+                          <option selected>None</option>
+                          <option value="Recycling/Dropoff">Recycling/Dropoff</option>
+                          <option value="Stormwater Pollution Prevention">Stormwater Pollution Prevention</option>
+                          <option value="Environmental Cleanup">Environmental Cleanup</option>
+                          <option value="Educational Event">Educational Event</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
                         <label for="event-location">Event Location</label>
                         <input type="text" class="form-control form-control-user event-location" name="event-location" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="event-description">Event Description</label>
-                      <textarea type="text" class="form-control form-control-user event-description" rows="4" cols="50" name="event-description" required></textarea>
+                      <textarea type="text" class="form-control form-control-user event-description" rows="5" cols="1" name="event-description" required></textarea>
                     </div>
                     
                     <div class="form-row">
@@ -287,19 +302,19 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="student-add" name="student" checked>
+                          <input type="checkbox" class="custom-control-input" id="student-add" name="student-add" checked>
                           <label class="custom-control-label" for="student-add">Student</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline" >
-                          <input type="checkbox" class="custom-control-input" id="faculty-add" name="faculty" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="faculty-add" name="faculty-add" checked="checked">
                           <label class="custom-control-label" for="faculty-add">Faculty</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="staff-add" name="staff" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="staff-add" name="staff-add" checked="checked">
                           <label class="custom-control-label" for="staff-add">Staff</label>
                         </div>
                       </div>
@@ -307,19 +322,19 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="visitors-add" name="visitor" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="visitors-add" name="visitor-add" checked="checked">
                           <label class="custom-control-label" for="visitors-add">Visitors</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="community-add" name="community" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="community-add" name="community-add" checked="checked">
                           <label class="custom-control-label" for="community-add">Community Members</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="outreach-add" name="outreach" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="outreach-add" name="outreach-add" checked="checked">
                           <label class="custom-control-label" for="outreach-add">Outreach Partners</label>
                         </div>
                       </div>
@@ -354,11 +369,21 @@
                   <div class="modal-body">
                     <p>Add a new event to the database for all users to see.</p>
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="event-name">Event Name</label>
                         <input type="text" class="form-control form-control-user event-name" name="event-name" required>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
+                        <label for="event-type">Event Type</label>
+                        <select class="custom-select event-type" name="event-type">
+                          <option selected>None</option>
+                          <option value="Recycling/Dropoff">Recycling/Dropoff</option>
+                          <option value="Stormwater Pollution Prevention">Stormwater Pollution Prevention</option>
+                          <option value="Environmental Cleanup">Environmental Cleanup</option>
+                          <option value="Educational Event">Educational Event</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
                         <label for="event-location">Event Location</label>
                         <input type="text" class="form-control form-control-user event-location" name="event-location" required>
                       </div>
@@ -388,19 +413,19 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="student-edit" name="student" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="student-edit" name="student-edit" checked="checked">
                           <label class="custom-control-label" for="student-edit">Student</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="faculty-edit" name="faculty" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="faculty-edit" name="faculty-edit" checked="checked">
                           <label class="custom-control-label" for="faculty-edit">Faculty</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="staff-edit" name="staff" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="staff-edit" name="staff-edit" checked="checked">
                           <label class="custom-control-label" for="staff-edit">Staff</label>
                         </div>
                       </div>
@@ -408,19 +433,19 @@
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="visitor-edit" name="visitor" checked="checked">
-                          <label class="custom-control-label" for="visitors-edit">Visitors</label>
+                          <input type="checkbox" class="custom-control-input" id="visitor-edit" name="visitor-edit" checked="checked">
+                          <label class="custom-control-label" for="visitor-edit">Visitors</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="community-edit" name="community" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="community-edit" name="community-edit" checked="checked">
                           <label class="custom-control-label" for="community-edit">Community Members</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" id="outreach-edit" name="outreach" checked="checked">
+                          <input type="checkbox" class="custom-control-input" id="outreach-edit" name="outreach-edit" checked="checked">
                           <label class="custom-control-label" for="outreach-edit">Outreach Partners</label>
                         </div>
                       </div>
@@ -486,14 +511,15 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                       <p>Have users scan this QR code to mark their attendance at an event.</p>
-                      <div id="QR-code-holder" style="text-align: center;"></div>
+                      <div id="QR-code" class="d-flex justify-content-center"></div>
+                      <div id="QR-code-lg" class="d-none"></div>
                   </div>
 
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-info" value="Print">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-info" id="print-button">Print</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
               </div>
             </div>
@@ -523,13 +549,16 @@
                             <div class="container" id="view-event">
 
                               <dl class="row">
-                                <dt class="col-sm-3">Event Name</dt>
+                                <dt class="col-sm-3">Event Name:</dt>
                                 <dd class="col-sm-9 event-name"></dd>
-                              
-                                <dt class="col-sm-3">Event Location</dt>
+
+                                <dt class="col-sm-3">Event Type:</dt>
+                                <dd class="col-sm-9 event-type"></dd>
+
+                                <dt class="col-sm-3">Event Location:</dt>
                                 <dd class="col-sm-9 event-location"></dd>
 
-                                <dt class="col-sm-3">Event Description</dt>
+                                <dt class="col-sm-3">Event Description:</dt>
                                 <dd class="col-sm-9 event-description"></dd>
 
                                 <dt class="col-sm-3">Event Date:</dt>
@@ -582,44 +611,8 @@
                             </div>
                           </div>
                         </div>
-                      
-                        <!-- Add Participant Modal -->
-                        <div class="modal fade" id="add-participant-modal" role="dialog">
-                          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-
-                              <!-- Modal Header -->
-                              <div class="modal-header">
-                                <h4 class="modal-title">Add Participant</h4>
-                                <button type="button" class="close" onclick="$('#add-participant-modal').modal('hide');">&times;</button>
-                              </div>
-
-                                <form id="add-participant-form" autocomplete="off">
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <label for="user-id">
-                                      Enter the <b>User Email</b> or <b>User ID</b> of the account you want to sign up. 
-                                      This information can be found in the <b>Users Table</b>.
-                                    </label>
-                                    <input type="text" class="form-control form-control-user user-identifier" name="user-identifier" required>
-                                  </div>
-                                </div>
-
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                  <input type="submit" class="btn btn-primary" value="Add">
-                                  <button type="button" class="btn btn-secondary" onclick="$('#add-participant-modal').modal('hide');">Close</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <!--End of Add Participant Modal-->   
                   </div>
-                  
-
+              
                   <!-- Modal footer -->
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -628,6 +621,83 @@
             </div>
           </div>
           <!--End of View Modal-->  
+
+          <!-- Add Participant Modal -->
+          <div class="modal fade" id="add-participant-modal" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Participant</h4>
+                  <a href="#" data-dismiss="modal" class="close">&times;</a>
+                </div>
+
+                <form id="add-participant-form" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p>
+                        Enter the <b>User Email</b> or <b>User ID</b> of the account you want to sign up. 
+                        This information can be found in the <a class="alert-link" href="users-table.html">Users Table</a>.
+                      </p>
+                      <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <input type="text" class="form-control form-control-user" name="user-id" required>
+                        </div>
+                      </div>
+                    </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add">
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Close</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Add Participant Modal-->
+
+          <!-- Edit Attendance Modal -->
+          <div class="modal fade" id="edit-attendance-modal" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Attendance</h4>
+                  <a href="#" data-dismiss="modal" class="close">&times;</a>
+                </div>
+
+                <form id="edit-attendance-form" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p>Set whether the selected participants attended the event or not:</p>
+
+                      <div class="form-row">
+                        <div class="form-check mr-3 ml-auto">
+                          <input class="form-check-input" type="radio" name="attendance-radio" id="attendance-false" value="0">
+                          <label class="form-check-label" for="attendance-false">No</label>
+                        </div>
+                        <div class="form-check ml-3 mr-auto">
+                          <input class="form-check-input" type="radio" name="attendance-radio" id="attendance-true" value="1" checked>
+                          <label class="form-check-label" for="attendance-true">Yes</label>
+                        </div>
+
+                      </div>
+                      
+                    </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Close</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Edit Attendance Modal-->
 
         </div>
         <!-- /.container-fluid -->
@@ -694,10 +764,11 @@
   <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/table-conversions.js"></script>
-  <script src="js/participants-table.js"></script>
-  <script src="js/events-table.js"></script>
-  <script src="js/jquery.qrcode.min.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/tables/table-conversions.js"></script>
+  <script src="js/tables/participants-table.js"></script>
+  <script src="js/tables/events-table.js"></script>
+  <script src="js/qrcode.min.js"></script>
   
 
 </body>

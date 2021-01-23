@@ -2,7 +2,7 @@ jQuery(function(){
 
     var submitted = false;
 
-    var columnToTrunc = 3;      // Column where we will truncate the string inside
+    var columnToTrunc = 4;      // Column where we will truncate the string inside
     var maxStringLen = 50;     // Max length of truncated string to display
     var selectedRows = 0;
 
@@ -28,7 +28,7 @@ jQuery(function(){
 
             text = table.cell(indexes[i], ".paragraph").data();
 
-            if (!table.row(indexes[i]).nodes().to$().hasClass("selected") && text.length > maxStringLen + 3 ) {
+            if (!table.row(indexes[i]).nodes().to$().hasClass("selected") && text.length > maxStringLen + 3) {
                 text = text.substring(0, maxStringLen - 1) + '...';
             }
             
@@ -58,7 +58,21 @@ jQuery(function(){
                 html += '<tr>';
                 html += '<td>' + response[i]["event_id"] + '</td>';
                 html += '<td>' + response[i]["event_name"] + '</td>';
-                html += '<td>' + "Brower Student Center" + '</td>';
+                
+                if(response[i]["event_type"] == null){
+                    html += '<td>None</td>';
+                }
+                else{
+                    html += '<td>' + response[i]["event_type"] + '</td>';
+                } 
+                    
+                if(response[i]["event_location"] == null){
+                    html += '<td>None</td>';
+                }
+                else{
+                    html += '<td>' + response[i]["event_location"] + '</td>';
+                }
+                    
                 html += '<td>' + response[i]["event_description"] + '</td>';
                 html += '<td>' + response[i]["event_date"] + '</td>';
                 html += '<td>' + response[i]["start_time"] + "-" + response[i]["end_time"] + '</td>';
@@ -88,7 +102,7 @@ jQuery(function(){
                         }
                     },
                     {
-                        targets: 6,
+                        targets: [2, 7],
                         visible: false,
                         searchable: false
                     }],
@@ -146,15 +160,16 @@ jQuery(function(){
             selectedRows = 0;
             convertDates(table);
             convertTimes(table);
-            convertUserTypes();
             table.button(1).enable(false);
             table.button(2).enable(false);
             table.button(3).enable(false);
             table.button(4).enable(false);
 
         }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
+            console.log(xhr.status);
+            console.log(thrownError);
+
+            failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
         });
 
     }
@@ -166,36 +181,38 @@ jQuery(function(){
 
         // Get all the info from the form
         var form = $(this).serializeArray();
-        console.log(form);
+
         var eventName = form[0].value;
-        var eventLocation = form[1].value;
-        var eventDescription = form[2].value;
-        var eventDate = form[3].value;
-        var startTime = form[4].value;
-        var endTime = form[5].value;
+        var eventType = form[1].value;
+        var eventLocation = form[2].value;
+        var eventDescription = form[3].value;
+        var eventDate = form[4].value;
+        var startTime = form[5].value;
+        var endTime = form[6].value;
         var allowedTypes = {"allowStudent":0, "allowFaculty":0, "allowStaff":0,
              "allowVisitor":0, "allowCommunity":0 , "allowOutreach":0 };
         
+        // Form only submits actively checked boxes
         for(var i = 6; i < form.length; i++){
 
             switch(form[i].name){
 
-                case "student":
+                case "student-add":
                     allowedTypes["allowStudent"] = 1;
                 break;
-                case "faculty":
+                case "faculty-add":
                     allowedTypes["allowFaculty"] = 1;
                 break;
-                case "staff":
+                case "staff-add":
                     allowedTypes["allowStaff"] = 1;
                 break;
-                case "visitor":
+                case "visitor-add":
                     allowedTypes["allowVisitor"] = 1;
                 break;
-                case "community":
+                case "community-add":
                     allowedTypes["allowCommunity"] = 1;
                 break;
-                case "outreach":
+                case "outreach-add":
                     allowedTypes["allowOutreach"] = 1;
                 break;
                 default:
@@ -203,21 +220,19 @@ jQuery(function(){
             }
         }
 
-        var obj = {func: "add_event", eventName: eventName, eventLocation: eventLocation, eventDescription: eventDescription, eventDate: eventDate, 
+        var obj = {func: "add_event", eventName: eventName, eventType: eventType, eventLocation: eventLocation, eventDescription: eventDescription, eventDate: eventDate, 
                 startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
         $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Add Request missing input.");
+                failureAlert("Add Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["addSuccess"]){
-                console.log("Add event operation successful");
+                successAlert("Add Request Completed!", "The event specified was created!", true);
             }
             else{
-                console.log("Add event operation failed!");
+                failureAlert("Add Request Failed!", "Server error please try again!", true);
             }
 
             getEvents();
@@ -234,11 +249,10 @@ jQuery(function(){
     });
     
     // --------------EDIT EVENT MODAL------------------
-
-    // OPEN Edit modal
     function editModal(){
 
         $("#edit-event-form")[0].reset();
+        $("#edit-event-form").data('changed', false);
 
         $("#edit-event-form #student-edit").prop("checked", false);
         $("#edit-event-form #faculty-edit").prop("checked", false);
@@ -258,22 +272,27 @@ jQuery(function(){
         $("#edit-modal").modal("toggle");
 
         $("#edit-event-form .event-name").val(rowData[1]);
-        $("#edit-event-form .event-location").val(rowData[2]);
-        $("#edit-event-form .event-description").val(rowData[3]);
-        $("#edit-event-form .event-date").val(rowData[4]);
-        $("#edit-event-form .start-time").val(rowData[5].split("-")[0]);
-        $("#edit-event-form .end-time").val(rowData[5].split("-")[1]);
+        $("#edit-event-form .event-type").val(rowData[2]);
+        $("#edit-event-form .event-location").val(rowData[3]);
+        $("#edit-event-form .event-description").val(rowData[4]);
+        $("#edit-event-form .event-date").val(rowData[5]);
+        $("#edit-event-form .start-time").val(rowData[6].split("-")[0]);
+        $("#edit-event-form .end-time").val(rowData[6].split("-")[1]);
 
-        if(rowData[6] & 1)  {   $("#edit-event-form #student-edit").prop("checked", true);  }
-        if(rowData[6] & 2)  {  $("#edit-event-form #faculty-edit").prop("checked", true);   }
-        if(rowData[6] & 4)  {   $("#edit-event-form #staff-edit").prop("checked", true);    }
-        if(rowData[6] & 8)  {    $("#edit-event-form #visitor-edit").prop("checked", true); }
-        if(rowData[6] & 16) {    $("#edit-event-form #community-edit").prop("checked", true);   }
-        if(rowData[6] & 32) {    $("#edit-event-form #outreach-edit").prop("checked", true);    }
+        if(rowData[7] & 1)  {   $("#edit-event-form #student-edit").prop("checked", true);     }
+        if(rowData[7] & 2)  {   $("#edit-event-form #faculty-edit").prop("checked", true);     }
+        if(rowData[7] & 4)  {   $("#edit-event-form #staff-edit").prop("checked", true);       }
+        if(rowData[7] & 8)  {   $("#edit-event-form #visitor-edit").prop("checked", true);     }
+        if(rowData[7] & 16) {   $("#edit-event-form #community-edit").prop("checked", true);   }
+        if(rowData[7] & 32) {   $("#edit-event-form #outreach-edit").prop("checked", true);    }
 
     }
 
-    // SUBMIT Edit modal
+    $("form :input").change(function() {
+        $(this).closest('form').data('changed', true);
+    });
+
+    // --------------SUBMIT EVENT MODAL------------------
     $(document).on("submit", "#edit-event-form", function(e){
 
         e.preventDefault();
@@ -290,25 +309,22 @@ jQuery(function(){
 
         var i;
 
-        for(i = 0; i < form.length; i++){
-            if(rowData[i + 1] !== form[i].value){
-                break;
-            }
-        }
+        if(!$(this).closest('form').data('changed')) {
 
-        if(i == form.length){
-            console.log("No change in event information so edit request not submitted!");
+            console.log("No changes were made to the form so it was not submitted!");
+
             $("#edit-modal").modal("toggle");
             return;
         }
 
         var eventID = rowData[0];
         var eventName = form[0].value;
-        var eventLocation = form[1].value;
-        var eventDescription = form[2].value;
-        var eventDate = form[3].value;
-        var startTime = form[4].value;
-        var endTime = form[5].value;
+        var eventType = form[1].value;
+        var eventLocation = form[2].value;
+        var eventDescription = form[3].value;
+        var eventDate = form[4].value;
+        var startTime = form[5].value;
+        var endTime = form[6].value;
         var allowedTypes = {"allowStudent":0, "allowFaculty":0, "allowStaff":0,
              "allowVisitor":0, "allowCommunity":0 , "allowOutreach":0 };
         
@@ -316,22 +332,22 @@ jQuery(function(){
 
             switch(form[i].name){
 
-                case "student":
+                case "student-edit":
                     allowedTypes["allowStudent"] = 1;
                 break;
-                case "faculty":
+                case "faculty-edit":
                     allowedTypes["allowFaculty"] = 1;
                 break;
-                case "staff":
+                case "staff-edit":
                     allowedTypes["allowStaff"] = 1;
                 break;
-                case "visitor":
+                case "visitor-edit":
                     allowedTypes["allowVisitor"] = 1;
                 break;
-                case "community":
+                case "community-edit":
                     allowedTypes["allowCommunity"] = 1;
                 break;
-                case "outreach":
+                case "outreach-edit":
                     allowedTypes["allowOutreach"] = 1;
                 break;
                 default:
@@ -339,21 +355,19 @@ jQuery(function(){
             }
         }
         
-        var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventLocation: eventLocation, eventDescription: eventDescription, 
+        var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventType: eventType, eventLocation: eventLocation, eventDescription: eventDescription, 
         eventDate: eventDate, startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
         $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Edit Request missing input.");
+                failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["editSuccess"]){
-                console.log("Edit event operation successful");
+                successAlert("Edit Request Completed!", "The selected event was successfully edited!", true);
             }
             else{
-                console.log("Edit event operation failed!");
+                failureAlert("Edit Request Failed!", "Server error please try again!", true);
             }
 
             getEvents();
@@ -400,15 +414,13 @@ jQuery(function(){
             $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-
-                        // output missing info
-                        console.log("Delete Request missing input.");
+                        failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete event operation successful");
+                        successAlert("Delete Request Completed!", "The selected events were successfully deleted!", true);
                     }
                     else{
-                        console.log("Delete event operation failed!");
+                        failureAlert("Delete Request Failed!", "Server error please try again!", true);
                     }
 
                     getEvents();
@@ -432,22 +444,61 @@ jQuery(function(){
             return;
         }
 
-        var rowData = table.row(activeRows[0]).data()[0];
+        var rowData = table.row(activeRows[0]).data();
 
-        $("#QR-code-holder").empty();
+        $("#QR-code").empty();
 
-        $('#QR-code-holder').qrcode({
-            text	: rowData,
-            render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
-            background : "#ffffff",
-            foreground : "#000000",
-            width : 150,
-            height: 150
+        $("#QR-code-lg").empty();   // Larger (hidden) QR code display for printing
+
+        var QR = new QRCode("QR-code", {
+            text: rowData[0],
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        var lgQR = new QRCode("QR-code-lg", {
+            text: rowData[0],
+            width: 256,
+            height: 256,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
         });
 
         $("#QR-modal").modal("toggle");
         
     }
+
+    // --------------PRINT QR CODE PAGE------------------
+    $(document).on("click", "#print-button", function(e){
+
+        var activeRows = table.rows( { selected: true } );
+
+        if(activeRows == null || activeRows.length != 1){
+            return;
+        }
+
+        var rowData = table.row(activeRows[0]).data();
+
+        var dateCell = table.cell(activeRows[0], ".date").nodes().to$();
+        var timeCell = table.cell(activeRows[0], ".time").nodes().to$();
+
+        var header = '<h1>' + rowData[1] + '</h1><h2>' + dateCell.text() + '</h2><h2 style="margin-bottom: 2em;">' + timeCell.text() + '</h2>';
+
+        var QR = $("#QR-code-lg").html();
+        
+        var printContents = '<div style="font-size: 1.5em; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 800px;">' 
+        + header + QR + '</div>';
+
+        w = window.open();
+        w.document.write(printContents);
+        
+        w.print();
+        w.close();
+    });
 
     // --------------VIEW EVENT MODAL------------------
     function viewModal(){
@@ -459,8 +510,9 @@ jQuery(function(){
         }
 
         $("#view-event .event-name").empty();
-        $("#view-event .event-location").empty();
         $("#view-event .event-description").empty();
+        $("#view-event .event-type").empty();
+        $("#view-event .event-location").empty();
         $("#view-event .event-date").empty();
         $("#view-event .event-time").empty();
         $("#view-event .allowed-users").empty();
@@ -471,14 +523,16 @@ jQuery(function(){
         $("#view-modal").modal("toggle");
 
         $("#view-event .event-name").append(rowData[1]);
-        $("#view-event .event-location").append(rowData[2]);
-        $("#view-event .event-description").append(rowData[3]);
+        $("#view-event .event-type").append(rowData[2]);
+        $("#view-event .event-location").append(rowData[3]);
+        $("#view-event .event-description").append(rowData[4]);
         $("#view-event .event-date").append(row.children("td:eq(4)").text());
         $("#view-event .event-time").append(row.children("td:eq(5)").text());
-        $("#view-event .allowed-users").append(convertUserTypes(rowData[6]));
+        $("#view-event .allowed-users").append(convertUserTypes(rowData[7]));
 
         getParticipants(rowData[0]);
     }
+    
 
     function getUserTypes(response){
         
@@ -497,7 +551,7 @@ jQuery(function(){
     function convertUserTypes(userBitString){
 
         var allowedUsers = [];
-        var string = "";
+        var allowedString = "";
 
         if(userBitString & 1)  {   allowedUsers.push("Students");  }
         if(userBitString & 2)  {  allowedUsers.push("Faculty");   }
@@ -507,15 +561,15 @@ jQuery(function(){
         if(userBitString & 32) {    allowedUsers.push("Outreach Partners");    }
 
         for(var i = 0; i < allowedUsers.length - 1; i++){
-            string += allowedUsers[i] + ", ";
+            allowedString += allowedUsers[i] + ", ";
         }
 
-        string += allowedUsers[allowedUsers.length - 1];
-        
-        return string;
+        if(allowedUsers.length === 0)
+            allowedString = "None";
+        else
+            allowedString += allowedUsers[allowedUsers.length - 1]; // Add this user type last with no following comma
+
+        return allowedString;
     }
-
-
-
 
 });

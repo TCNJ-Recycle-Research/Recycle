@@ -1,54 +1,66 @@
-function printError(elemId, hintMsg) {
-    document.getElementById(elemId).innerHTML = hintMsg;
-}
-
 jQuery(function(){
 
-    var submitted = false;
-    var emailErr = passwordError = passwordRErr = true;
+    var submitted = false, isValid = false;
+
+    function printError(elemId, hintMsg) {
+        document.getElementById(elemId).innerHTML = hintMsg;
+    }
 
     $(document).on("submit", "#reset-form", function(e){
 
-        var email, pwd, pwdRepeat, select, valid;
-
+        var email, password, passwordRepeat, select, valid;
 
         // Prevent form submission which refreshes page
         e.preventDefault();
 
         if(!submitted){
-            console.log("submitted");
-            submitted = true;
+            
+            submitted = isValid = true;
 
             email = $("#email").val();
-            pwd = $("#password").val();
-            pwdRepeat = $("#password-repeat").val();
-
+            password = $("#password").val();
+            passwordRepeat = $("#password-repeat").val();
 
             if(email == ""){
-              printError("emailErr", "  Please enter your email address");
+                printError("email-error", "Please enter your email address");
+                isValid = false;
+            }
+            else{
+                printError("email-error", "");
             }
 
-            if(pwd == ""){
-              printError("passwordError", "  Please enter your password");
+            if(password == ""){
+                printError("password-error", "Please enter your password");
+                isValid = false;
+            }
+            else{
+                printError("password-error", "");
             }
 
-            if(pwdRepeat== ""){
-              printError("passwordRErr", "  Please enter your password");
+            if(passwordRepeat == ""){
+                printError("password-repeat-error", "Please enter your password");
+                isValid = false;
+            }
+            else{
+                printError("password-repeat-error", "");
             }
 
-            if(!(pwd === pwdRepeat)){
-              printError("passwordError", "Passwords don't match");
-              printError("passwordRErr", "Passwords don't match");
-              //alert("Passwords don't match")
-                //console.log("Passwords don't match");
+            if(!(password === passwordRepeat)){
+                printError("password-error", "Passwords don't match");
+                printError("password-repeat-error", "Passwords don't match");
+                isValid = false;
+            }
+
+            if(!isValid){
                 submitted = false;
             }
             else{
-
                 var queryString = window.location.search;
                 var urlParams = new URLSearchParams(queryString);
 
                 if(!urlParams.has('selector') || !urlParams.has('validator')){
+                    failureAlert("Password Reset Failed!", 
+                    "Please try to send another <a class=\"alert-link\" href=\"forgot-password.html\">password reset request</a>!", false);
                     submitted = false;
                 }
                 else{
@@ -56,32 +68,24 @@ jQuery(function(){
                     select = urlParams.get('selector');
                     valid = urlParams.get('validator');
 
-                    var obj = {func: "verify_reset", email: email, password: pwd, passwordRepeat: pwdRepeat, selector: select, validator: valid};
+                    var obj = {func: "verify_reset", email: email, password: password, passwordRepeat: passwordRepeat, selector: select, validator: valid};
 
                     $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
+
                         // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                         if(response["resetSuccess"]){
-
-                            // output success and move to next html page
-                            alert("Password Reset Success");
-                            //console.log("Password Reset Success");
-
+                            successAlert();
                         }
                         else if(response["missingInput"]){
-
-                            // output missing info
-                            alert("Password reset info missing input");
-                            //console.log("Password reset info missing input");
+                            failureAlert("Password Reset Failed!", "Server request was missing required input!", false);
                         }
                         else if(response["passwordMismatch"]){
-                            alert("Passwords don't match");
-                            //console.log("Passwords don't match");
+                            failureAlert("Password Reset Failed!", "Server recieved mismatching passwords!", false);
                         }
                         else{
-                            // output failure message
-                            alert("Password Reset Failed. Please try to send another password reset request!");
-                            //console.log("Password Reset Failed. Please try to send another password reset request!");
+                            failureAlert("Password Reset Failed!", 
+                            "Please try to send another <a class=\"alert-link\" href=\"forgot-password.html\">password reset request</a>!", false);
                         }
 
                         submitted = false;
@@ -89,20 +93,10 @@ jQuery(function(){
                     }, "json").fail(function(xhr, thrownError) {
                             console.log(xhr.status);
                             console.log(thrownError);
+                            submitted = false;
                     });
                 }
-
-
             }
-
-
-
         }
-
-
     });
-
-
-
-
 });

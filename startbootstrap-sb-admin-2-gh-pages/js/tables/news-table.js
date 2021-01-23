@@ -129,12 +129,13 @@ jQuery(function(){
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
+                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
         });
 
     }
 
 
-    // --------------ADD article MODAL------------------
+    // --------------ADD ARTICLE MODAL------------------
     $(document).on("submit", "#add-article-form", function(e){
 
         e.preventDefault();
@@ -150,15 +151,13 @@ jQuery(function(){
         $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Add Request missing input.");
+                failureAlert("Add Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["addSuccess"]){
-                console.log("Add article operation successful");
+                successAlert("Add Request Completed!", "The news article specified was created!", true);
             }
             else{
-                console.log("Add article operation failed!");
+                failureAlert("Add Request Failed!", "Server error please try again!", true);
             }
 
             getArticles();
@@ -235,15 +234,13 @@ jQuery(function(){
         $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Edit Request missing input.");
+                failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["editSuccess"]){
-                console.log("Edit article operation successful");
+                successAlert("Edit Request Completed!", "The selected news articles were successfully edited!", true);
             }
             else{
-                console.log("Edit article operation failed!");
+                failureAlert("Edit Request Failed!", "Server error please try again!", true);
             }
 
             getArticles();
@@ -290,15 +287,13 @@ jQuery(function(){
             $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-
-                        // output missing info
-                        console.log("Delete Request missing input.");
+                        failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete article operation successful");
+                        successAlert("Delete Request Completed!", "The selected news articles were successfully deleted!", true);
                     }
                     else{
-                        console.log("Delete article operation failed!");
+                        failureAlert("Delete Request Failed!", "Server error please try again!", true);
                     }
 
                     getArticles();

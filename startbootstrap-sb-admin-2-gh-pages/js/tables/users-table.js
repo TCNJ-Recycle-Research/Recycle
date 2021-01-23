@@ -97,6 +97,7 @@ jQuery(function(){
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
+                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
         });
 
     }
@@ -116,20 +117,18 @@ jQuery(function(){
         var pwdRepeat = form[4].value;
         var type = form[5].value;
 
-        var obj = {func: "sign_up", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, userType: type};
+        var obj = {func: "add_user", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, userType: type};
 
         $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-
-                // output missing info
-                console.log("Add Request missing input.");
+                failureAlert("Add Request Failed!", "Server request was missing required input!", true);
             }
-            else if(response["signupSuccess"]){
-                console.log("Add user operation successful");
+            else if(response["addSuccess"]){
+                successAlert("Add Request Completed!", "The user account specified was created!", true);
             }
             else{
-                console.log("Add user operation failed!");
+                failureAlert("Add Request Failed!", "Make sure the email is not already taken and that the passwords match!", true);
             }
 
             getUsers();
@@ -179,15 +178,13 @@ jQuery(function(){
             $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-
-                        // output missing info
-                        console.log("Delete Request missing input.");
+                        failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
                     }
                     else if(response["deleteSuccess"]){
-                        console.log("Delete user operation successful");
+                        successAlert("Delete Request Completed!", "The selected users were successfully deleted!", true);
                     }
                     else{
-                        console.log("Delete user operation failed!");
+                        failureAlert("Delete Request Failed!", "Server error please try again!", true);
                     }
 
                     getUsers();

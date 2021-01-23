@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Events - Green TCNJ</title>
+  <title>Dashboard - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -66,9 +66,16 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
           <span>Materials</span>
         </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -178,11 +185,13 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
               </a>
               <!-- Dropdown - User Information -->
                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -295,8 +304,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
+          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
@@ -316,8 +325,9 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/chart-area-demo.js"></script>
-  <script src="js/chart-pie-demo.js"></script>
+  <script src="js/admin-page-functions.js"></script>
+  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

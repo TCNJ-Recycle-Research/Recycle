@@ -66,9 +66,16 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
           <span>Materials</span>
         </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -176,11 +183,13 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
               </a>
               <!-- Dropdown - User Information -->
                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -358,8 +367,6 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
     </body>
 

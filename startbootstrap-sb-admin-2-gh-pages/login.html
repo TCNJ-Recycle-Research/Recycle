@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Login -Green TCNJ</title>
+  <title>Login - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,14 +22,26 @@
 
 <body class="bg-gradient-primary">
 
-  <div class="container">
-
+  <div class="container mt-5">
+    
     <!-- Outer Row -->
+    <div class="container d-sm-inline-block my-2 my-md-0 mx-auto">
+      <div class="row justify-content-center ">
+        <div class="alert alert-danger alert-dismissible animated--grow-in my-3" id="failure-alert">
+          <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+          <button type="button" class="close alert-close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="row justify-content-center">
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-0 shadow-lg my-3">
+          
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
@@ -42,11 +54,11 @@
                   <form class="user" id="admin-login">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="email-input" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                      <div style = "color:red; font-size:12px"; class="error" id="emailErr"></div>
+                      <div style = "color:red; font-size:12px"; class="error mt-2 ml-1" id="email-error"></div>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="password-input" placeholder="Password">
-                      <div style = "color:red; font-size:12px"; class="error" id="passwordError"></div>
+                      <div style = "color:red; font-size:12px"; class="error mt-2 ml-1" id="password-error"></div>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -55,7 +67,6 @@
                       </div>
                     </div>
                     <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
-                    <hr>
                   </form>
                   <hr>
                   <div class="text-center">
@@ -81,9 +92,8 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages -->
+  <script src="js/alerts.js"></script>
   <script src="js/sb-admin-2.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
   <script src="js/admin-login.js"></script>
 
 </body>

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Events - Green TCNJ</title>
+  <title>Users - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -66,9 +66,16 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
           <span>Materials</span>
         </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -145,44 +152,41 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+          <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
+            <div class="row justify-content-center ">
+              <div class="alert alert-success alert-dismissible animated--grow-in fade my-2" id="success-alert">
+                <strong id="success-alert-strong"></strong> <span id="success-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center ">
+              <div class="alert alert-danger alert-dismissible animated--grow-in fade my-2" id="failure-alert">
+                <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
+          <ul class="navbar-nav">
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Matthew Mabrey</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
               </a>
               <!-- Dropdown - User Information -->
                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -247,32 +251,44 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form id="add-user-form" autocomplete="off">
+                <form id="add-user-form" autocomplete="off">
+
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="email">User Email</label>
                       <input type="text" class="form-control form-control-user email" name="email" required>
                     </div>
-                    <div class="form-group">
-                      <label for="user-first-name">User First Name</label>
-                      <input type="text" class="form-control form-control-user user-first-name" name="first" required>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="first">User First Name</label>
+                        <input type="text" class="form-control form-control-user user-first-name" name="first" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="last">User Last Name</label>
+                        <input type="text" class="form-control form-control-user user-last-name" name="last" required>
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <label for="user-last-name">User Last Name</label>
-                      <input type="text" class="form-control form-control-user user-last-name" name="last" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control form-control-user password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="password-repeat">Password Repeat</label>
-                      <input type="password" class="form-control form-control-user password-repeat" name="passwordRepeat" required>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="first">Password</label>
+                        <input type="password" class="form-control form-control-user password" name="password" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="last">Password Repeat</label>
+                        <input type="password" class="form-control form-control-user password-repeat" name="password-repeat" required>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label for="user-type">User Type</label>
-                      <input type="text" class="form-control form-control-user user-last-name" name="last" placeholder="Student" required>
+                      <select class="custom-select user-type" name="user-type" required>
+                        <option selected value="Student">Student</option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Visitor">Visitor</option>
+                        <option value="Community Member">Community Member</option>
+                        <option value="Outreach Partner">Outreach Partner</option>
+                      </select>
                     </div>
                   </div>
 
@@ -286,6 +302,7 @@
             </div>
           </div>
           <!--End of Add Modal-->
+          
 
           <!-- Delete Modal -->
           <div class="modal fade" id="delete-modal">
@@ -298,7 +315,8 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form id="delete-user-form" autocomplete="off">
+                <form id="delete-user-form" autocomplete="off">
+
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
@@ -313,17 +331,32 @@
                     <input type="submit" class="btn btn-danger" value="Delete">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
+
                 </form>
               </div>
             </div>
           </div>
           <!--End of Delete Modal-->
+          
 
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
+
+      <!-- Footer Copyright &copy; -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Green TCNJ 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
@@ -369,8 +402,9 @@
   <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/table-conversions.js"></script>
-  <script src="js/users-table.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/tables/table-conversions.js"></script>
+  <script src="js/tables/users-table.js"></script>
 
 </body>
 
