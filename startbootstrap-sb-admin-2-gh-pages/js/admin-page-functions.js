@@ -52,3 +52,46 @@ function redirectToLogin(){
     window.location.href = dir + "/login.html";
 }
 
+
+
+function generateSidebar(){
+
+    var accessLevels = JSON.parse(sessionStorage.getItem("accessLevels"));
+
+    if(accessLevels["events"] === 1 || accessLevels["materials"] === 1 || accessLevels["news"] === 1 || accessLevels["reports"] === 1){
+
+        $("#initiatives-tables-heading").removeClass("d-none");
+
+        if(accessLevels["events"] === 1){
+            $("#events-link").removeClass("d-none");
+        }
+
+        if(accessLevels["materials"] === 1){
+            $("#materials-link").removeClass("d-none");
+        }
+    
+        if(accessLevels["news"] === 1){
+            $("#news-link").removeClass("d-none");
+        }
+    
+        if(accessLevels["reports"] === 1){
+            $("#reports-link").removeClass("d-none");
+        }
+    }
+    
+
+    if(accessLevels["users"] === 1 || accessLevels["admins"] === 1){
+
+        $("#account-tables-heading").removeClass("d-none");
+
+        if(accessLevels["users"] === 1){
+            $("#users-link").removeClass("d-none");
+        }
+
+        if(accessLevels["admins"] === 1){
+            $("#admins-link").removeClass("d-none");
+        }
+    }
+}
+
+generateSidebar();

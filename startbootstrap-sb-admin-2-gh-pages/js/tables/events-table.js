@@ -150,6 +150,9 @@ jQuery(function(){
                                 }
                             }
                         ]
+                    },
+                    initComplete: function(){ 
+                        $(".table-hidden").show(); 
                     }
                 });
 

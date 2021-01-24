@@ -8,6 +8,7 @@
         selectedRows = participantsTable.rows( { selected: true } ).count();
 
         participantsTable.button(1).enable(selectedRows > 0);
+        participantsTable.button(2).enable(selectedRows > 0);
 
     });
 
@@ -54,7 +55,7 @@
                     select: {
                         style: "os"
                     },
-                    columnDefs: [{targets: 0, visible: false}, {targets: 1, visible: false}],
+                    columnDefs: [{targets: 0, visible: false}],
                     buttons: {
                         dom: {
                         button: {
@@ -74,7 +75,13 @@
                                 className: 'btn btn-blue btn-icon-split',
                                 action: function(){
                                     $("#edit-attendance-modal").modal("toggle");
-                                    //attendanceModal();
+                                }
+                            },
+                            {
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Delete Participant</span>', 
+                                className: 'btn btn-danger btn-icon-split',
+                                action: function(){
+                                    $("#delete-participant-modal").modal("toggle");
                                 }
                             }
                         ]
@@ -87,6 +94,7 @@
 
             selectedRows = 0;
             participantsTable.button(1).enable(false);
+            participantsTable.button(2).enable(false);
 
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
@@ -167,14 +175,67 @@
                 console.log("Participant attendance failed!");
             }
 
-            
-
         }, "json").fail(function(xhr, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
         });
 
     });
+
+    // --------------SUBMIT DELETE PARTICIPANT MODAL------------------
+    $(document).on("submit", "#delete-participant-form", function(e){
+
+        e.preventDefault();
+
+        // Get all the info from the form
+        var form = $(this).serializeArray();
+        
+        var confirmString = form[0].value;
+
+        if(confirmString != "delete" && confirmString != "DELETE"){
+            $("#delete-participant-modal").modal("toggle");
+            $("#delete-participant-form")[0].reset();
+            return;
+        }
+
+        var rowsData = participantsTable.rows( { selected: true } ).data();
+
+        var participantsDataArray = [];
+
+        for(i = 0; i < rowsData.length; i++){
+            participantsDataArray.push(rowsData[i][0]);
+        }
+
+        if(participantsDataArray.length < 1){
+            console.log("No participants selected!");
+        }
+        else{
+            var obj = {func: "delete_participants", participantIDs: participantsDataArray};
+
+            $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
+
+                    if(response["missingInput"]){
+                        console.log("Delete Request Failed! Server request was missing required input!");
+                    }
+                    else if(response["deleteSuccess"]){
+                        console.log("Delete Request Completed! The selected participants accounts were deleted!");
+                    }
+                    else{
+                        console.log("Delete Request Failed! Server Error please try again!");
+                    }
+
+                    getParticipants(eventID);
+                    $("#delete-participant-modal").modal("toggle");
+                    $("#delete-participant-form")[0].reset();
+
+            }, "json").fail(function(xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+            });
+        }
+            
+    });
+
 
     $(document).on('show.bs.modal', '.modal', function () {
         var zIndex = 1040 + (10 * $('.modal:visible').length);

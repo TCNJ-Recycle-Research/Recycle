@@ -50,22 +50,25 @@
           <span>Dashboard</span></a>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+      <div id="initiatives-tables-heading" class="d-none">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Initiatives Tables
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Initiatives Tables
+        </div>
       </div>
-
+    
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="d-none nav-item" id="events-link">
         <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
           <span>Events</span>
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="d-none nav-item" id="materials-link">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
           <span>Materials</span>
         </a>
@@ -78,13 +81,13 @@
         </div>
       </li>
 
-      <li class="nav-item">
+      <li class="d-none nav-item" id="news-link">
         <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
           <span>News</span>
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="d-none nav-item" id="reports-link">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
           <!-- <i class="fas fa-fw fa-wrench"></i> -->
           <span>Reports</span>
@@ -98,24 +101,27 @@
         </div>
       </li>
 
+      <div id="account-tables-heading" class="d-none">
 
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Account Tables
+        </div>
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Account Tables
       </div>
 
+
       <!-- Nav Item - Accounts Menu -->
-      <li class="nav-item">
+      <li class="d-none nav-item" id="users-link">
         <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
           <span>Users</span>
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="d-none nav-item" id="admins-link">
         <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
           <span>Admins</span>
         </a>
@@ -210,7 +216,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="eventsTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hidden" id="eventsTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Event ID</th>
@@ -350,7 +356,7 @@
               </div>
             </div>
           </div>
-          <!--End of Add Modal-->
+          <!--End of Add Event Modal-->
 
 
           <!-- Edit Modal -->
@@ -465,7 +471,7 @@
           </div>
           <!--End of Edit Modal-->
 
-          <!-- Delete Modal -->
+          <!-- Delete Event Modal -->
           <div class="modal fade" id="delete-modal" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -495,7 +501,7 @@
               </div>
             </div>
           </div>
-          <!--End of Delete Modal--> 
+          <!--End of Delete Event Modal--> 
           
           <!-- QR Modal -->
           <div class="modal fade" id="QR-modal">
@@ -699,6 +705,38 @@
           </div>
           <!--End of Edit Attendance Modal-->
 
+          <!-- Delete Participant Modal -->
+          <div class="modal fade" id="delete-participant-modal" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Participant</h4>
+                  <a href="#" data-dismiss="modal" class="close">&times;</a>
+                </div>
+
+                <form id="delete-participant-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <p>Type <b>delete</b> to permanently delete the selected participants.</p>
+                      <input type="text" class="form-control form-control-user confirm-string" name="confirm-string" required>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Delete Participant Modal--> 
+
         </div>
         <!-- /.container-fluid -->
 
@@ -739,8 +777,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
+          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
@@ -764,6 +802,7 @@
   <script src="vendor/datatables/datatables.select.min.js"></script>
 
   <!-- Page level custom scripts -->
+  <script src="js/admin-page-functions.js"></script>
   <script src="js/alerts.js"></script>
   <script src="js/tables/table-conversions.js"></script>
   <script src="js/tables/participants-table.js"></script>

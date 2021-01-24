@@ -57,7 +57,9 @@ jQuery(function(){
                         //set the session on the login page
                         sessionStorage.setItem("loggedIn", true);
                         sessionStorage.setItem("adminName", response["adminName"]);
+                        sessionStorage.setItem("accessLevels", JSON.stringify(response["accessLevels"]));
 
+                        console.log("resonse: " +  response["accessLevels"]["events"]);
                         if($("#rememberMe").prop('checked')){
                             localStorage.setItem("adminEmail", email);
                         }

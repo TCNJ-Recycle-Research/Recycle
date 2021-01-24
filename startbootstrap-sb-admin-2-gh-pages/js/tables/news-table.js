@@ -111,10 +111,12 @@ jQuery(function(){
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
-                                    //$(".active-row").css("background-color", "var(--danger)");
                                 }
                             }
                         ]
+                    },
+                    initComplete: function(){ 
+                        $(".table-hidden").show(); 
                     }
                 });
 

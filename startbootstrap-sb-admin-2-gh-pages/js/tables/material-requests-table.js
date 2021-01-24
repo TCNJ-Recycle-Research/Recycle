@@ -105,6 +105,9 @@ jQuery(function(){
                                 }
                             }
                         ]
+                    },
+                    initComplete: function(){ 
+                        $(".table-hidden").show(); 
                     }
                 });
 
@@ -125,7 +128,6 @@ jQuery(function(){
 
     }
 
-
     // --------------ADD MATERIAL MODAL------------------
     $(document).on("submit", "#add-request-form", function(e){
 
@@ -137,8 +139,6 @@ jQuery(function(){
         var requestMaterial = form[0].value;
         var requestDescription = form[1].value;
         var userEmail = form[2].value;
-
-        console.log("Request Mat: " + requestMaterial + "    Des:" + requestDescription + "     Email: " + userEmail);
 
         var obj = {func: "add_request", requestMaterial: requestMaterial, requestDescription: requestDescription, userEmail: userEmail};
 

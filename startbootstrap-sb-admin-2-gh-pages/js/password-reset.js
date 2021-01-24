@@ -75,7 +75,7 @@ jQuery(function(){
 
                         // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                         if(response["resetSuccess"]){
-                            successAlert();
+                            successAlert("Password Reset Complete!", "Your account password has successfully been changed!", false);
                         }
                         else if(response["missingInput"]){
                             failureAlert("Password Reset Failed!", "Server request was missing required input!", false);

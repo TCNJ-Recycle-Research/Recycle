@@ -1541,6 +1541,10 @@ pre code {
   padding: 0.3rem;
 }
 
+.table-hidden{
+  display: none;
+}
+
 .table-bordered {
   border: 1px solid #e3e6f0;
 }
