@@ -167,12 +167,7 @@ jQuery(function(){
             table.button(3).enable(false);
             table.button(4).enable(false);
 
-        }, "json").fail(function(xhr, thrownError) {
-            console.log(xhr.status);
-            console.log(thrownError);
-
-            failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
-        });
+        }, "json");
 
     }
 
@@ -242,10 +237,7 @@ jQuery(function(){
             $("#add-event-form")[0].reset();
             
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });           
+        }, "json");           
 
         
     });
@@ -375,10 +367,7 @@ jQuery(function(){
             getEvents();
             $("#edit-modal").modal("toggle");
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });           
+        }, "json");           
         
         
     });
@@ -429,10 +418,7 @@ jQuery(function(){
                     $("#delete-modal").modal("toggle");
                     $("#delete-event-form")[0].reset();
 
-            }, "json").fail(function(xhr, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-            });
+            }, "json");
         }
             
     });

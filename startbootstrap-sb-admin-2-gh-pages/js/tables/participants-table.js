@@ -100,10 +100,7 @@
             participantsTable.button(1).enable(false);
             participantsTable.button(2).enable(false);
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });
+        }, "json");
 
     }
 

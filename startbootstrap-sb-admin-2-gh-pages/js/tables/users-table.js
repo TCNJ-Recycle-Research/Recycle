@@ -17,7 +17,6 @@ jQuery(function(){
         
     });
 
-
     function getUsers(){
 
         var obj = {func: "get_all_users"};
@@ -96,11 +95,7 @@ jQuery(function(){
             table.button(1).enable(false);
 
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
-        });
+        }, "json");
 
     }
 
@@ -138,10 +133,7 @@ jQuery(function(){
             $("#add-user-form")[0].reset();
             
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });           
+        }, "json");           
 
         
     });
@@ -193,10 +185,7 @@ jQuery(function(){
                     $("#delete-modal").modal("toggle");
                     $("#delete-user-form")[0].reset();
 
-            }, "json").fail(function(xhr, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-            });
+            }, "json");
         }
             
     });

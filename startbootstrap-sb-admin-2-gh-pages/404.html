@@ -158,10 +158,25 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+          <!-- Alerts Topbar -->
+          <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
+            <div class="row justify-content-center ">
+              <div class="alert alert-success alert-dismissible animated--grow-in fade my-2" id="success-alert">
+                <strong id="success-alert-strong"></strong> <span id="success-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center ">
+              <div class="alert alert-danger alert-dismissible animated--grow-in fade my-2" id="failure-alert">
+                <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -272,6 +287,7 @@
 
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>
+  <script src="js/alerts.js"></script>
 
 </body>
 

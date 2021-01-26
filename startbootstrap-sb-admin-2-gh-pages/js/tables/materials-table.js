@@ -129,11 +129,7 @@ jQuery(function(){
             table.button(2).enable(false);
 
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
-        });
+        }, "json");
 
     }
 
@@ -225,10 +221,7 @@ jQuery(function(){
             $("#add-material-form")[0].reset();
                 
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });    
+        }, "json");    
     }
     
     // --------------EDIT MATERIAL MODAL------------------
@@ -362,10 +355,7 @@ jQuery(function(){
             getMaterials();
             $("#edit-modal").modal("toggle");
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });       
+        }, "json");       
     }
 
     // --------------DELETE MATERIAL MODAL------------------
@@ -414,10 +404,7 @@ jQuery(function(){
                     $("#delete-modal").modal("toggle");
                     $("#delete-material-form")[0].reset();
 
-            }, "json").fail(function(xhr, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-            });
+            }, "json");
         }
             
     });

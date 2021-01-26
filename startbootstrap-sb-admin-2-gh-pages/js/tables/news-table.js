@@ -128,11 +128,7 @@ jQuery(function(){
             table.button(2).enable(false);
             convertDates(table);
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-                failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
-        });
+        }, "json");
 
     }
 
@@ -167,10 +163,7 @@ jQuery(function(){
             $("#add-article-form")[0].reset();
             
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });           
+        }, "json");           
 
         
     });
@@ -248,10 +241,7 @@ jQuery(function(){
             getArticles();
             $("#edit-modal").modal("toggle");
 
-        }, "json").fail(function(xhr, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-        });           
+        }, "json");           
         
         
     });
@@ -302,10 +292,7 @@ jQuery(function(){
                     $("#delete-modal").modal("toggle");
                     $("#delete-article-form")[0].reset();
 
-            }, "json").fail(function(xhr, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-            });
+            }, "json");
         }
             
     });
