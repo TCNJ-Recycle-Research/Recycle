@@ -132,7 +132,6 @@ jQuery(function(){
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
-                                    //$(".active-row").css("background-color", "var(--danger)");
                                 }
                             },
                             {
@@ -152,7 +151,7 @@ jQuery(function(){
                         ]
                     },
                     initComplete: function(){ 
-                        $(".table-hidden").show(); 
+                        $("#invisible-card").removeClass("invisible");
                     }
                 });
 

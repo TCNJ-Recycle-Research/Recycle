@@ -85,7 +85,11 @@
                                 }
                             }
                         ]
+                    },
+                    initComplete: function(){ 
+                        $("#invisible-subcard").removeClass("invisible");
                     }
+                    
                 });
 
                 participantsTable.buttons().container().appendTo( '#participantsTable_wrapper .row:eq(0)');

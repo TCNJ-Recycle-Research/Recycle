@@ -83,7 +83,7 @@ jQuery(function(){
                         ]
                     },
                     initComplete: function(){ 
-                        $(".table-hidden").show(); 
+                        $("#invisible-card").removeClass("invisible");
                     }
                 });
 
