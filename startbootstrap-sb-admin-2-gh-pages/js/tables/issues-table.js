@@ -6,9 +6,9 @@ jQuery(function(){
 
     var table;
     
-    getRequests();
+    getIssues();
 
-    $("#requestsTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
+    $("#issuesTable").on('select.dt deselect.dt', function (e, dt, type, indexes ) {
 
         selectedRows = table.rows( { selected: true } ).count();
 
@@ -33,17 +33,18 @@ jQuery(function(){
     });
 
 
-    function getRequests(){
 
-        var obj = {func: "get_all_requests"};
+    function getIssues(){
 
-        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+        var obj = {func: "get_all_issues"};
 
-            if($.fn.dataTable.isDataTable("#requestsTable")){
-                $('#requestsTable').DataTable().destroy();
+        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+
+            if($.fn.dataTable.isDataTable("#issuesTable")){
+                $('#issuesTable').DataTable().destroy();
             }
 
-            var tableBody = $("#requestsTable tbody");
+            var tableBody = $("#issuesTable tbody");
             tableBody.empty();
 
             var html;
@@ -51,22 +52,21 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["request_id"] + '</td>';
-                html += '<td>' + response[i]["request_material"] + '</td>';
-                html += '<td>' + response[i]["request_description"] + '</td>';
+                html += '<td>' + response[i]["issue_id"] + '</td>';
                 html += '<td>' + response[i]["user_email"] + '</td>';
-                html += '<td>' + response[i]["request_date"] + '</td>';
+                html += '<td>' + response[i]["issue_description"] + '</td>';
+                html += '<td>' + response[i]["issue_date"] + '</td>';
                 html += '</tr>';
                 
             }
 
             tableBody.append(html);
 
-            if($.fn.dataTable.isDataTable("#requestsTable")){
-                $('#requestsTable').DataTable().draw();
+            if($.fn.dataTable.isDataTable("#issuesTable")){
+                $('#issuesTable').DataTable().draw();
             }
             else{
-                table = $('#requestsTable').DataTable({
+                table = $('#issuesTable').DataTable({
                     order: [[ 0, "asc" ]],
                     pageLength: 25,
                     select: {
@@ -89,7 +89,7 @@ jQuery(function(){
                         },
                         buttons: [
                             {
-                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Request</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Issue</span>', 
                                 className: 'btn btn-primary btn-icon-split',
                                 action: function(){
                                     $("#add-modal").modal("toggle");
@@ -97,11 +97,10 @@ jQuery(function(){
                             },
                             {
                                
-                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Request</span>', 
+                                text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Issue</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
-                                    //$(".active-row").css("background-color", "var(--danger)");
                                 }
                             }
                         ]
@@ -111,7 +110,7 @@ jQuery(function(){
                     }
                 });
 
-                table.buttons().container().appendTo( '#requestsTable_wrapper .row:eq(0)');
+                table.buttons().container().appendTo( '#issuesTable_wrapper .row:eq(0)');
 
             }
 
@@ -119,40 +118,38 @@ jQuery(function(){
             table.button(1).enable(false);
             convertDates(table);
 
-
         }, "json");
 
     }
 
     // --------------ADD MATERIAL MODAL------------------
-    $(document).on("submit", "#add-request-form", function(e){
+    $(document).on("submit", "#add-issue-form", function(e){
 
         e.preventDefault();
 
         // Get all the info from the form
         var form = $(this).serializeArray();
 
-        var requestMaterial = form[0].value;
-        var requestDescription = form[1].value;
-        var userEmail = form[2].value;
+        var userEmail = form[0].value;
+        var issueDescription = form[1].value;
+        
+        var obj = {func: "add_issue", userEmail: userEmail, issueDescription: issueDescription};
 
-        var obj = {func: "add_request", requestMaterial: requestMaterial, requestDescription: requestDescription, userEmail: userEmail};
-
-        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
-                failureAlert("Add Request Failed!", "Server request was missing required input!", true);
+                failureAlert("Add Issue Failed!", "Server issue was missing required input!", true);
             }
             else if(response["addSuccess"]){
-                successAlert("Add Request Completed!", "The material request specified was created!", true);
+                successAlert("Add Issue Completed!", "The issue report specified was created!", true);
             }
             else{
-                failureAlert("Add Request Failed!", "Server error please try again!", true);
+                failureAlert("Add Issue Failed!", "Server error please try again!", true);
             }
 
-            getRequests();
+            getIssues();
             $("#add-modal").modal("toggle");
-            $("#add-request-form")[0].reset();
+            $("#add-issue-form")[0].reset();
             
 
         }, "json");           
@@ -162,7 +159,7 @@ jQuery(function(){
 
 
     // --------------DELETE MATERIAL MODAL------------------
-    $(document).on("submit", "#delete-request-form", function(e){
+    $(document).on("submit", "#delete-issue-form", function(e){
 
         e.preventDefault();
 
@@ -174,41 +171,41 @@ jQuery(function(){
         if(!(confirmString == "delete")){
             failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
-            $("#delete-request-form")[0].reset();
+            $("#delete-issue-form")[0].reset();
             return;
         }
 
         var rowsData = table.rows( { selected: true } ).data();
 
-        var requestsDataArray = [];
+        var issuesDataArray = [];
 
         for(i = 0; i < rowsData.length; i++){
-            requestsDataArray.push(rowsData[i][0]);
+            issuesDataArray.push(rowsData[i][0]);
         }
 
-        if(requestsDataArray.length < 1){
-            failureAlert("Delete Request Failed!", "No material requests selected!", true);
+        if(issuesDataArray.length < 1){
+            failureAlert("Delete Request Failed!", "No issue reports selected!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-request-form")[0].reset();
         }
         else{
-            var obj = {func: "delete_requests", requestIDs: requestsDataArray};
+            var obj = {func: "delete_issues", issueIDs: issuesDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+            $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-                        failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
+                        failureAlert("Delete issue Failed!", "Server issue was missing required input!", true);
                     }
                     else if(response["deleteSuccess"]){
-                        successAlert("Delete Request Completed!", "The selected material requests were successfully deleted!", true);
+                        successAlert("Delete issue Completed!", "The selected issue reports were successfully deleted!", true);
                     }
                     else{
-                        failureAlert("Delete Request Failed!", "Server error please try again!", true);
+                        failureAlert("Delete issue Failed!", "Server error please try again!", true);
                     }
 
-                    getRequests();
+                    getIssues();
                     $("#delete-modal").modal("toggle");
-                    $("#delete-request-form")[0].reset();
+                    $("#delete-issue-form")[0].reset();
 
             }, "json");
         }

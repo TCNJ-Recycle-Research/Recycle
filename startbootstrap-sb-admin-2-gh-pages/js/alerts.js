@@ -8,6 +8,7 @@ $(document).on('click', '.alert-close', function() {
 function successAlert(strongText, alertText, fadeOut){
 
     $(".alert").finish();
+    $(".alert").hide();
 
     $("#success-alert-strong").html("");
     $("#success-alert-strong").html(strongText);
@@ -29,6 +30,7 @@ function successAlert(strongText, alertText, fadeOut){
 function failureAlert(strongText, alertText, fadeOut){
 
     $(".alert").finish();
+    $(".alert").hide();
 
     $("#failure-alert-strong").html("");
     $("#failure-alert-strong").html(strongText);

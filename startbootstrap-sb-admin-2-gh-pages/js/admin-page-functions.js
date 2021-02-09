@@ -86,6 +86,8 @@ $(document).ajaxError(function(event, jqxhr, settings, exception) {
     else{
         console.log(jqxhr.status);
         console.log(exception);
+        $(".modal").modal("hide");
+        $(".form").reset();
         failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
     }
 });

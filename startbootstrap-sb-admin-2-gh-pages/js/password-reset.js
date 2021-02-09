@@ -8,7 +8,7 @@ jQuery(function(){
 
     $(document).on("submit", "#reset-form", function(e){
 
-        var email, password, passwordRepeat, select, valid;
+        var password, passwordRepeat, select, valid;
 
         // Prevent form submission which refreshes page
         e.preventDefault();
@@ -17,17 +17,8 @@ jQuery(function(){
             
             submitted = isValid = true;
 
-            email = $("#email").val();
             password = $("#password").val();
             passwordRepeat = $("#password-repeat").val();
-
-            if(email == ""){
-                printError("email-error", "Please enter your email address");
-                isValid = false;
-            }
-            else{
-                printError("email-error", "");
-            }
 
             if(password == ""){
                 printError("password-error", "Please enter your password");
@@ -68,7 +59,7 @@ jQuery(function(){
                     select = urlParams.get('selector');
                     valid = urlParams.get('validator');
 
-                    var obj = {func: "verify_reset", email: email, password: password, passwordRepeat: passwordRepeat, selector: select, validator: valid};
+                    var obj = {func: "verify_reset", password: password, passwordRepeat: passwordRepeat, selector: select, validator: valid};
 
                     $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
@@ -76,6 +67,7 @@ jQuery(function(){
                         // Function will return a boolean in json object to let front end know if login succeeded with correct email and password
                         if(response["resetSuccess"]){
                             successAlert("Password Reset Complete!", "Your account password has successfully been changed!", false);
+                            $("#reset-form")[0].reset();
                         }
                         else if(response["missingInput"]){
                             failureAlert("Password Reset Failed!", "Server request was missing required input!", false);

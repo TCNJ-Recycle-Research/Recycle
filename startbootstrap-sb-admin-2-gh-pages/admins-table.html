@@ -97,6 +97,7 @@
             <h6 class="collapse-header">Reports</h6>
             <a class="collapse-item" href="view-graphs.html">View Graphs</a>
             <a class="collapse-item" href="generate-reports.html">Generate Reports</a>
+            <a class="collapse-item" href="issues-table.html">View Issues</a>
           </div>
         </div>
       </li>
@@ -261,32 +262,57 @@
                 </div>
 
                   <form id="add-admin-form" autocomplete="off">
+
                     <!-- Modal body -->
                     <div class="modal-body">
+
+                      <div class="btn-group btn-group-toggle mx-auto mb-3" style="width:100%;" data-toggle="buttons">
+                        <label class="btn btn-outline-primary active">
+                          <input type="radio" name="options" id="existing-account-btn" autocomplete="off" checked> From Existing User
+                        </label>
+                        <label class="btn btn-outline-primary">
+                          <input type="radio" name="options" id="new-account-btn" autocomplete="off">  New Account
+                        </label>
+                      </div>
+
                       <div class="form-group">
-                        <label for="email">Admin Email</label>
-                        <input type="email" aria-describedby="emailHelp" class="form-control form-control-user email" name="email" required>
+                        <label for="email" id="add-admin-email">User Account Email</label>
+                        <input type="email" aria-describedby="emailHelp" class="form-control form-control-user" name="email" required>
                       </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="first">Admin First Name</label>
-                          <input type="text" class="form-control form-control-user admin-first-name" name="first" required>
+                      <div id="new-account-inputs" style="display: none;">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="first">Admin First Name</label>
+                            <input type="text" class="form-control form-control-user" name="first">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="last">Admin Last Name</label>
+                            <input type="text" class="form-control form-control-user" name="last">
+                          </div>
                         </div>
-                        <div class="form-group col-md-6">
-                          <label for="last">Admin Last Name</label>
-                          <input type="text" class="form-control form-control-user admin-last-name" name="last" required>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="first">Password</label>
+                            <input type="password" class="form-control form-control-user" name="password">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="last">Password Repeat</label>
+                            <input type="password" class="form-control form-control-user" name="password-repeat">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="user-type">User Type</label>
+                          <select class="custom-select form-control" name="user-type" required>
+                            <option selected value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Visitor">Visitor</option>
+                            <option value="Community Member">Community Member</option>
+                            <option value="Outreach Partner">Outreach Partner</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="first">Password</label>
-                          <input type="password" class="form-control form-control-user password" name="password" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="last">Password Repeat</label>
-                          <input type="password" class="form-control form-control-user password-repeat" name="password-repeat" required>
-                        </div>
-                      </div>
+                      
 
                       <span>Access Levels</span>
 

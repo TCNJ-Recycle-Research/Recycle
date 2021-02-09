@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Material Requests - Green TCNJ</title>
+  <title>Issues - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -186,7 +186,7 @@
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="admin-name">Admin</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="admin-name"></span>
               <div class="img-profile rounded-circle d-flex justify-content-center">
                 <i class="fas fa-user-circle fa-2x m-auto"></i>
               </div>
@@ -211,26 +211,24 @@
           <!-- Material Requests Table -->
           <div class="card shadow mb-4 invisible" id="invisible-card">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">Material Requests</h4>
+              <h4 class="m-0 font-weight-bold text-primary">Issue Reports</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="requestsTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="issuesTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                        <th>Request ID</th>
-                        <th>Requested Material</th>
-                        <th class="paragraph">Request Description</th>
+                        <th>Issue ID</th>
                         <th>User Email</th>
+                        <th class="paragraph">Issue Description</th>
                         <th class="date">Request Date</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                        <th>Request ID</th>
-                        <th>Requested Material</th>
-                        <th class="paragraph">Request Description</th>
+                        <th>Issue ID</th>
                         <th>User Email</th>
+                        <th class="paragraph">Issue Description</th>
                         <th class="date">Request Date</th>
                     </tr>
                   </tfoot>
@@ -248,20 +246,20 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Add Request</h4>
+                  <h4 class="modal-title">Add Issue</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form id="add-request-form" autocomplete="off">
+                  <form id="add-issue-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <label for="request-material">Requested Material</label>
-                      <input type="text" class="form-control form-control-user request-material" name="request-material" required><br>
-                      <label for="request-description">Request Description</label>
-                      <textarea class="form-control form-control-user request-description"  name="request-description" rows="4" cols="50" maxlength="255" required></textarea><br>
-                      <label for="user-email">User Email</label>
-                      <input type="text" class="form-control form-control-user user-email" name="user-email" required><br>
+                        <label for="user-email">User Email</label>
+                        <input type="text" class="form-control form-control-user user-email" name="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue-description">Issue Description (What is the issue?)</label>
+                        <textarea class="form-control form-control-user issue-description"  name="issue-description" rows="4" cols="50" maxlength="1000" required></textarea>
                     </div>
                   </div>
 
@@ -285,11 +283,11 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Delete Request</h4>
+                  <h4 class="modal-title">Delete Issues</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                  <form id="delete-request-form" autocomplete="off">
+                  <form id="delete-issue-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
@@ -378,7 +376,7 @@
   <script src="js/admin-page-functions.js"></script>
   <script src="js/alerts.js"></script>
   <script src="js/tables/table-conversions.js"></script>
-  <script src="js/tables/material-requests-table.js"></script>
+  <script src="js/tables/issues-table.js"></script>
 
 </body>
 

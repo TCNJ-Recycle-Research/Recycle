@@ -232,7 +232,7 @@ jQuery(function(){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["editSuccess"]){
-                successAlert("Edit Request Completed!", "The selected news articles were successfully edited!", true);
+                successAlert("Edit Request Completed!", "The selected news article was successfully edited!", true);
             }
             else{
                 failureAlert("Edit Request Failed!", "Server error please try again!", true);

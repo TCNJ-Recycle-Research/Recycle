@@ -112,23 +112,43 @@ jQuery(function(){
     }
 
     // --------------ADD ADMIN MODAL------------------
+
+    // Switch add admin modal from existing account mode to new account 
+    $(document).on("click", "#new-account-btn", function(){
+
+        $("#new-account-inputs").show();
+        $("#new-account-inputs .form-control").prop('required', true);
+        $("#add-admin-email").html("Admin Email");
+        
+    });
+
+    // Switch add admin modal from new account to existing account mode
+    $(document).on("click", "#existing-account-btn", function(){
+
+        $("#new-account-inputs").hide();
+        $("#new-account-inputs .form-control").prop('required', false);
+        $("#add-admin-email").html("User Account Email");
+    });
+
     $(document).on("submit", "#add-admin-form", function(e){
 
         e.preventDefault();
 
         // Get all the info from the form
         var form = $(this).serializeArray();
-        var adminEmail = form[0].value;
-        var first = form[1].value;
-        var last = form[2].value;
-        var pwd = form[3].value;
-        var pwdRepeat = form[4].value;
+
+        var adminEmail = form[1].value;
+        var firstName = form[2].value;
+        var lastName = form[3].value;
+        var pwd = form[4].value;
+        var pwdRepeat = form[5].value;
+        var userType = form[6].value;
 
         var accessLevels = {"events":0, "materials":0, "news":0,
              "reports":0, "users":0 , "admins":0 };
         
         // Form only submits actively checked boxes
-        for(var i = 5; i < form.length; i++){
+        for(var i = 7; i < form.length; i++){
 
             switch(form[i].name){
 
@@ -155,19 +175,36 @@ jQuery(function(){
             }
         }
 
-        var obj = {func: "add_admin", email: adminEmail, firstName: first, lastName: last, 
-        password: pwd, passwordRepeat: pwdRepeat, accessLevels: accessLevels};
+        var obj;
 
+        // If firstName is empty string that means it's not required for form submission 
+        // e.g. we're making an existing user account an admin instead of creating a user+admin account at the same time
+        if(firstName == ""){
+            obj = {func: "add_admin", email: adminEmail, accessLevels: accessLevels};
+        }
+        else{
+            obj = {func: "add_admin_and_user", email: adminEmail, firstName: firstName, lastName: lastName, password: pwd, passwordRepeat: pwdRepeat, accessLevels: accessLevels, userType: userType};
+        }
+        
         $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
             }
             else if(response["addSuccess"]){
-                successAlert("Add Request Completed!", "The admin account specified was created!", true);
+
+                if(firstName == "")
+                {    successAlert("Add Request Completed!", "The admin account specified was created!", true);   }
+                else
+                {   successAlert("Add Request Completed!", "The admin and user account specified were created!", true);   }
             }
             else{
-                failureAlert("Add Request Failed!", "Make sure the email is not already taken and that the passwords match!", true);
+
+                if(firstName == "")
+                {    failureAlert("Add Request Failed!", "Make sure a user account with that email exists and no admin account uses it!", true);   }
+                else
+                {   failureAlert("Add Request Failed!", "Make sure there are no existing accounts with that email and that the passwords match!", true);   }
+
             }
 
             getAdmins();

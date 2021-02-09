@@ -27,7 +27,7 @@ jQuery(function(){
 
                 printError("email-error", "");
                 
-                var obj = {func: "generate_reset", email: email};
+                var obj = {func: "generate_reset", email: email, isMobileRequest: false};
 
                 $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
