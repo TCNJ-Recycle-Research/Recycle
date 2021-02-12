@@ -32,7 +32,6 @@ jQuery(function(){
                 $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
-
                         failureAlert("Password Reset Request Failed!", "Server request was missing required input!", false);
                     }
 

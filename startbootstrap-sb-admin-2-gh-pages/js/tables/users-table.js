@@ -113,8 +113,32 @@ jQuery(function(){
         var pwd = form[3].value;
         var pwdRepeat = form[4].value;
         var type = form[5].value;
+        var userInterests = {"recycling":0, "water":0, "pollution":0, "energy":0};
+        
+        // Form only submits actively checked boxes
+        for(var i = 6; i < form.length; i++){
 
-        var obj = {func: "add_user", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, userType: type};
+            switch(form[i].name){
+
+                case "recycling-interest":
+                    userInterests["recycling"] = 1;
+                break;
+                case "water-interest":
+                    userInterests["water"] = 1;
+                break;
+                case "pollution-interest":
+                    userInterests["pollution"] = 1;
+                break;
+                case "energy-interest":
+                    userInterests["energy"] = 1;
+                break;
+                default:
+                break;
+            }
+        }
+
+        var obj = {func: "add_user", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, 
+        userType: type, userInterests: userInterests};
 
         $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
