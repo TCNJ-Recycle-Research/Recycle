@@ -21,6 +21,7 @@
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet">
+  <link href="vendor/calendar/lib/main.min.css" rel="stylesheet">
 
 </head>
 
@@ -238,6 +239,59 @@
 
 
           <!-- Content Row -->
+          <div class = "row">
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">News</h6>
+                </div>
+                <div class="card-body">
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+                    
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter<strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="col-xl-8 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Event Calendar</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body"  id='calendar'>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
           <div class="row">
 
@@ -267,7 +321,6 @@
                 </div>
               </div>
             </div>
-            <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=Y18ycGQzMXFlZ2s0OW1qdWMzczdqODQ5Y25sb0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%233F51B5&amp;color=%230B8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
           </div>
 
             <!-- <div class = "row">
@@ -284,16 +337,7 @@
               </div>
             </div>  -->
               <!-- Approach -->
-            <div class = "row">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">News</h6>
-                </div>
-                <div class="card-body">
-                  <p>Here's the latest news on campus</p>
-                </div>
-              </div>
-            </div>
+            
             </div>
           </div>
 
@@ -351,6 +395,8 @@
   <script src="js/alerts.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+  <script src='vendor/calendar/lib/main.js'></script>
+  <script src="js/index.js"></script>
 
 </body>
 
