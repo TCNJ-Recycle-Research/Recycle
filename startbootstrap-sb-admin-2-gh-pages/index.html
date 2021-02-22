@@ -61,7 +61,7 @@
           Initiatives Tables
         </div>
       </div>
-    
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="d-none nav-item" id="events-link">
         <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
@@ -236,63 +236,6 @@
             <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
           </div>
 
-
-
-          <!-- Content Row -->
-          <div class = "row">
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">News</h6>
-                </div>
-                <div class="card-body">
-
-                  <div class="card mb-2 border-bottom-primary">
-                    <div class="card-body mb-0 pb-0">
-                      <h3>What's in TCNJ's water?</h3>
-                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
-                    </div>
-                  </div>
-                    
-                  <div class="card mb-2 border-bottom-primary">
-                    <div class="card-body mb-0 pb-0">
-                      <h3>What's in TCNJ's water?</h3>
-                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
-                    </div>
-                  </div>
-
-                  <div class="card mb-2 border-bottom-primary">
-                    <div class="card-body mb-0 pb-0">
-                      <h3>What's in TCNJ's water?</h3>
-                      <p>by Hannibal Lecter<strong>02/18/2021</strong></p>
-                    </div>
-                  </div>
-
-                  <div class="card mb-2 border-bottom-primary">
-                    <div class="card-body mb-0 pb-0">
-                      <h3>What's in TCNJ's water?</h3>
-                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-
-            <div class="col-xl-8 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Event Calendar</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body"  id='calendar'>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
           <div class="row">
 
             <!-- Pie Chart -->
@@ -321,7 +264,120 @@
                 </div>
               </div>
             </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Current Issue Requests</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> 
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i>
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Current Material Requests</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i>
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i>
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+
+
+          <!-- Content Row -->
+          <div class = "row">
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">News</h6>
+                </div>
+                <div class="card-body">
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter<strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="card mb-2 border-bottom-primary">
+                    <div class="card-body mb-0 pb-0">
+                      <h3>What's in TCNJ's water?</h3>
+                      <p>by Hannibal Lecter <strong>02/18/2021</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-xl-8 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Event Calendar</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body"  id='calendar'>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
 
             <!-- <div class = "row">
               <div class="card shadow mb-4">
@@ -337,7 +393,7 @@
               </div>
             </div>  -->
               <!-- Approach -->
-            
+
             </div>
           </div>
 
@@ -397,6 +453,7 @@
   <script src="js/demo/chart-pie-demo.js"></script>
   <script src='vendor/calendar/lib/main.js'></script>
   <script src="js/index.js"></script>
+  <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
 </body>
 
