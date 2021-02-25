@@ -1,7 +1,8 @@
-
-
 jQuery(function(){
+
     var calendarEl = document.getElementById('calendar');
+
+    var activeUsersChart;
 
     var eventsSource = [];
 
@@ -19,99 +20,87 @@ jQuery(function(){
 
         });
 
-          // $("eventsSource.events").click(function(){
-          //   alert("The event was clicked.");
-          // });
-
-          // $("p").click(function(){
-          //   alert("The paragraph was clicked.");
-          // });
-
-
-
-
-          // var calendar = new FullCalendar.Calendar(calendarEl, {
-          //   eventClick: function(info) {
-          //     var eventObj = info.event;
-          //   }
-          // }
-
-        // eventClick = function(info) {
-        //   var eventsSource = info.event_name;
-        //
-        //   if (eventsSource.url) {
-        //     alert(
-        //       'Clicked ' + eventsSource.title + '.\n' +
-        //       'Will open ' + eventsSource.url + ' in a new tab'
-        //     );
-        //
-        //     window.open(eventsSource.url);
-        //
-        //     info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
-        //   } else {
-        //     alert('Clicked ' + eventsSource.event_name);
-        //   }
-        // },
-
-        // eventDidMount = function(info) {
-        //   var tooltip = new Tooltip(info.eventsSource, {
-        //     title: info.event_name.extendedProps.event_description,
-        //     placement: 'top',
-        //     trigger: 'hover',
-        //     container: 'body'
-        //   });
-        // }
-
-        // eventDidMount= function(info) {
-        //   var tooltip = new Tooltip(info.el, {
-        //     title: info.event_name.extendedProps.event_description,
-        //     placement: 'top',
-        //     trigger: 'hover',
-        //     container: 'body'
-        //   });
-        // },
-
-        // createPopper(popcorn, tooltip, {
-        //   placement: 'top',
-        //   trigger: 'hover',
-        //   container: 'body'
-        // });
-
-        // eventRender = function(event, element) {
-        //   $(element).popover({title: event.title, content: event.description, trigger: 'hover', placement: 'auto right', delay: {"hide": 300 }});
-        // },
-
-        // var $calendar = $("#calendar");
-        //   $(".fc-day, .fc-day-top").hover(function(e) {
-        //     var date = moment.utc($(e.currentTarget).data("date"));
-        //     var events = $calendar.fullCalendar("clientEvents", function(event) { return event.start.startOf("day").isSame(date); });
-        //     console.log(events);
-        //   });
-
-        // eventDidMount: function(info) {
-        //   var tooltip = new Tooltip(info.el, {
-        //     title: info.event.extendedProps.description,
-        //     placement: 'top',
-        //     trigger: 'hover',
-        //     container: 'body'
-        //   });
-        // },
-
         calendar.render();
 
     }, "json");
 
-    // $('#calendar').FullCalendar({
-    //   eventClick: function(eventsSource) {
-    //
-    //     alert('Event: ' + eventsSource.events);
-    //     // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-    //     // alert('View: ' + view.name);
-    //
-    //     // change the border color just for fun
-    //     $(this).css('border-color', 'red');
-    //
-    //   }
-    // });
 
+    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
+
+        $("#event-signups").html(response["event_signups"]);
+
+        $("#issue-reports").html(response["issues"]);
+
+        $("#material-requests").html(response["material_requests"]);
+
+    }, "json");
+
+
+    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
+
+        var i = 0;
+
+        $('#top-materials li').each(function(i)
+        {
+            $(this).html(response["top_materials"][i][0]); 
+            i++;
+        });
+
+    }, "json");
+
+    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_user_stats"}), function(response) {
+
+        if (activeUsersChart != null){
+            activeUsersChart.destroy();
+        }
+    
+        activeUsersChart = new Chart(document.getElementById("activeUsersChart"), {
+            type: 'doughnut',
+            data: {
+                labels: ["Student", "Faculty", "Staff", "Visitor", "Community Member", "Outreach Partner"],
+                datasets: [{
+                data: $.map(response["daily_users"]["active"], function(el) { return el }),
+                backgroundColor: ['#54A649' , '#1cc88a', '#f6c23e', '#6610f2', '#4e73df', '#36b9cc'],
+                hoverBackgroundColor: ['#43873a', '#13855c', '#dda20a','#6f42c1', '#2e59d9', '#258391' ],
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+                },
+                legend: {
+                display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+
+    }, "json");
+
+
+    $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify({func: "get_all_articles"}), function(response) {
+
+        $newsElements = "";
+        $htmlStart = '<div class="card mb-2 border-bottom-primary"><div class="card-body mb-0 pb-0"><h3>';
+        $htmlEnd = '</strong></p></div></div>';
+
+        for(var i = 0; i < 7; i++){
+            
+            if(response[i] == null) break;
+
+            $newsElements += $htmlStart + response[i]["article_title"] + '</h3><p> by ' + response[i]["article_author"] + '<strong> ' + response[i]["publish_date"] + $htmlEnd;
+        }
+
+        $("#news-list").html($newsElements);
+
+    }, "json");
 });
