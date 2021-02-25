@@ -10,8 +10,7 @@ jQuery(function(){
     $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
         for(var i = 0; i < response.length; i++){
-            console.log("i: " + response[i]["event_name"]+response[i]["event_description"]);
-            eventsSource.push({"title": response[i]["event_name"], "start" : response[i]["event_date"] + "T" + response[i]["start_time"], "description": response[i]["event_description"]});
+            eventsSource.push({"title": response[i]["event_name"], "start" : response[i]["event_date"] + "T" + response[i]["start_time"]});
         }
 
         var calendar = new FullCalendar.Calendar(calendarEl, {

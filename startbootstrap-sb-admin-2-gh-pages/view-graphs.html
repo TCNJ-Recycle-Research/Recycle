@@ -96,7 +96,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
             <a class="collapse-item" href="view-graphs.html">View Graphs</a>
-            <a class="collapse-item" href="generate-reports.html">Generate Reports</a>
             <a class="collapse-item" href="issues-table.html">View Issues</a>
           </div>
         </div>
@@ -213,9 +212,313 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">View Graphs</h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          </div>
+          <div class="row">
+
+            <!-- Event Signups (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Event Signups (Monthly)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="event-signups">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Attendance (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Event Attendance (Monthly)
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="event-attendance">0%</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" id="event-attendance-progressbar" role="progressbar" style="width: 50%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Requests Card  -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                  Material Requests</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800" id="material-requests">0</div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-question-circle fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
 
+            <!-- Pending Issues Card  -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Issues</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="issue-reports">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-bug fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Event Breakdown</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in p-0" aria-labelledby="dropdownMenuLink">
+                        <div class="btn-group-toggle m-0"  data-toggle="buttons">
+                          <label class="dropdown-item btn btn-outline-primary rounded-top active" style="border-radius: 0%;">
+                            <input type="checkbox" name="options" id="students-view" autocomplete="off" checked> Students
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0">
+                            <input type="checkbox" name="options" id="faculty-view" autocomplete="off"> Faculty
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" style="border-radius: 0%;">
+                            <input type="checkbox" name="options" id="staff-view" autocomplete="off"> Staff
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" style="border-radius: 0%;">
+                            <input type="checkbox" name="options" id="visitor-view" autocomplete="off" > Visitors
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0">
+                            <input type="checkbox" name="options" id="community-view" autocomplete="off"> Community Members
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-bottom" style="border-radius: 0%;">
+                            <input type="checkbox" name="options" id="outreach-view" autocomplete="off"> Outreach Partners
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="eventBreakdownChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-primary"></i> Recycling
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-success"></i> Pollution Prevention
+                    </span>
+                  </div>
+                  <div class="text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-blue"></i> Water Conservation
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-info"></i> Energy
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-warning"></i> Other
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary" id="active-users-header">Monthly Active Users</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in p-0" aria-labelledby="dropdownMenuLink">
+                        <div class="btn-group-toggle m-0"  data-toggle="buttons">
+                          <label class="dropdown-item btn btn-outline-primary rounded-top" style="border-radius: 0%;">
+                            <input type="radio" name="options" id="daily-active-users" autocomplete="off"> Daily
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0">
+                            <input type="radio" name="options" id="weekly-active-users" autocomplete="off"> Weekly
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-bottom active" style="border-radius: 0%;">
+                            <input type="radio" name="options" id="monthly-active-users" autocomplete="off" checked> Monthly
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="activeUsersChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-primary"></i> Students
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-success"></i> Faculty
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-warning"></i> Staff
+                    </span>
+                  </div>
+                  <div class="text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-purple"></i> Visitors
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-blue"></i> Community Members
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-info"></i> Outreach Partners
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary" id="new-users-header">Monthly New Users</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in p-0" aria-labelledby="dropdownMenuLink">
+                        <div class="btn-group-toggle m-0"  data-toggle="buttons">
+                          <label class="dropdown-item btn btn-outline-primary rounded-top" style="border-radius: 0%;">
+                            <input type="radio" name="options" id="daily-new-users" autocomplete="off"> Daily
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-0">
+                            <input type="radio" name="options" id="weekly-new-users" autocomplete="off"> Weekly
+                          </label>
+                          <label class="dropdown-item btn btn-outline-primary rounded-bottom active" style="border-radius: 0%;">
+                            <input type="radio" name="options" id="monthly-new-users" autocomplete="off" checked> Monthly
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="newUsersChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-primary"></i> Students
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-success"></i> Faculty
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-warning"></i> Staff
+                    </span>
+                  </div>
+                  <div class="text-center small">
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-purple"></i> Visitors
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-blue"></i> Community Members
+                    </span>
+                    <span class="mr-1">
+                      <i class="fas fa-circle text-info"></i> Outreach Partners
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Materials Viewed</h6>
+                        
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="materialsViewedChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-5 mb-4">
+              <div class="card shadow h-100">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Top Viewed Materials</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                      <div>
+                        <ul class="list-group list-group-flush p-0 m-0" id="top-materials">
+                          <li class="list-group-item pt-0"></li>
+                          <li class="list-group-item"></li>
+                          <li class="list-group-item"></li>
+                          <li class="list-group-item"></li>
+                          <li class="list-group-item"></li>
+                          <li class="list-group-item"></li>
+                          <li class="list-group-item pb-0"></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
     </div>
     <!-- End of Content Wrapper -->
 
@@ -262,8 +565,7 @@
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>
   <script src="js/alerts.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="js/view-graphs.js"></script>
 
 </body>
 

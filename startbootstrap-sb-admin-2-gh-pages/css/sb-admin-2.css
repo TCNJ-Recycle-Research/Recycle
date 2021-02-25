@@ -9644,6 +9644,30 @@ a.text-secondary:hover, a.text-secondary:focus {
   color: #60616f !important;
 }
 
+.text-blue {
+  color: #4e73df !important;
+}
+
+a.text-blue:hover, a.text-blue:focus {
+  color: #2e59d9 !important;
+}
+
+.text-teal {
+  color: #20c9a6 !important;
+}
+
+a.text-teal:hover, a.text-teal:focus {
+  color: #20c9a6 !important;
+}
+
+.text-purple {
+  color: #6610f2 !important;
+}
+
+a.text-purple:hover, a.text-purple:focus {
+  color: #6f42c1 !important;
+}
+
 .text-success {
   color: #1cc88a !important;
 }
