@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" id="event-attendance-progressbar" role="progressbar" style="width: 50%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-info" id="event-attendance-progressbar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -298,10 +298,11 @@
           </div>
 
 
-          <div class="row">
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
+          <div class="row row-eq-height">
+            
+            <!-- Radar Chart -->
+            <div class="col-xl-4 col-lg-6 mb-4">
+              <div class="card shadow h-100">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Event Breakdown</h6>
@@ -310,24 +311,24 @@
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in p-0" aria-labelledby="dropdownMenuLink">
-                        <div class="btn-group-toggle m-0"  data-toggle="buttons">
-                          <label class="dropdown-item btn btn-outline-primary rounded-top active" style="border-radius: 0%;">
-                            <input type="checkbox" name="options" id="students-view" autocomplete="off" checked> Students
+                        <div class="btn-group-toggle m-0"  data-toggle="buttons" id="event-breakdown">
+                          <label class="dropdown-item btn btn-outline-primary rounded-top active" id="student-view" style="border-radius: 0%;">
+                            <i class="fas fa-circle text-primary"></i><input type="checkbox" name="options" autocomplete="off" checked> Students
                           </label>
-                          <label class="dropdown-item btn btn-outline-primary rounded-0">
-                            <input type="checkbox" name="options" id="faculty-view" autocomplete="off"> Faculty
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" id="faculty-view">
+                            <i class="fas fa-circle text-success"></i><input type="checkbox" name="options" autocomplete="off"> Faculty
                           </label>
-                          <label class="dropdown-item btn btn-outline-primary rounded-0" style="border-radius: 0%;">
-                            <input type="checkbox" name="options" id="staff-view" autocomplete="off"> Staff
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" id="staff-view" style="border-radius: 0%;">
+                            <i class="fas fa-circle text-warning"></i><input type="checkbox" name="options" autocomplete="off"> Staff
                           </label>
-                          <label class="dropdown-item btn btn-outline-primary rounded-0" style="border-radius: 0%;">
-                            <input type="checkbox" name="options" id="visitor-view" autocomplete="off" > Visitors
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" id="visitor-view" style="border-radius: 0%;">
+                            <i class="fas fa-circle text-purple"></i><input type="checkbox" name="options" autocomplete="off" > Visitors
                           </label>
-                          <label class="dropdown-item btn btn-outline-primary rounded-0">
-                            <input type="checkbox" name="options" id="community-view" autocomplete="off"> Community Members
+                          <label class="dropdown-item btn btn-outline-primary rounded-0" id="community-view">
+                            <i class="fas fa-circle text-blue"></i><input type="checkbox" name="options" autocomplete="off"> Community Members
                           </label>
-                          <label class="dropdown-item btn btn-outline-primary rounded-bottom" style="border-radius: 0%;">
-                            <input type="checkbox" name="options" id="outreach-view" autocomplete="off"> Outreach Partners
+                          <label class="dropdown-item btn btn-outline-primary rounded-bottom" id="outreach-view" style="border-radius: 0%;">
+                            <i class="fas fa-circle text-info"></i><input type="checkbox" name="options" autocomplete="off"> Outreach Partners
                           </label>
                         </div>
                     </div>
@@ -335,35 +336,17 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
+                  <div class="chart-area pt-4 pb-2">
                     <canvas id="eventBreakdownChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-primary"></i> Recycling
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-success"></i> Pollution Prevention
-                    </span>
-                  </div>
-                  <div class="text-center small">
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-blue"></i> Water Conservation
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-info"></i> Energy
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-warning"></i> Other
-                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
+            
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
+            <div class="col-xl-4 col-lg-6 mb-4">
+              <div class="card shadow mb-auto h-100">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary" id="active-users-header">Monthly Active Users</h6>
@@ -391,7 +374,7 @@
                   <div class="chart-pie pt-4 pb-2">
                     <canvas id="activeUsersChart"></canvas>
                   </div>
-                  <div class="mt-4 text-center small">
+                  <div class="pt-4 text-center small">
                     <span class="mr-1">
                       <i class="fas fa-circle text-primary"></i> Students
                     </span>
@@ -416,10 +399,11 @@
                 </div>
               </div>
             </div>
-            
+
+
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
+            <div class="col-xl-4 col-lg-6 mb-4">
+              <div class="card shadow h-100">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary" id="new-users-header">Monthly New Users</h6>

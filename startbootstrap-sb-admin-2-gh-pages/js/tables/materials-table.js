@@ -167,22 +167,19 @@ jQuery(function(){
                 success: function(response){
 
                     if(response["maxFiles"] == true){
-                        console.log("SERVER REACHED MAX OF 200 IMAGE UPLOADS. FREE MEMORY BY DELETING MATERIALS/IMAGES TO UPLOAD MORE!");
+                        failureAlert("Add Request Failed!", "MAX 200 IMAGE UPLOADS REACHED. DELETE MATERIALS TO UPLOAD MORE!", true);
                         return;
                     }
                     else if(response["missingFile"] == true){
-                        // output missing info
-                        console.log("Upload material image operation missing file input.");
+                        failureAlert("Add Request Failed!", "Upload material image operation missing file input.", true);
                         return;
                     }
-                    else if(response["uploadSuccess"] == true){
-
-                        console.log("Upload material image operation successful");
-                        addMaterial(obj);
+                    else if(response["uploadSuccess"] == false){
+                        failureAlert("Upload Material Image Failed!", "Make sure the file is a jpg, jpeg, or png file and is less than 2MB.", true);
+                        return;
                     }
                     else{
-                        console.log("Upload material image operation failed! Make sure the file is a jpg, jpeg, or png file type and is less than 2MB.");
-                        return;
+                        addMaterial(obj);
                     }
 
                 },

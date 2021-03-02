@@ -13,6 +13,7 @@ jQuery(function(){
         selectedRows = table.rows( { selected: true } ).count();
 
         table.button(1).enable(selectedRows > 0);
+        table.button(2).enable(selectedRows > 0);
 
         var cell;
         var text;
@@ -56,6 +57,7 @@ jQuery(function(){
                 html += '<td>' + response[i]["user_email"] + '</td>';
                 html += '<td>' + response[i]["issue_description"] + '</td>';
                 html += '<td>' + response[i]["issue_date"] + '</td>';
+                html += '<td>' + (response[i]["resolved"] ? "Yes" : "No") + '</td>';
                 html += '</tr>';
                 
             }
@@ -67,7 +69,7 @@ jQuery(function(){
             }
             else{
                 table = $('#issuesTable').DataTable({
-                    order: [[ 0, "asc" ]],
+                    order: [[ 4, "asc" ]],
                     pageLength: 25,
                     select: {
                         style: "os"
@@ -97,12 +99,22 @@ jQuery(function(){
                             },
                             {
                                
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Resolved</span>', 
+                                className: 'btn btn-blue btn-icon-split',
+                                action: function () {
+                                    $("#edit-resolved-modal").modal("toggle");
+                                }
+                            },
+                            {
+                               
                                 text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Issue</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                 }
                             }
+                            
+                            
                         ]
                     },
                     initComplete: function(){ 
@@ -116,6 +128,8 @@ jQuery(function(){
 
             selectedRows = 0;
             table.button(1).enable(false);
+            table.button(2).enable(false);
+            
             convertDates(table);
 
         }, "json");
@@ -212,4 +226,50 @@ jQuery(function(){
             
     });
 
+
+    // --------------SUBMIT EDIT ATTENDANCE MODAL------------------
+    $(document).on("submit", "#edit-resolved-form", function(e){
+
+        e.preventDefault();
+
+        var form = $(this).serializeArray();
+
+        var resolved = parseInt(form[0].value);
+
+        var selectedRows = table.rows( { selected: true } ).data();
+
+        if(selectedRows == null || selectedRows.length < 1){
+            return;
+        }
+
+        var issueIDs = [];
+
+        for(var i = 0; i < selectedRows.length; i++){
+            issueIDs.push(selectedRows[i][0]);
+        }
+
+        var obj = {func: "set_resolved", issueIDs: issueIDs, resolved: resolved};
+
+        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+
+            if(response["missingInput"]){
+                failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
+            }
+            else if(response["editSuccess"]){
+                successAlert("Edit Request Completed!", "The selected issues were successfully edited!", true);
+            }
+            else{
+                failureAlert("Edit Request Failed!", "Server error please try again!", true);
+            }
+
+            getIssues();
+            $("#edit-resolved-modal").modal("toggle");
+            $("#edit-resolved-form")[0].reset();
+
+        }, "json").fail(function(xhr, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+        });
+
+    });
 });

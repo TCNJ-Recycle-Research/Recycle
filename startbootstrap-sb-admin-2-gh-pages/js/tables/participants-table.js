@@ -113,7 +113,7 @@
 
         var userID = form[0].value;
 
-        var obj = {func: "add_participant", userID: userID, eventID: eventID};
+        var obj = {func: "add_participant", userID: userID, eventID: eventID, attendance: 0};
 
         $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
 

@@ -13,6 +13,7 @@ jQuery(function(){
         selectedRows = table.rows( { selected: true } ).count();
 
         table.button(1).enable(selectedRows > 0);
+        table.button(2).enable(selectedRows > 0);
 
         var cell;
         var text;
@@ -56,6 +57,7 @@ jQuery(function(){
                 html += '<td>' + response[i]["request_description"] + '</td>';
                 html += '<td>' + response[i]["user_email"] + '</td>';
                 html += '<td>' + response[i]["request_date"] + '</td>';
+                html += '<td>' + (response[i]["resolved"] ? "Yes" : "No") + '</td>';
                 html += '</tr>';
                 
             }
@@ -67,7 +69,7 @@ jQuery(function(){
             }
             else{
                 table = $('#requestsTable').DataTable({
-                    order: [[ 0, "asc" ]],
+                    order: [[ 5, "asc" ]],
                     pageLength: 25,
                     select: {
                         style: "os"
@@ -97,6 +99,14 @@ jQuery(function(){
                             },
                             {
                                
+                                text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Resolved</span>', 
+                                className: 'btn btn-blue btn-icon-split',
+                                action: function () {
+                                    $("#edit-resolved-modal").modal("toggle");
+                                }
+                            },
+                            {
+                               
                                 text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Request</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
@@ -117,6 +127,8 @@ jQuery(function(){
 
             selectedRows = 0;
             table.button(1).enable(false);
+            table.button(2).enable(false);
+
             convertDates(table);
 
 
@@ -213,6 +225,54 @@ jQuery(function(){
             }, "json");
         }
             
+    });
+
+
+
+    // --------------SUBMIT EDIT ATTENDANCE MODAL------------------
+    $(document).on("submit", "#edit-resolved-form", function(e){
+
+        e.preventDefault();
+
+        var form = $(this).serializeArray();
+
+        var resolved = parseInt(form[0].value);
+
+        var selectedRows = table.rows( { selected: true } ).data();
+
+        if(selectedRows == null || selectedRows.length < 1){
+            return;
+        }
+
+        var requestIDs = [];
+
+        for(var i = 0; i < selectedRows.length; i++){
+            requestIDs.push(selectedRows[i][0]);
+        }
+
+        var obj = {func: "set_resolved", requestIDs: requestIDs, resolved: resolved};
+
+        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+
+            if(response["missingInput"]){
+                failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
+            }
+            else if(response["editSuccess"]){
+                successAlert("Edit Request Completed!", "The selected material requests were successfully edited!", true);
+            }
+            else{
+                failureAlert("Edit Request Failed!", "Server error please try again!", true);
+            }
+
+            getRequests();
+            $("#edit-resolved-modal").modal("toggle");
+            $("#edit-resolved-form")[0].reset();
+
+        }, "json").fail(function(xhr, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+        });
+
     });
 
 });

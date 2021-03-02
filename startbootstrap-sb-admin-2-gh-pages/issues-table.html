@@ -221,6 +221,7 @@
                         <th>User Email</th>
                         <th class="paragraph">Issue Description</th>
                         <th class="date">Request Date</th>
+                        <th>Resolved</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -229,6 +230,7 @@
                         <th>User Email</th>
                         <th class="paragraph">Issue Description</th>
                         <th class="date">Request Date</th>
+                        <th>Resolved</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -306,6 +308,47 @@
             </div>
           </div>
           <!--End of Delete Modal-->
+
+          <!-- Edit Resolved Modal -->
+          <div class="modal fade" id="edit-resolved-modal" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Resolved</h4>
+                  <a href="#" data-dismiss="modal" class="close">&times;</a>
+                </div>
+
+                <form id="edit-resolved-form" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p>Set whether the issue is resolved:</p>
+
+                      <div class="form-row">
+                        <div class="form-check mr-3 ml-auto">
+                          <input class="form-check-input" type="radio" name="resolved-radio" id="resolved-false" value="0">
+                          <label class="form-check-label" for="resolved-false">No</label>
+                        </div>
+                        <div class="form-check ml-3 mr-auto">
+                          <input class="form-check-input" type="radio" name="resolved-radio" id="resolved-true" value="1" checked>
+                          <label class="form-check-label" for="resolved-true">Yes</label>
+                        </div>
+
+                      </div>
+                      
+                    </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Close</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Edit Attendance Modal-->
 
         </div>
         <!-- /.container-fluid -->

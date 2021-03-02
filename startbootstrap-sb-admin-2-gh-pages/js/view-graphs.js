@@ -4,6 +4,12 @@ jQuery(function(){
 
     var activeUsersChart, newUsersChart, materialsViewedChart, eventBreakdownChart;
 
+    var eventBreakdown = {"student" : true, "faculty" : false, "staff" : false, "visitor" : false, "community" : false, "outreach" : false};
+
+    var userPrimaryColors = {"student" : "#54A649", "faculty" : "#1cc88a", "staff" : "#f6c23e", "visitor" : "#6610f2", "community" : "#4e73df", "outreach" : "#36b9cc"};
+
+    var userSecondaryColors = {"student" : "#43873a", "faculty" : "#13855c", "staff" : "#dda20a", "visitor" : "#6f42c1", "community" : "#2e59d9", "outreach" : "#258391"};
+
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
@@ -43,8 +49,32 @@ jQuery(function(){
       statsArray = $.extend(statsArray, response);
       console.log(statsArray);
       
-      loadEventsBreakdown();
       loadMaterialStats();
+
+    }, "json");
+
+    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_event_breakdown_stats"}), function(response) {
+
+      var breakdown = response["event_breakdown"];
+
+      var sum;
+
+      for(var key in eventBreakdown){
+
+        sum = parseInt(breakdown[key + "_water"]) + parseInt(breakdown[key + "_energy"]) + parseInt(breakdown[key + "_pollution"]) + parseInt(breakdown[key + "_recycling"]);
+        
+        sum /= 100;
+
+        breakdown[key + "_water"] = Math.round((breakdown[key + "_water"] / sum) * 100) / 100;
+        breakdown[key + "_energy"] = Math.round((breakdown[key + "_energy"] / sum) * 100) / 100;
+        breakdown[key + "_pollution"] = Math.round((breakdown[key + "_pollution"] / sum) * 100) / 100;
+        breakdown[key + "_recycling"] = Math.round((breakdown[key + "_recycling"] / sum) * 100) / 100;
+
+      }
+
+      statsArray = $.extend(statsArray, breakdown);
+      
+      loadEventsBreakdown();
 
     }, "json");
 
@@ -142,35 +172,77 @@ jQuery(function(){
         if (eventBreakdownChart != null){
           eventBreakdownChart.destroy();
         }
+        
+        var datasets = [];
+
+        for(var key in eventBreakdown){
+
+          if(eventBreakdown[key] == true){
+
+            datasets.push({
+              backgroundColor: transparentize(userPrimaryColors[key], 0.9),
+              borderColor: userPrimaryColors[key],
+              borderWidth: 1.25,
+              lineTension: 0.2,
+              data: [statsArray[key + "_water"], statsArray[key + "_energy"], statsArray[key + "_pollution"], statsArray[key + "_recycling"]],
+              label: key.charAt(0).toUpperCase() + key.slice(1)
+              
+            });
+          }
+          
+        }
+
+        if(datasets.length == 0){
+          datasets.push({
+            backgroundColor: transparentize(userPrimaryColors[key], 0.8),
+            borderColor: userPrimaryColors[key],
+            borderWidth: 1,
+            data: []
+          });
+        }
+
+        var options = {
+          maintainAspectRatio: false,
+          spanGaps: false,
+          elements: {
+            line: {
+              tension: 0.000001
+            }
+          },
+          plugins: {
+            filler: {
+              propagate: false
+            }
+          },
+          legend: {
+          display: false
+          },
+          tooltips: {
+            callbacks: {
+                title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
+                label: (tooltipItem, data) => data.datasets[tooltipItem.datasetIndex].label + ": " + 
+                data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + "%"
+            }
+          },
+          scale: {
+            ticks: {
+              beginAtZero: true,
+              userCallback: function (value, index, values) {
+                return value + "%";
+              }
+            }
+          }
+    
+        };
+    
 
         eventBreakdownChart = new Chart(document.getElementById("eventBreakdownChart"), {
-          type: 'doughnut',
+          type: 'radar',
           data: {
-              labels: [],
-              datasets: [{
-              data: [],
-              backgroundColor: ['#54A649' , '#1cc88a', '#f6c23e', '#6610f2', '#4e73df', '#36b9cc'],
-              hoverBackgroundColor: ['#43873a', '#13855c', '#dda20a','#6f42c1', '#2e59d9', '#258391' ],
-              hoverBorderColor: "rgba(234, 236, 244, 1)",
-              }],
+              labels: ['Water Conservation', 'Energy',  'Pollution Prevention', 'Recycling'],
+              datasets: datasets,
           },
-          options: {
-              maintainAspectRatio: false,
-              tooltips: {
-              backgroundColor: "rgb(255,255,255)",
-              bodyFontColor: "#858796",
-              borderColor: '#dddfeb',
-              borderWidth: 1,
-              xPadding: 15,
-              yPadding: 15,
-              displayColors: false,
-              caretPadding: 10,
-              },
-              legend: {
-              display: false
-              },
-              cutoutPercentage: 80,
-          },
+          options: options,
           });
 
     }
@@ -283,9 +355,6 @@ jQuery(function(){
         
     }
 
-    
-    
-
     function noDataChart(chart){
         chart.stop();
         // No data is present
@@ -343,4 +412,18 @@ jQuery(function(){
       loadNewUsers(monthlyUsers);
 
     });
+
+    $(document).on("click", "#event-breakdown .dropdown-item", function(){
+
+      var split = $(this).attr("id").split("-");
+      eventBreakdown[split[0]] = !eventBreakdown[split[0]];
+      loadEventsBreakdown();
+
+    });
+
+
+    function transparentize(color, opacity) {
+			var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+			return Color(color).alpha(alpha).rgbString();
+		}
 });
