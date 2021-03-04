@@ -23,7 +23,7 @@ jQuery(function(){
     });
 
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
 
       statsArray = $.extend(statsArray, response);
       
@@ -31,7 +31,7 @@ jQuery(function(){
 
     }, "json");
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_user_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_user_stats"}), function(response) {
 
       statsArray = $.extend(statsArray, response);
 
@@ -44,7 +44,7 @@ jQuery(function(){
 
     }, "json");
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
 
       statsArray = $.extend(statsArray, response);
       console.log(statsArray);
@@ -53,7 +53,7 @@ jQuery(function(){
 
     }, "json");
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_event_breakdown_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_event_breakdown_stats"}), function(response) {
 
       var breakdown = response["event_breakdown"];
 

@@ -21,7 +21,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_admins"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#adminsTable")){
                 $('#adminsTable').DataTable().destroy();
@@ -186,7 +186,7 @@ jQuery(function(){
             obj = {func: "add_admin_and_user", email: adminEmail, firstName: firstName, lastName: lastName, password: pwd, passwordRepeat: pwdRepeat, accessLevels: accessLevels, userType: userType};
         }
         
-        $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -312,7 +312,7 @@ jQuery(function(){
 
         var obj = {func: "edit_access_levels", adminID: rowData[0], accessLevels: accessLevels};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
@@ -361,7 +361,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_admins", adminIDs: adminsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);

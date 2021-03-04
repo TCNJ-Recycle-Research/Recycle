@@ -21,7 +21,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_users"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#usersTable")){
                 $('#usersTable').DataTable().destroy();
@@ -140,7 +140,7 @@ jQuery(function(){
         var obj = {func: "add_user", email: userEmail, firstName: first, lastName: last, password: pwd, passwordRepeat: pwdRepeat, 
         userType: type, userInterests: userInterests};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -193,7 +193,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_users", userIDs: usersDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/users-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);

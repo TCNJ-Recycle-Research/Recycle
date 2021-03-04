@@ -61,7 +61,7 @@ jQuery(function(){
 
                     var obj = {func: "verify_reset", password: password, passwordRepeat: passwordRepeat, selector: select, validator: valid};
 
-                    $.post("http://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
+                    $.post("https://recycle.hpc.tcnj.edu/php/password-resets-handler.php", JSON.stringify(obj), function(response) {
 
 
                         // Function will return a boolean in json object to let front end know if login succeeded with correct email and password

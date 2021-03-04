@@ -38,7 +38,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_requests"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#requestsTable")){
                 $('#requestsTable').DataTable().destroy();
@@ -150,7 +150,7 @@ jQuery(function(){
 
         var obj = {func: "add_request", requestMaterial: requestMaterial, requestDescription: requestDescription, userEmail: userEmail};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -206,7 +206,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_requests", requestIDs: requestsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
@@ -252,7 +252,7 @@ jQuery(function(){
 
         var obj = {func: "set_resolved", requestIDs: requestIDs, resolved: resolved};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/material-requests-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);

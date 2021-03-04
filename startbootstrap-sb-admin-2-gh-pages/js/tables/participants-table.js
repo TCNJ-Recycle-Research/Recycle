@@ -18,7 +18,7 @@
         eventID = id;
         var obj = {func: "get_participants", eventID: id};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#participantsTable")){
                 $('#participantsTable').DataTable().destroy();
@@ -115,7 +115,7 @@
 
         var obj = {func: "add_participant", userID: userID, eventID: eventID, attendance: 0};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["addSuccess"]){
                 console.log("Successful participant add");
@@ -160,7 +160,7 @@
 
         var obj = {func: "set_attendance", participantIDs: participantIDs, attendance: attendance};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["editSuccess"]){
                 console.log("Successful participant attendance");
@@ -213,7 +213,7 @@
         else{
             var obj = {func: "delete_participants", participantIDs: participantsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/participants-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         console.log("Delete Request Failed! Server request was missing required input!");

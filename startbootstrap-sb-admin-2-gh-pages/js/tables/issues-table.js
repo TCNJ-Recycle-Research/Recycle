@@ -39,7 +39,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_issues"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#issuesTable")){
                 $('#issuesTable').DataTable().destroy();
@@ -149,7 +149,7 @@ jQuery(function(){
         
         var obj = {func: "add_issue", userEmail: userEmail, issueDescription: issueDescription};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Issue Failed!", "Server issue was missing required input!", true);
@@ -205,7 +205,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_issues", issueIDs: issuesDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete issue Failed!", "Server issue was missing required input!", true);
@@ -250,7 +250,7 @@ jQuery(function(){
 
         var obj = {func: "set_resolved", issueIDs: issueIDs, resolved: resolved};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/issues-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);

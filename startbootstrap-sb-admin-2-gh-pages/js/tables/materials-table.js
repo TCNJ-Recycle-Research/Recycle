@@ -40,7 +40,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_materials"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#materialsTable")){
                 $('#materialsTable').DataTable().destroy();
@@ -159,7 +159,7 @@ jQuery(function(){
             obj.imagePath = imgFile[0].name;
 
             $.ajax({
-                url: 'http://recycle.hpc.tcnj.edu/php/image-upload.php',
+                url: 'https://recycle.hpc.tcnj.edu/php/image-upload.php',
                 type: 'post',
                 data: formData,
                 contentType: false,
@@ -201,7 +201,7 @@ jQuery(function(){
 
     function addMaterial(obj){
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -244,10 +244,10 @@ jQuery(function(){
         $("#edit-material-form .material-description").val(rowData[3]);
 
         if(rowData[4] != null && rowData[4] != "null"){
-            $("#edit-image").attr("src", "http://recycle.hpc.tcnj.edu/materialImages/" + rowData[4]);
+            $("#edit-image").attr("src", "https://recycle.hpc.tcnj.edu/materialImages/" + rowData[4]);
         }
         else{
-            $("#edit-image").attr("src", "http://recycle.hpc.tcnj.edu/materialImages/not-found.jpg");
+            $("#edit-image").attr("src", "https://recycle.hpc.tcnj.edu/materialImages/not-found.jpg");
         }
     }
 
@@ -300,7 +300,7 @@ jQuery(function(){
             obj.imagePath = imgFile[0].name;
 
             $.ajax({
-                url: 'http://recycle.hpc.tcnj.edu/php/image-upload.php',
+                url: 'https://recycle.hpc.tcnj.edu/php/image-upload.php',
                 type: 'post',
                 data: formData,
                 contentType: false,
@@ -337,7 +337,7 @@ jQuery(function(){
 
     function editMaterial(obj){
 
-        $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
@@ -385,7 +385,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_materials", materialIDs: materialsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/materials-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);

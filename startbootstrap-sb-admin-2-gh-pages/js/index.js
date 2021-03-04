@@ -8,7 +8,7 @@ jQuery(function(){
 
     var obj = {func: "get_all_events"};
 
-    $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
         for(var i = 0; i < response.length; i++){
             eventsSource.push({"title": response[i]["event_name"], "start" : response[i]["event_date"] + "T" + response[i]["start_time"]});
@@ -25,7 +25,7 @@ jQuery(function(){
     }, "json");
 
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
 
         $("#event-signups").html(response["event_signups"]);
 
@@ -36,7 +36,7 @@ jQuery(function(){
     }, "json");
 
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
 
         var i = 0;
 
@@ -48,7 +48,7 @@ jQuery(function(){
 
     }, "json");
 
-    $.post("http://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_user_stats"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_user_stats"}), function(response) {
 
         if (activeUsersChart != null){
             activeUsersChart.destroy();
@@ -87,7 +87,7 @@ jQuery(function(){
     }, "json");
 
 
-    $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify({func: "get_all_articles"}), function(response) {
+    $.post("https://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify({func: "get_all_articles"}), function(response) {
 
         $newsElements = "";
         $htmlStart = '<div class="card mb-2 border-bottom-primary"><div class="card-body mb-0 pb-0"><h3>';

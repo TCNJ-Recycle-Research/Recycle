@@ -42,7 +42,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_events"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#eventsTable")){
                 $('#eventsTable').DataTable().destroy();
@@ -220,7 +220,7 @@ jQuery(function(){
         var obj = {func: "add_event", eventName: eventName, eventType: eventType, eventLocation: eventLocation, eventDescription: eventDescription, eventDate: eventDate, 
                 startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -352,7 +352,7 @@ jQuery(function(){
         var obj = {func: "edit_event", eventID: eventID, eventName: eventName, eventType: eventType, eventLocation: eventLocation, eventDescription: eventDescription, 
         eventDate: eventDate, startTime: startTime, endTime: endTime, allowedTypes: allowedTypes};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
@@ -402,7 +402,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_events", eventIDs: eventsDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);

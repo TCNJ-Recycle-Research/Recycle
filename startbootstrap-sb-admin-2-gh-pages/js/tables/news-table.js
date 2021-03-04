@@ -40,7 +40,7 @@ jQuery(function(){
 
         var obj = {func: "get_all_articles"};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if($.fn.dataTable.isDataTable("#newsTable")){
                 $('#newsTable').DataTable().destroy();
@@ -146,7 +146,7 @@ jQuery(function(){
 
         var obj = {func: "add_article", title: articleTitle, author: articleAuthor, text: articleText};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Add Request Failed!", "Server request was missing required input!", true);
@@ -226,7 +226,7 @@ jQuery(function(){
 
         var obj = {func: "edit_article", articleID: articleID, title: articleTitle, author: articleAuthor, text: articleText};
 
-        $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
+        $.post("https://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
             if(response["missingInput"]){
                 failureAlert("Edit Request Failed!", "Server request was missing required input!", true);
@@ -276,7 +276,7 @@ jQuery(function(){
         else{
             var obj = {func: "delete_articles", articleIDs: articlesDataArray};
 
-            $.post("http://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
+            $.post("https://recycle.hpc.tcnj.edu/php/news-handler.php", JSON.stringify(obj), function(response) {
 
                     if(response["missingInput"]){
                         failureAlert("Delete Request Failed!", "Server request was missing required input!", true);
