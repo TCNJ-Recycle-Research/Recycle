@@ -8,6 +8,7 @@ else{
 
 generateSidebar();
 
+
 function logoutAdmin(){
     
     //$.post("http://recycle.hpc.tcnj.edu/php/admin-logout.php");
@@ -18,6 +19,7 @@ function logoutAdmin(){
 }
 
 function redirectToLogin(){
+
     // Replace this with "http://recycle.hpc.tcnj.edu/GreenTCNJ/login.html" when development/testing is complete
 
     var loc = window.location.pathname;

@@ -257,7 +257,7 @@ jQuery(function(){
 
       $('#top-materials li').each(function(i)
       {
-        $(this).html(statsArray["top_materials"][i][0]); 
+        $(this).html(statsArray["top_materials"][i]["material_name"]); 
         i++;
       });
       
