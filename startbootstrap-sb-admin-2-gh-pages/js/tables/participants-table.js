@@ -55,6 +55,9 @@
                     select: {
                         style: "os"
                     },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
+                    },
                     columnDefs: [{targets: 0, visible: false}],
                     buttons: {
                         dom: {

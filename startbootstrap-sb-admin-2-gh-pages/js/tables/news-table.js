@@ -3,7 +3,7 @@ jQuery(function(){
     var submitted = false;
 
     var columnToTrunc = 3;      // Column where we will truncate the string inside
-    var maxStringLen = 100;     // Max length of truncated string to display
+    var maxStringLen = 75;     // Max length of truncated string to display
     var selectedRows = 0;
 
     var table;
@@ -16,6 +16,7 @@ jQuery(function(){
 
         table.button(1).enable(selectedRows === 1);
         table.button(2).enable(selectedRows > 0);
+        table.button(3).enable(selectedRows === 1);
 
         var cell;
         var text;
@@ -37,6 +38,8 @@ jQuery(function(){
 
 
     function getArticles(){
+        
+        if(table)   table.rows( { selected: true } ).deselect();
 
         var obj = {func: "get_all_articles"};
 
@@ -70,10 +73,13 @@ jQuery(function(){
             }
             else{
                 table = $('#newsTable').DataTable({
-                    order: [[ 0, "asc" ]],
+                    order: [[ 4, "desc" ]],
                     pageLength: 25,
                     select: {
                         style: "os"
+                    },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
                     },
                     columnDefs: [{
                         targets: columnToTrunc,
@@ -81,7 +87,7 @@ jQuery(function(){
                         if ( type === 'display') {
                             return renderedData = $.fn.dataTable.render.ellipsis(maxStringLen)(data, type, row);            
                         }
-                        return data;
+                            return data;
                         }
                     }],
                     buttons: {
@@ -112,6 +118,14 @@ jQuery(function(){
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                 }
+                            },
+                            {
+                                text: '<span class="icon text-white-50"><i class="fas fa-list"></i></span><span class="text">View Article</span>', 
+                                className: 'btn btn-success btn-icon-split',
+                                action: function(){
+                                    $('.modal').modal('hide');
+                                    viewModal();
+                                }
                             }
                         ]
                     },
@@ -121,12 +135,15 @@ jQuery(function(){
                 });
 
                 table.buttons().container().appendTo( '#newsTable_wrapper .row:eq(0)');
-
             }
+
+            selectedRows = 0;
+            
+            convertDates(table);
 
             table.button(1).enable(false);
             table.button(2).enable(false);
-            convertDates(table);
+            table.button(3).enable(false);
 
         }, "json");
 
@@ -213,8 +230,9 @@ jQuery(function(){
             }
         }
 
-        if(i == form.length){
-            console.log("No change in article information so edit request not submitted!");
+        if(i == form.length) {
+            failureAlert("Edit Request Failed!", "No change in article info so edit request not submitted!", true);
+
             $("#edit-modal").modal("toggle");
             return;
         }
@@ -238,8 +256,8 @@ jQuery(function(){
                 failureAlert("Edit Request Failed!", "Server error please try again!", true);
             }
 
-            getArticles();
             $("#edit-modal").modal("toggle");
+            getArticles();
 
         }, "json");           
         
@@ -257,6 +275,7 @@ jQuery(function(){
         var confirmString = form[0].value;
 
         if(confirmString != "delete" && confirmString != "DELETE"){
+            failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-article-form")[0].reset();
             return;
@@ -296,5 +315,31 @@ jQuery(function(){
         }
             
     });
+
+    // --------------VIEW ARTICLE MODAL------------------
+    function viewModal(){
+        
+        var activeRows = table.rows( { selected: true } );
+
+        if(activeRows == null || activeRows.length != 1){
+            return;
+        }
+
+        $("#view-article .article-title").empty();
+        $("#view-article .article-author").empty();
+        $("#view-article .date-published").empty();
+        $("#view-article .article-text").empty();
+
+        var rowData = table.row(activeRows[0]).data();
+        var row = table.row(activeRows[0]).nodes().to$();
+        
+        $("#view-modal").modal("toggle");
+
+        $("#view-article .article-title").append(rowData[1]);
+        $("#view-article .article-author").append(rowData[2]);
+        $("#view-article .date-published").append(row.children("td:eq(4)").text());
+        $("#view-article .article-text").append(rowData[3]);
+
+    }
 
 });

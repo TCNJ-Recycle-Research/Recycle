@@ -74,6 +74,9 @@ jQuery(function(){
                     select: {
                         style: "os"
                     },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
+                    },
                     columnDefs: [{
                         targets: columnToTrunc,
                         render: function(data, type, row) {
@@ -183,7 +186,7 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString == "delete")){
+        if(confirmString != "delete" && confirmString != "DELETE"){
             failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-request-form")[0].reset();

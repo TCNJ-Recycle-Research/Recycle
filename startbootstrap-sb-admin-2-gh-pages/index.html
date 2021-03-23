@@ -33,7 +33,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul role="navigation" aria-label="Page Navigation Sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -72,16 +72,9 @@
       </li>
 
       <li class="d-none nav-item" id="materials-link">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
+        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
           <span>Materials</span>
         </a>
-        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Materials</h6>
-            <a class="collapse-item" href="materials-table.html">View Materials</a>
-            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
-          </div>
-        </div>
       </li>
 
       <li class="d-none nav-item" id="news-link">
@@ -99,6 +92,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
             <a class="collapse-item" href="view-graphs.html">View Graphs</a>
+            <a class="collapse-item" href="material-requests-table.html">View Material Requests</a>
             <a class="collapse-item" href="issues-table.html">View Issues</a>
           </div>
         </div>
@@ -159,7 +153,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav role="banner" aria-label="Table Alerts and Admin Signout Topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Alerts Topbar -->
           <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
@@ -229,7 +223,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div role="main" aria-label="Admin Dashboard" class="container-fluid">
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -354,8 +348,6 @@
             </div>
           </div>
 
-
-
           <!-- Content Row -->
           <div class = "row">
             <div class="col-xl-4 col-lg-5">
@@ -383,26 +375,54 @@
             </div>
           </div>
 
+          <!-- View Modal -->
+          <div class="modal fade" id="view-modal">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
 
-
-
-            <!-- <div class = "row">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Event Information</h6>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="m-0 font-weight-bold text-primary">Event Information</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <! <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt=""> -->
-                  <!-- </div>
-                  <p>Here's some info about the next upcoming event.</p>
-                </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                      
+                    <div class="container" id="view-event">
+
+                      <dl class="row m-0">
+                        <dt class="col-sm-3">Event Name:</dt>
+                        <dd class="col-sm-9 event-name"></dd>
+
+                        <dt class="col-sm-3">Event Type:</dt>
+                        <dd class="col-sm-9 event-type"></dd>
+
+                        <dt class="col-sm-3">Event Location:</dt>
+                        <dd class="col-sm-9 event-location"></dd>
+
+                        <dt class="col-sm-3">Event Description:</dt>
+                        <dd class="col-sm-9 event-description"></dd>
+
+                        <dt class="col-sm-3">Event Date:</dt>
+                        <dd class="col-sm-9 event-date"></dd>
+
+                        <dt class="col-sm-3">Event Time:</dt>
+                        <dd class="col-sm-9 event-time"></dd>
+                      </dl>
+                      
+                    </div>
+
+                  </div>
+              
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
               </div>
-            </div>  -->
-              <!-- Approach -->
-
             </div>
           </div>
+          <!--End of View Modal-->  
 
         </div>
         <!-- /.container-fluid -->
@@ -455,10 +475,10 @@
 
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>
+  <script src="js/tables/table-conversions.js"></script>
   <script src="js/alerts.js"></script>
   <script src='vendor/calendar/lib/main.js'></script>
   <script src="js/index.js"></script>
-  <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
 </body>
 

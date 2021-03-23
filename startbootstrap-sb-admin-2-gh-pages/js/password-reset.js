@@ -1,5 +1,12 @@
 jQuery(function(){
 
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+
+    if(urlParams.has('usr')){
+        $("#back-to-login").addClass("invisible");
+    }
+
     var submitted = false, isValid = false;
 
     function printError(elemId, hintMsg) {

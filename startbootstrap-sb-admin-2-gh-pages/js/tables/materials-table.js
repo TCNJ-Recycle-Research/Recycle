@@ -3,7 +3,7 @@ jQuery(function(){
     var submitted = false;
 
     var columnToTrunc = 3;      // Column where we will truncate the string inside
-    var maxStringLen = 100;     // Max length of truncated string to display
+    var maxStringLen = 75;     // Max length of truncated string to display
     var selectedRows = 0;
 
     var table;
@@ -16,6 +16,7 @@ jQuery(function(){
 
         table.button(1).enable(selectedRows === 1);
         table.button(2).enable(selectedRows > 0);
+        table.button(3).enable(selectedRows === 1);
 
         var cell;
         var text;
@@ -75,6 +76,9 @@ jQuery(function(){
                     select: {
                         style: "os"
                     },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
+                    },
                     columnDefs: [{
                         targets: columnToTrunc,
                         render: function(data, type, row) {
@@ -112,6 +116,14 @@ jQuery(function(){
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                 }
+                            },
+                            {
+                                text: '<span class="icon text-white-50"><i class="fas fa-list"></i></span><span class="text">View Material</span>', 
+                                className: 'btn btn-success btn-icon-split',
+                                action: function(){
+                                    $('.modal').modal('hide');
+                                    viewModal();
+                                }
                             }
                         ]
                     },
@@ -127,12 +139,11 @@ jQuery(function(){
             selectedRows = 0;
             table.button(1).enable(false);
             table.button(2).enable(false);
-
+            table.button(3).enable(false);
 
         }, "json");
 
     }
-
 
     // --------------ADD MATERIAL MODAL------------------
     $(document).on("submit", "#add-material-form", function(e){
@@ -287,7 +298,7 @@ jQuery(function(){
         var obj = {func: "edit_material", materialID: matID, materialName: matName, materialType: matType, materialDescription: matDescription, imagePath: null};
 
         if(i == form.length && imgFile.length <= 0){
-            console.log("No change in material information so edit request not submitted!");
+            failureAlert("Edit Request Failed!", "No change in material info so edit request not submitted!", true);
             $("#edit-modal").modal("toggle");
             return;
         }
@@ -365,7 +376,8 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString == "delete")){
+        if(confirmString != "delete" && confirmString != "DELETE"){
+            failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-material-form")[0].reset();
             return;
@@ -405,5 +417,35 @@ jQuery(function(){
         }
             
     });
+
+    // --------------VIEW MATERIAL MODAL------------------
+    function viewModal(){
+        
+        var activeRows = table.rows( { selected: true } );
+
+        if(activeRows == null || activeRows.length != 1){
+            return;
+        }
+
+        $("#view-material .material-name").empty();
+        $("#view-material .material-type").empty();
+        $("#view-material .material-description").empty();
+
+        var rowData = table.row(activeRows[0]).data();
+       
+        $("#view-modal").modal("toggle");
+
+        $("#view-material .material-name").append(rowData[1]);
+        $("#view-material .material-type").append(rowData[2]);
+        $("#view-material .material-description").append(rowData[3]);
+
+        if(rowData[4] != null && rowData[4] != "null"){
+            $("#view-material .material-image").attr("src", "https://recycle.hpc.tcnj.edu/materialImages/" + rowData[4]);
+        }
+        else{
+            $("#view-material .material-image").attr("src", "https://recycle.hpc.tcnj.edu/materialImages/not-found.jpg");
+        }
+
+    }
 
 });

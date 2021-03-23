@@ -1,7 +1,5 @@
 jQuery(function(){
 
-    var submitted = false;
-
     var columnToTrunc = 4;      // Column where we will truncate the string inside
     var maxStringLen = 50;     // Max length of truncated string to display
     var selectedRows = 0;
@@ -36,7 +34,6 @@ jQuery(function(){
         }
 
     });
-
 
     function getEvents(){
 
@@ -87,10 +84,13 @@ jQuery(function(){
             }
             else{
                 table = $('#eventsTable').DataTable({
-                    order: [[ 0, "asc" ]],
+                    order: [[ 5, "desc" ]],
                     pageLength: 25,
                     select: {
                         style: "os"
+                    },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
                     },
                     columnDefs: [{
                         targets: columnToTrunc,
@@ -117,6 +117,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-plus"></i></span><span class="text">Add Event</span>', 
                                 className: 'btn btn-primary btn-icon-split',
                                 action: function(){
+                                    $('.modal').modal('hide');
                                     $("#add-modal").modal("toggle");
                                 }
                             },
@@ -124,6 +125,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-edit"></i></span><span class="text">Edit Event</span>', 
                                 className: 'btn btn-blue btn-icon-split',
                                 action: function(){
+                                    $('.modal').modal('hide');
                                     editModal();
                                 }
                             },
@@ -131,6 +133,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Delete Event</span>', 
                                 className: 'btn btn-danger btn-icon-split',
                                 action: function () {
+                                    $('.modal').modal('hide');
                                     $("#delete-modal").modal("toggle");
                                 }
                             },
@@ -138,6 +141,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-qrcode"></i></span><span class="text">QR Code</span>', 
                                 className: 'btn btn-info btn-icon-split',
                                 action: function(){
+                                    $('.modal').modal('hide');
                                     generateQR();
                                 }
                             },
@@ -145,6 +149,7 @@ jQuery(function(){
                                 text: '<span class="icon text-white-50"><i class="fas fa-list"></i></span><span class="text">View Event</span>', 
                                 className: 'btn btn-success btn-icon-split',
                                 action: function(){
+                                    $('.modal').modal('hide');
                                     viewModal();
                                 }
                             }
@@ -239,6 +244,8 @@ jQuery(function(){
 
         }, "json");           
 
+        $(".modal").isVis
+
         
     });
     
@@ -300,16 +307,6 @@ jQuery(function(){
         }
 
         var rowData = table.row(activeRows[0]).data();
-
-        var i;
-
-        if(!$(this).closest('form').data('changed')) {
-
-            console.log("No changes were made to the form so it was not submitted!");
-
-            $("#edit-modal").modal("toggle");
-            return;
-        }
 
         var eventID = rowData[0];
         var eventName = form[0].value;
@@ -382,7 +379,8 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString == "delete")){
+        if(confirmString != "delete" && confirmString != "DELETE"){
+            failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-event-form")[0].reset();
             return;

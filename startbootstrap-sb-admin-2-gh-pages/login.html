@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body role="region" aria-label="Body" class="bg-gradient-primary">
 
   <div class="container mt-5">
     
@@ -42,10 +42,10 @@
 
         <div class="card o-hidden border-0 shadow-lg my-3">
           
-          <div class="card-body p-0">
+          <div class="card-body p-0" role="region" aria-label="Login Card">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6 d-none d-lg-block bg-login-image" aria-label="TCNJ Mascot Image"></div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -53,24 +53,26 @@
                   </div>
                   <form class="user" id="admin-login">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="email-input" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" id="email-input" aria-describedby="email-error" placeholder="Enter Email Address..." 
+                      aria-label="Enter Email Address">
                       <div style = "color:red; font-size:12px"; class="error mt-2 ml-1" id="email-error"></div>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="password-input" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" id="password-input" aria-describedby="password-error" placeholder="Password" 
+                      aria-label="Enter Password">
                       <div style = "color:red; font-size:12px"; class="error mt-2 ml-1" id="password-error"></div>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="rememberMe" value="true">
-                        <label class="custom-control-label" for="rememberMe">Remember Me</label>
+                        <label class="custom-control-label font-weight-bold" for="rememberMe">Remember Me</label>
                       </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+                    <input type="submit" class="btn btn-primary btn-user btn-block" style="font-size:medium;" value="Login">
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                    <a class="font-weight-bold" href="forgot-password.html">Forgot Password?</a>
                   </div>
                 </div>
               </div>

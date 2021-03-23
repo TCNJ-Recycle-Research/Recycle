@@ -30,7 +30,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul role="navigation" aria-label="Page Navigation Sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -60,7 +60,7 @@
           Initiatives Tables
         </div>
       </div>
-    
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="d-none nav-item" id="events-link">
         <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
@@ -69,16 +69,9 @@
       </li>
 
       <li class="d-none nav-item" id="materials-link">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
+        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
           <span>Materials</span>
         </a>
-        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Materials</h6>
-            <a class="collapse-item" href="materials-table.html">View Materials</a>
-            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
-          </div>
-        </div>
       </li>
 
       <li class="d-none nav-item" id="news-link">
@@ -96,6 +89,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
             <a class="collapse-item" href="view-graphs.html">View Graphs</a>
+            <a class="collapse-item" href="material-requests-table.html">View Material Requests</a>
             <a class="collapse-item" href="issues-table.html">View Issues</a>
           </div>
         </div>
@@ -156,7 +150,7 @@
       <div id="content">
 
       <!-- Topbar -->
-      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+      <nav role="banner" aria-label="Table Alerts and Admin Signout Topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
         <!-- Alerts Topbar -->
         <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
@@ -207,7 +201,7 @@
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div role="main" aria-label="Materials Table and Modals" class="container-fluid">
           <!-- Page Heading -->
 
           <!-- Materials Table -->
@@ -365,6 +359,75 @@
           </div>
           <!--End of Delete Modal-->
 
+          <!-- View Modal -->
+          <div class="modal fade" id="view-modal">
+            <div class="modal-dialog modal modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">View Material</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                        
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h4 class="m-0 font-weight-bold text-primary">Material Information</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="container" id="view-material">
+
+                              <dl class="row">
+                                <dt>Material Name:</dt>
+                              </dl>
+                              <dl class="row">
+                                <dd class="material-name"></dd>
+                              </dl>
+                              <dl class="row">
+                                <dt>Material Type:</dt>
+                              </dl>
+                              <dl class="row">
+                                <dd class=" material-type"></dd>
+                              </dl>
+                              <dl class="row">
+                                
+                                <dt>Material Description:</dt>
+                              </dl>
+                              <dl class="row">
+                                
+                                <dd class="material-description"></dd>
+                              </dl>
+                              <dl class="row">
+                                
+                                <dt>Material Image:</dt>
+                              </dl>
+                              
+                              <dl class="row">
+                                
+                                <img src="#" class="img-thumbnail rounded mx-auto d-block material-image" name="material-image" alt="material-image" width="200">
+                              </dl>
+
+
+
+                              
+                              
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+              
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!--End of View Modal-->  
+
         </div>
         <!-- /.container-fluid -->
 
@@ -428,6 +491,7 @@
   <script src="vendor/datatables/datatables.ellipsis.min.js"></script>
   <script src="vendor/datatables/datatables.buttons.min.js"></script>
   <script src="vendor/datatables/datatables.select.min.js"></script>
+  <script src="vendor/datatables/dataTables.keyTable.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>

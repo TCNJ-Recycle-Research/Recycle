@@ -93,3 +93,16 @@ $(document).ajaxError(function(event, jqxhr, settings, exception) {
         failureAlert("Server Could Not Be Reached!", "Make sure you're connected to TCNJ's network!", true);
     }
 });
+
+// Datatables Accessibility
+// Handle event when cell gains focus
+$('.table').on('key-focus.dt', function(e, datatable, cell, originalEvent){
+
+    if(!$('.modal').hasClass('show') && originalEvent != undefined && originalEvent.originalEvent.type != "click"){
+
+        datatable.rows( { selected: true } ).deselect();
+        
+        datatable.row(cell.index().row).select();
+    }
+    
+});

@@ -59,6 +59,9 @@ jQuery(function(){
                     select: {
                         style: "os"
                     },
+                    keys: {
+                        keys: [38 /* UP */, 40 /* DOWN */ ]
+                    },
                     buttons: {
                         dom: {
                           button: {
@@ -274,7 +277,7 @@ jQuery(function(){
         
         if(!$(this).closest('form').data('changed')) {
 
-            console.log("No changes were made to the form so it was not submitted!");
+            failureAlert("Edit Request Failed!", "No change in admin info so edit request not submitted!", true);
 
             $("#edit-modal").modal("toggle");
             return;
@@ -341,7 +344,8 @@ jQuery(function(){
         
         var confirmString = form[0].value;
 
-        if(!(confirmString == "delete")){
+        if(confirmString != "delete" && confirmString != "DELETE"){
+            failureAlert("Delete Request Failed!", "Incorrect confirmation string entered!", true);
             $("#delete-modal").modal("toggle");
             $("#delete-admin-form")[0].reset();
             return;

@@ -10,14 +10,31 @@ jQuery(function(){
 
     $.post("https://recycle.hpc.tcnj.edu/php/events-handler.php", JSON.stringify(obj), function(response) {
 
+
         for(var i = 0; i < response.length; i++){
-            eventsSource.push({"title": response[i]["event_name"], "start" : response[i]["event_date"] + "T" + response[i]["start_time"]});
+            eventsSource.push({
+                title: response[i]["event_name"], 
+                start: response[i]["event_date"] + "T" + response[i]["start_time"], 
+                extendedProps: {
+                    description: response[i]["event_description"],
+                    type: response[i]["event_type"],
+                    location: response[i]["event_location"],
+                    date: convertDate(response[i]["event_date"]),
+                    time: convertTime(response[i]["start_time"] + "-" + response[i]["end_time"]) 
+                }
+            });
         }
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            events: eventsSource
+            events: eventsSource,
+            eventClick: function(info) {
+                
+                viewModal(info);
 
+                // change the border color just for fun
+                info.el.style.borderColor = 'red';
+              }
         });
 
         calendar.render();
@@ -103,6 +120,26 @@ jQuery(function(){
         $("#news-list").html($newsElements);
 
     }, "json");
+
+    // --------------VIEW EVENT MODAL------------------
+    function viewModal(info){
+
+        $("#view-event .event-name").empty();
+        $("#view-event .event-description").empty();
+        $("#view-event .event-type").empty();
+        $("#view-event .event-location").empty();
+        $("#view-event .event-date").empty();
+        $("#view-event .event-time").empty();
+       
+        $("#view-modal").modal("toggle");
+
+        $("#view-event .event-name").append(info.event.title);
+        $("#view-event .event-type").append(info.event.extendedProps.type);
+        $("#view-event .event-location").append(info.event.extendedProps.location);
+        $("#view-event .event-description").append(info.event.extendedProps.description);
+        $("#view-event .event-date").append(info.event.extendedProps.date);
+        $("#view-event .event-time").append(info.event.extendedProps.time);
+    }
 
 
     Chart.plugins.register({

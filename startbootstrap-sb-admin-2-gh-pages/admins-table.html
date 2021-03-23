@@ -23,7 +23,6 @@
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -32,7 +31,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul role="navigation" aria-label="Page Navigation Sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -62,7 +61,7 @@
           Initiatives Tables
         </div>
       </div>
-    
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="d-none nav-item" id="events-link">
         <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
@@ -71,16 +70,9 @@
       </li>
 
       <li class="d-none nav-item" id="materials-link">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
+        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
           <span>Materials</span>
         </a>
-        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Materials</h6>
-            <a class="collapse-item" href="materials-table.html">View Materials</a>
-            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
-          </div>
-        </div>
       </li>
 
       <li class="d-none nav-item" id="news-link">
@@ -98,6 +90,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
             <a class="collapse-item" href="view-graphs.html">View Graphs</a>
+            <a class="collapse-item" href="material-requests-table.html">View Material Requests</a>
             <a class="collapse-item" href="issues-table.html">View Issues</a>
           </div>
         </div>
@@ -158,7 +151,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav role="banner" aria-label="Table Alerts and Admin Signout Topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Alerts Topbar -->
           <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
@@ -209,7 +202,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div role="main" aria-label="Admins Datatable and Modals" class="container-fluid">
 
           <!-- Page Heading -->
 
@@ -278,7 +271,7 @@
 
                       <div class="form-group">
                         <label for="email" id="add-admin-email">User Account Email</label>
-                        <input type="email" aria-describedby="emailHelp" class="form-control form-control-user" name="email" required>
+                        <input type="email" class="form-control form-control-user" name="email" required>
                       </div>
                       <div id="new-account-inputs" style="display: none;">
                         <div class="form-row">
@@ -315,25 +308,25 @@
                       </div>
                       
 
-                      <span>Access Levels</span>
+                      <span id="admin-access-levels">Access Levels</span>
 
                       <div class="form-inline">
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-events-access" name="add-events-access" checked="checked">
-                            <label class="custom-control-label" for="add-events-access">Events</label>
+                            <label class="custom-control-label" for="add-events-access" aria-describedby="admin-access-levels">Events</label>
                           </div>
                         </div>
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-materials-access" name="add-materials-access" checked="checked">
-                            <label class="custom-control-label" for="add-materials-access">Materials</label>
+                            <label class="custom-control-label" for="add-materials-access" aria-describedby="admin-access-levels">Materials</label>
                           </div>
                         </div>
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-news-access" name="add-news-access" checked="checked">
-                            <label class="custom-control-label" for="add-news-access">News</label>
+                            <label class="custom-control-label" for="add-news-access" aria-describedby="admin-access-levels">News</label>
                           </div>
                         </div>
                       </div>
@@ -341,19 +334,19 @@
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-reports-access" name="add-reports-access" checked="checked">
-                            <label class="custom-control-label" for="add-reports-access">Reports</label>
+                            <label class="custom-control-label" for="add-reports-access" aria-describedby="admin-access-levels">Reports</label>
                           </div>
                         </div>
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-users-access" name="add-users-access" checked="checked">
-                            <label class="custom-control-label" for="add-users-access">Users</label>
+                            <label class="custom-control-label" for="add-users-access" aria-describedby="admin-access-levels">Users</label>
                           </div>
                         </div>
                         <div class="wrap">
                           <div class="custom-control custom-checkbox custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="add-admins-access" name="add-admins-access" checked="checked">
-                            <label class="custom-control-label" for="add-admins-access">Admins</label>
+                            <label class="custom-control-label" for="add-admins-access" aria-describedby="admin-access-levels">Admins</label>
                           </div>
                         </div>
                       </div>
@@ -385,25 +378,25 @@
                   <form id="edit-admin-form" autocomplete="off">
                   <!-- Modal body -->
                   <div class="modal-body">
-                    <p>Modify what tables the selected admin is allowed to access.</p>
+                    <p id="table-access-description">Modify what tables the selected admin is allowed to access.</p>
 
                     <div class="form-inline">
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-events-access" name="edit-events-access" checked="checked">
-                          <label class="custom-control-label" for="edit-events-access">Events</label>
+                          <label class="custom-control-label" for="edit-events-access" aria-describedby="table-access-description">Events</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-materials-access" name="edit-materials-access" checked="checked">
-                          <label class="custom-control-label" for="edit-materials-access">Materials</label>
+                          <label class="custom-control-label" for="edit-materials-access" aria-describedby="table-access-description">Materials</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-news-access" name="edit-news-access" checked="checked">
-                          <label class="custom-control-label" for="edit-news-access">News</label>
+                          <label class="custom-control-label" for="edit-news-access" aria-describedby="table-access-description">News</label>
                         </div>
                       </div>
                     </div>
@@ -411,19 +404,19 @@
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-reports-access" name="edit-reports-access" checked="checked">
-                          <label class="custom-control-label" for="edit-reports-access">Reports</label>
+                          <label class="custom-control-label" for="edit-reports-access" aria-describedby="table-access-description">Reports</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-users-access" name="edit-users-access" checked="checked">
-                          <label class="custom-control-label" for="edit-users-access">Users</label>
+                          <label class="custom-control-label" for="edit-users-access" aria-describedby="table-access-description">Users</label>
                         </div>
                       </div>
                       <div class="wrap">
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input type="checkbox" class="custom-control-input" id="edit-admins-access" name="edit-admins-access" checked="checked">
-                          <label class="custom-control-label" for="edit-admins-access">Admins</label>
+                          <label class="custom-control-label" for="edit-admins-access" aria-describedby="table-access-description">Admins</label>
                         </div>
                       </div>
                     </div>
@@ -433,7 +426,7 @@
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <input type="submit" class="btn btn-blue" value="Edit" aria-label="Submit Edit Request" >
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -457,15 +450,16 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <p>Type <b>delete</b> to permanently delete the selected admins.</p>
-                      <input type="text" id="confirm-string" class="form-control form-control-user" name="confirm-string" required>
+                      <p id="deletion-request">Type <b>delete</b> to permanently delete the selected admins.</p>
+                      <input type="text" id="confirm-string" class="form-control form-control-user" name="confirm-string" required aria-label="Delete Confirmation" 
+                      aria-describedby="deletion-request">
                     </div>
                   </div>
 
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <input type="submit" class="btn btn-danger" value="Delete" aria-label="Submit Delete Request">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -540,6 +534,7 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="vendor/datatables/datatables.buttons.min.js"></script>
   <script src="vendor/datatables/datatables.select.min.js"></script>
+  <script src="vendor/datatables/dataTables.keyTable.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>
