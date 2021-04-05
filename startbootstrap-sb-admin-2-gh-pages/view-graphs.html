@@ -35,7 +35,7 @@
     <ul role="navigation" aria-label="Page Navigation Sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" aria-label="Green TCNJ Logo and Go to Dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-recycle"></i>
         </div>
@@ -47,7 +47,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.html" aria-label="Go to Dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -65,19 +65,19 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="d-none nav-item" id="events-link">
-        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
+        <a class="nav-link" href="events-table.html" aria-label="Go to Events Table">
           <span>Events</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="materials-link">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link" href="materials-table.html" aria-label="Go to Materials Table">
           <span>Materials</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="news-link">
-        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
+        <a class="nav-link" href="news-table.html" aria-label="Go to News Table">
           <span>News</span>
         </a>
       </li>
@@ -87,12 +87,12 @@
           <!-- <i class="fas fa-fw fa-wrench"></i> -->
           <span>Reports</span>
         </a>
-        <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+        <div id="collapseReports" class="collapse" aria-label="Open Reports Links Menu" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
-            <a class="collapse-item" href="view-graphs.html">View Graphs</a>
-            <a class="collapse-item" href="material-requests-table.html">View Material Requests</a>
-            <a class="collapse-item" href="issues-table.html">View Issues</a>
+            <a class="collapse-item" href="view-graphs.html" aria-label="Go to Graphs">View Graphs</a>
+            <a class="collapse-item" href="material-requests-table.html" aria-label="Go to Material Requests Table">View Material Requests</a>
+            <a class="collapse-item" href="issues-table.html" aria-label="Go to Issues Table">View Issues</a>
           </div>
         </div>
       </li>
@@ -112,13 +112,13 @@
 
       <!-- Nav Item - Accounts Menu -->
       <li class="d-none nav-item" id="users-link">
-        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
+        <a class="nav-link" href="users-table.html" aria-label="Go to Users Table">
           <span>Users</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="admins-link">
-        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+        <a class="nav-link " href="admins-table.html" aria-label="Go to Admins Table">
           <span>Admins</span>
         </a>
       </li>
@@ -132,7 +132,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link " href="faq.html" aria-labelledby="headingAdmins">
+        <a class="nav-link " href="faq.html" aria-label="Go to Frequently Asked Questions">
           <span>F.A.Q</span>
         </a>
       </li>
@@ -213,8 +213,9 @@
 
             <!-- Event Signups (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body" onClick="window.open('events-table.html','_top' ); return false;">
+                <div class="card border-left-primary shadow h-100 py-2 page-shortcut" data-location="events-table.html"
+                tabindex="0" role="button" aria-label="Event Signups this Month (Click to open Events Table)">
+                    <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -231,7 +232,8 @@
 
             <!-- Event Attendance (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-left-info shadow h-100 py-2 page-shortcut" data-location="events-table.html"
+                tabindex="0" role="button" aria-label="Monthly Event Attendance (Click to open Events Table)">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -258,8 +260,9 @@
 
             <!-- Pending Requests Card  -->
             <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                  <div class="card-body" onClick="window.open('material-requests-table.html','_top' ); return false;">
+              <div class="card border-left-warning shadow h-100 py-2 page-shortcut" data-location="material-requests-table.html"
+              tabindex="0" role="button" aria-label="Unresolved Material Requests (Click to open Material Requests Table)">
+                  <div class="card-body">
                       <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
@@ -276,8 +279,9 @@
 
             <!-- Pending Issues Card  -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                    <div class="card-body" onClick="window.open('issues-table.html','_top' ); return false;">
+                <div class="card border-left-danger shadow h-100 py-2 page-shortcut" data-location="issues-table.html"
+                tabindex="0" role="button" aria-label="Unresolved Issues (Click to open Issues Table)">
+                    <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
@@ -300,7 +304,7 @@
             <div class="col-xl-4 col-lg-6 mb-4">
               <div class="card shadow h-100">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" aria-label="Event Attendance Breakdown">
                   <h6 class="m-0 font-weight-bold text-primary">Event Breakdown</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -344,7 +348,7 @@
             <div class="col-xl-4 col-lg-6 mb-4">
               <div class="card shadow mb-auto h-100">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" aria-label="Monthly Active Users">
                   <h6 class="m-0 font-weight-bold text-primary" id="active-users-header">Monthly Active Users</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -401,7 +405,7 @@
             <div class="col-xl-4 col-lg-6 mb-4">
               <div class="card shadow h-100">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" aria-label="Monthly New Users">
                   <h6 class="m-0 font-weight-bold text-primary" id="new-users-header">Monthly New Users</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -463,7 +467,8 @@
             <div class="col-xl-8 col-lg-7">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between page-shortcut" data-location="materials-table.html"
+                    tabindex="0" role="button" aria-label="Materials Viewed for the Last 12 Months (Click to open Materials Table)">
                         <h6 class="m-0 font-weight-bold text-primary">Materials Viewed</h6>
                         
                     </div>
@@ -479,7 +484,8 @@
             <div class="col-xl-4 col-lg-5 mb-4">
               <div class="card shadow h-100">
                   <!-- Card Header - Dropdown -->
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between page-shortcut" data-location="materials-table.html"
+                  tabindex="0" role="button" aria-label="Top Viewed Materials (Click to open Materials Table)">
                       <h6 class="m-0 font-weight-bold text-primary">Top Viewed Materials</h6>
                   </div>
                   <!-- Card Body -->
@@ -512,7 +518,7 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -523,8 +529,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
-          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" onclick="logoutAdmin()" aria-label="Logout of Account">Logout</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" aria-label="Close Logout Modal">Cancel</button>
         </div>
       </div>
     </div>

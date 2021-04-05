@@ -35,7 +35,7 @@
     <ul role="navigation" aria-label="Page Navigation Sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" aria-label="Green TCNJ Logo and Go to Dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-recycle"></i>
         </div>
@@ -47,7 +47,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.html" aria-label="Go to Dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -65,19 +65,19 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="d-none nav-item" id="events-link">
-        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
+        <a class="nav-link" href="events-table.html" aria-label="Go to Events Table">
           <span>Events</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="materials-link">
-        <a class="nav-link" href="materials-table.html" aria-labelledby="headingMaterials">
+        <a class="nav-link" href="materials-table.html" aria-label="Go to Materials Table">
           <span>Materials</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="news-link">
-        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
+        <a class="nav-link" href="news-table.html" aria-label="Go to News Table">
           <span>News</span>
         </a>
       </li>
@@ -87,12 +87,12 @@
           <!-- <i class="fas fa-fw fa-wrench"></i> -->
           <span>Reports</span>
         </a>
-        <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+        <div id="collapseReports" class="collapse" aria-label="Open Reports Links Menu" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Reports</h6>
-            <a class="collapse-item" href="view-graphs.html">View Graphs</a>
-            <a class="collapse-item" href="material-requests-table.html">View Material Requests</a>
-            <a class="collapse-item" href="issues-table.html">View Issues</a>
+            <a class="collapse-item" href="view-graphs.html" aria-label="Go to Graphs">View Graphs</a>
+            <a class="collapse-item" href="material-requests-table.html" aria-label="Go to Material Requests Table">View Material Requests</a>
+            <a class="collapse-item" href="issues-table.html" aria-label="Go to Issues Table">View Issues</a>
           </div>
         </div>
       </li>
@@ -112,13 +112,13 @@
 
       <!-- Nav Item - Accounts Menu -->
       <li class="d-none nav-item" id="users-link">
-        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
+        <a class="nav-link" href="users-table.html" aria-label="Go to Users Table">
           <span>Users</span>
         </a>
       </li>
 
       <li class="d-none nav-item" id="admins-link">
-        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+        <a class="nav-link " href="admins-table.html" aria-label="Go to Admins Table">
           <span>Admins</span>
         </a>
       </li>
@@ -132,7 +132,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link " href="faq.html" aria-labelledby="headingAdmins">
+        <a class="nav-link " href="faq.html" aria-label="Go to Frequently Asked Questions">
           <span>F.A.Q</span>
         </a>
       </li>
@@ -399,7 +399,7 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -410,8 +410,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
-          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" onclick="logoutAdmin()" aria-label="Logout of Account">Logout</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" aria-label="Close Logout Modal">Cancel</button>
         </div>
       </div>
     </div>

@@ -106,3 +106,17 @@ $('.table').on('key-focus.dt', function(e, datatable, cell, originalEvent){
     }
     
 });
+
+$('.page-shortcut').on('keypress click', function(e){
+
+    if (e.which === 13 || e.type === 'click') {
+        var loc = window.location.pathname;
+        var dir = loc.substring(0, loc.lastIndexOf('/'));
+        window.location.replace(dir + "/" + $(this).data("location"));
+    }
+});
+
+
+$(window).on('shown.bs.modal', function(e) { 
+    $(e.target).find('button, a, form-control, input, select, textarea, [tabindex]:not([tabindex="-1"])').eq(1).focus();
+});
