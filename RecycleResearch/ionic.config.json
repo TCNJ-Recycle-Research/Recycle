@@ -1,7 +1,0 @@
-{
-  "name": "recycleResearch",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
