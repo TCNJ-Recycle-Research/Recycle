@@ -209,7 +209,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div role="main" aria-label="Users Table and Modals" class="container-fluid">
+        <div role="main" aria-label="Campus Resources and Modals" class="container-fluid">
           <!-- Page Heading -->
 
           <!-- DataTables -->
@@ -222,9 +222,9 @@
                 <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>User ID</th>
-                      <th>Email Address</th>
-                      <th>First Name</th>
+                      <th>Link ID</th>
+                      <th>Resource Name</th>
+                      <th>Resource Link</th>
                       <th>Last Name</th>
                       <th>User Type</th>
                       <th class="date">Date Created</th>
@@ -233,13 +233,13 @@
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>User ID</th>
-                      <th>Email Address</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>User Type</th>
-                      <th class="date">Date Created</th>
-                      <th class="date">Last Login</th>
+                      <th>Link ID</th>
+                      <th>Resource Name</th>
+                      <th>Resource Link</th>
+                      <!-- <th>Last Name</th> -->
+                      <!-- <th>User Type</th> -->
+                      <!-- <th class="date">Date Created</th>
+                      <th class="date">Last Login</th> -->
                     </tr>
                   </tfoot>
                   <tbody>
@@ -256,7 +256,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Add User</h4>
+                  <h4 class="modal-title">Add Link</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -349,7 +349,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Delete User</h4>
+                  <h4 class="modal-title">Delete Link</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -358,7 +358,7 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="form-group">
-                      <p>Type <b>delete</b> to permanently delete the selected users.</p>
+                      <p>Type <b>delete</b> to permanently delete the selected links.</p>
                       <input type="text" id="confirm-string" class="form-control form-control-user" name="confirm-string" required>
                     </div>
                   </div>
