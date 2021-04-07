@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Dashboard - Green TCNJ</title>
+  <title>Users - Green TCNJ</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,7 +23,6 @@
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
   <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet">
-  <link href="vendor/calendar/lib/main.min.css" rel="stylesheet">
 
 </head>
 
@@ -181,28 +180,9 @@
             </div>
           </div>
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav">
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -229,219 +209,189 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div role="main" aria-label="Admin Dashboard" class="container-fluid">
-
+        <div role="main" aria-label="Users Table and Modals" class="container-fluid">
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-          </div>
 
-          <div class="row">
-
-            <!-- Pending Material Requests and Issues -->
-            <div class="col-xl-4 col-lg-5">
-
-              <div class="card border-left-primary shadow py-2 mb-4 page-shortcut"  data-location="events-table.html"
-              tabindex="0" role="button" aria-label="Event Signups (Click to open Events Table)">
-
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Event Signups (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="event-signups">0</div>
-                      </div>
-                      <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                </div>
+          <!-- DataTables -->
+          <div class="card shadow mb-4 invisible" id="invisible-card">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Campus Resources</h4>
             </div>
-
-
-              <div class="card border-left-warning shadow py-2 mb-4 page-shortcut" data-location="material-requests-table.html"
-              tabindex="0" role="button" aria-label="Unresolved Material Requests (Click to open Material Requests Table)">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Material Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="material-requests">0</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-question-circle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-              </div>
-
-            <!-- Pending Issues Card  -->
-              <div class="card border-left-danger shadow py-2 mb-4 page-shortcut" data-location="issues-table.html"
-              tabindex="0" role="button" aria-label="Unresolved Issues (Click to open Issues Table)">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                    Issues</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="issue-reports">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-bug fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-              </div>
-          </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between page-shortcut" data-location="users-table.html"
-                tabindex="0" role="button" aria-label="Daily Active Users (Click to open Users Table)">
-                  <h6 class="m-0 font-weight-bold text-primary" id="active-users-header">Daily Active Users</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="activeUsersChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-primary"></i> Students
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-success"></i> Faculty
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-warning"></i> Staff
-                    </span>
-                  </div>
-                  <div class="text-center small">
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-purple"></i> Visitors
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-blue"></i> Community Members
-                    </span>
-                    <span class="mr-1">
-                      <i class="fas fa-circle text-info"></i> Outreach Partners
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Top Viewed Materials -->
-            <div class="col-xl-4 col-lg-5 mb-4">
-              <div class="card shadow h-100" >
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between page-shortcut" data-location="materials-table.html"
-                tabindex="0" role="button" aria-label="Top Viewed Materials (Click to open Materials Table)">
-                    <h6 class="m-0 font-weight-bold text-primary">Top Viewed Materials</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div>
-                    <ul class="list-group list-group-flush p-0 m-0" id="top-materials">
-                      <li class="list-group-item pt-0"></li>
-                      <li class="list-group-item"></li>
-                      <li class="list-group-item"></li>
-                      <li class="list-group-item"></li>
-                      <li class="list-group-item"></li>
-                      <li class="list-group-item"></li>
-                      <li class="list-group-item pb-0"></li>
-                    </ul>
-                  </div>
-                </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>User ID</th>
+                      <th>Email Address</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>User Type</th>
+                      <th class="date">Date Created</th>
+                      <th class="date">Last Login</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>User ID</th>
+                      <th>Email Address</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>User Type</th>
+                      <th class="date">Date Created</th>
+                      <th class="date">Last Login</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  </tbody>
+              </table>
               </div>
             </div>
           </div>
 
-          <!-- Content Row -->
-          <div class = "row">
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3 page-shortcut" data-location="news-table.html"
-                  tabindex="0" role="button" aria-label="Most Recent News (Click to open News Table)">
-                  <h6 class="m-0 font-weight-bold text-primary">News</h6>
-                </div>
-                <div class="card-body" id="news-list">
-
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-xl-8 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between page-shortcut" data-location="events-table.html"
-                tabindex="0" role="button" aria-label="Event Calendar (Click to open Events Table)">
-                  <h6 class="m-0 font-weight-bold text-primary">Event Calendar</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body"  id='calendar'>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- View Modal -->
-          <div class="modal fade" id="view-modal">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+          <!-- Add Modal -->
+          <div class="modal fade" id="add-modal">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="m-0 font-weight-bold text-primary">Event Information</h4>
+                  <h4 class="modal-title">Add User</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
+                <form id="add-user-form" autocomplete="off">
+
                   <!-- Modal body -->
                   <div class="modal-body">
-
-                    <div class="container" id="view-event">
-
-                      <dl class="row m-0">
-                        <dt class="col-sm-3">Event Name:</dt>
-                        <dd class="col-sm-9 event-name"></dd>
-
-                        <dt class="col-sm-3">Event Type:</dt>
-                        <dd class="col-sm-9 event-type"></dd>
-
-                        <dt class="col-sm-3">Event Location:</dt>
-                        <dd class="col-sm-9 event-location"></dd>
-
-                        <dt class="col-sm-3">Event Description:</dt>
-                        <dd class="col-sm-9 event-description"></dd>
-
-                        <dt class="col-sm-3">Event Date:</dt>
-                        <dd class="col-sm-9 event-date"></dd>
-
-                        <dt class="col-sm-3">Event Time:</dt>
-                        <dd class="col-sm-9 event-time"></dd>
-                      </dl>
-
+                    <div class="form-group">
+                      <label for="email">User Email</label>
+                      <input type="email" aria-describedby="emailHelp" class="form-control form-control-user email" name="email" required>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="first">User First Name</label>
+                        <input type="text" class="form-control form-control-user user-first-name" name="first" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="last">User Last Name</label>
+                        <input type="text" class="form-control form-control-user user-last-name" name="last" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="first">Password</label>
+                        <input type="password" class="form-control form-control-user password" name="password" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="last">Password Repeat</label>
+                        <input type="password" class="form-control form-control-user password-repeat" name="password-repeat" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user-type">User Type</label>
+                      <select class="custom-select user-type" name="user-type" required>
+                        <option selected value="Student">Student</option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Visitor">Visitor</option>
+                        <option value="Community Member">Community Member</option>
+                        <option value="Outreach Partner">Outreach Partner</option>
+                      </select>
                     </div>
 
+                    <span>User Interests</span>
+
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="recycling-interest" name="recycling-interest">
+                          <label class="custom-control-label" for="recycling-interest">Recycling</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline" >
+                          <input type="checkbox" class="custom-control-input" id="water-interest" name="water-interest">
+                          <label class="custom-control-label" for="water-interest">Water Conservation</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="pollution-interest" name="pollution-interest">
+                          <label class="custom-control-label" for="pollution-interest">Pollution Prevention</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="energy-interest" name="energy-interest">
+                          <label class="custom-control-label" for="energy-interest">Energy</label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
+                </form>
               </div>
             </div>
           </div>
-          <!--End of View Modal-->
+          <!--End of Add Modal-->
+
+
+          <!-- Delete Modal -->
+          <div class="modal fade" id="delete-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete User</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form id="delete-user-form" autocomplete="off">
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <p>Type <b>delete</b> to permanently delete the selected users.</p>
+                      <input type="text" id="confirm-string" class="form-control form-control-user" name="confirm-string" required>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Delete Modal-->
+
 
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
+
+      <!-- Footer Copyright &copy; -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Green TCNJ 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -484,14 +434,17 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/datatables/datatables.buttons.min.js"></script>
+  <script src="vendor/datatables/datatables.select.min.js"></script>
+  <script src="vendor/datatables/dataTables.keyTable.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/admin-page-functions.js"></script>
-  <script src="js/tables/table-conversions.js"></script>
   <script src="js/alerts.js"></script>
-  <script src='vendor/calendar/lib/main.js'></script>
-  <script src="js/index.js"></script>
+  <script src="js/tables/table-conversions.js"></script>
+  <script src="js/tables/users-table.js"></script>
 
 </body>
 
