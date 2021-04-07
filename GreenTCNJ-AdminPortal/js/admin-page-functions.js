@@ -34,7 +34,7 @@ function generateSidebar(){
 
     if(accessLevels != null){
 
-        if(accessLevels["events"] === 1 || accessLevels["materials"] === 1 || accessLevels["news"] === 1 || accessLevels["reports"] === 1 || accessLevels["resources"] === 1){
+        if(accessLevels["events"] === 1 || accessLevels["materials"] === 1 || accessLevels["news"] === 1 || accessLevels["reports"] === 1 || accessLevels["campusResources"] === 1){
 
             $("#initiatives-tables-heading").removeClass("d-none");
     
@@ -54,8 +54,8 @@ function generateSidebar(){
                 $("#reports-link").removeClass("d-none");
             }
 
-            if(accessLevels["resources"] === 1){
-                $("#resources-link").removeClass("d-none");
+            if(accessLevels["campusResources"] === 1){
+                $("#campus-resources-link").removeClass("d-none");
             }
         }
     

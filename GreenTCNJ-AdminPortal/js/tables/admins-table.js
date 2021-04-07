@@ -147,7 +147,7 @@ jQuery(function(){
         var pwdRepeat = form[5].value;
         var userType = form[6].value;
 
-        var accessLevels = {"events":0, "materials":0, "news":0,
+        var accessLevels = {"events":0, "materials":0, "news":0, "campusResources": 0,
              "reports":0, "users":0 , "admins":0 };
         
         // Form only submits actively checked boxes
@@ -163,6 +163,9 @@ jQuery(function(){
                 break;
                 case "add-news-access":
                     accessLevels["news"] = 1;
+                break;
+                case "add-resources-access":
+                    accessLevels["campusResources"] = 1;
                 break;
                 case "add-reports-access":
                     accessLevels["reports"] = 1;
@@ -231,6 +234,7 @@ jQuery(function(){
         $("#edit-admin-form #edit-events-access").prop("checked", false);
         $("#edit-admin-form #edit-materials-access").prop("checked", false);
         $("#edit-admin-form #edit-news-access").prop("checked", false);
+        $("#edit-admin-form #edit-resources-access").prop("checked", false);
         $("#edit-admin-form #edit-reports-access").prop("checked", false);
         $("#edit-admin-form #edit-users-access").prop("checked", false);
         $("#edit-admin-form #edit-admins-access").prop("checked", false);  
@@ -246,12 +250,12 @@ jQuery(function(){
         if(rowData[6] & 1)  {   $("#edit-admin-form #edit-events-access").prop("checked", true);     }
         if(rowData[6] & 2)  {   $("#edit-admin-form #edit-materials-access").prop("checked", true);  }
         if(rowData[6] & 4)  {   $("#edit-admin-form #edit-news-access").prop("checked", true);       }
-        if(rowData[6] & 8)  {   $("#edit-admin-form #edit-reports-access").prop("checked", true);    }
-        if(rowData[6] & 16) {   $("#edit-admin-form #edit-users-access").prop("checked", true);      }
-        if(rowData[6] & 32) {   $("#edit-admin-form #edit-admins-access").prop("checked", true);     }
+        if(rowData[6] & 8)  {   $("#edit-admin-form #edit-resources-access").prop("checked", true);  }
+        if(rowData[6] & 16) {   $("#edit-admin-form #edit-reports-access").prop("checked", true);    }
+        if(rowData[6] & 32) {   $("#edit-admin-form #edit-users-access").prop("checked", true);      }
+        if(rowData[6] & 64) {   $("#edit-admin-form #edit-admins-access").prop("checked", true);     }
 
         $("#edit-modal").modal("toggle");
-
     }
 
     // Set changed variable when the form is modified so we know whether to submit to the server
@@ -283,7 +287,7 @@ jQuery(function(){
             return;
         }
 
-        var accessLevels = {"events":0, "materials":0, "news":0,
+        var accessLevels = {"events":0, "materials":0, "news":0, "campusResources":0,
              "reports":0, "users":0 , "admins":0 };
         
         for(var i = 0; i < form.length; i++){
@@ -298,6 +302,9 @@ jQuery(function(){
                 break;
                 case "edit-news-access":
                     accessLevels["news"] = 1;
+                break;
+                case "edit-resources-access":
+                    accessLevels["campusResources"] = 1;
                 break;
                 case "edit-reports-access":
                     accessLevels["reports"] = 1;
@@ -393,9 +400,10 @@ jQuery(function(){
         if(response["events_access"] == 1)    { bitString += 1 << 0; }
         if(response["materials_access"] == 1)    { bitString += 1 << 1; }
         if(response["news_access"] == 1)      { bitString += 1 << 2; }
-        if(response["reports_access"] == 1)    { bitString += 1 << 3; }
-        if(response["users_access"] == 1)  { bitString += 1 << 4; }
-        if(response["admins_access"] == 1)   { bitString += 1 << 5; }
+        if(response["campus_resources_access"] == 1)      { bitString += 1 << 3; }
+        if(response["reports_access"] == 1)    { bitString += 1 << 4; }
+        if(response["users_access"] == 1)  { bitString += 1 << 5; }
+        if(response["admins_access"] == 1)   { bitString += 1 << 6; }
 
         return bitString;
     }
@@ -423,9 +431,10 @@ jQuery(function(){
             if(bitString & 1)  {   allowedAccess.push("Events");  }
             if(bitString & 2)  {  allowedAccess.push("Materials");   }
             if(bitString & 4)  {   allowedAccess.push("News");    }
-            if(bitString & 8)  {    allowedAccess.push("Reports"); }
-            if(bitString & 16) {    allowedAccess.push("Users");   }
-            if(bitString & 32) {    allowedAccess.push("Admins");    }
+            if(bitString & 8)  {   allowedAccess.push("Campus Resources");    }
+            if(bitString & 16) {    allowedAccess.push("Reports"); }
+            if(bitString & 32) {    allowedAccess.push("Users");   }
+            if(bitString & 64) {    allowedAccess.push("Admins");    }
 
             for(j = 0; j < allowedAccess.length - 1; j++){
                 allowedString += allowedAccess[j] + ", ";
