@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="js/page-lock.js"></script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admins - Green TCNJ</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Green TCNJ</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <div id="initiatives-tables-heading" class="d-none">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Initiatives Tables
+        </div>
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="d-none nav-item" id="events-link">
+        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
+          <span>Events</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="materials-link">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
+          <span>Materials</span>
+        </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="d-none nav-item" id="news-link">
+        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
+          <span>News</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="reports-link">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
+          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+          <span>Reports</span>
+        </a>
+        <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Reports</h6>
+            <a class="collapse-item" href="view-graphs.html">View Graphs</a>
+            <a class="collapse-item" href="issues-table.html">View Issues</a>
+          </div>
+        </div>
+      </li>
+
+      <div id="account-tables-heading" class="d-none">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Account Tables
+        </div>
+
+      </div>
+
+
+      <!-- Nav Item - Accounts Menu -->
+      <li class="d-none nav-item" id="users-link">
+        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
+          <span>Users</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="admins-link">
+        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+          <span>Admins</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Help
+      </div>
+
+      <li class="nav-item">
+        <a class="nav-link " href="faq.html" aria-labelledby="headingAdmins">
+          <span>F.A.Q</span>
+        </a>
+      </li>
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Alerts Topbar -->
+          <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
+            <div class="row justify-content-center ">
+              <div class="alert alert-success alert-dismissible animated--grow-in fade my-2" id="success-alert">
+                <strong id="success-alert-strong"></strong> <span id="success-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center ">
+              <div class="alert alert-danger alert-dismissible animated--grow-in fade my-2" id="failure-alert">
+                <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav">
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="admin-name">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
+              </a>
+              <!-- Dropdown - User Information -->
+               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+
+          <!-- DataTables -->
+          <div class="card shadow mb-4 invisible" id="invisible-card">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Admins</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="adminsTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Admin ID</th>
+                      <th>Email Address</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th class="date">Date Created</th>
+                      <th class="date">Last Login</th>
+                      <th class="access-level">Access Levels</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Admin ID</th>
+                      <th>Email Address</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th class="date">Date Created</th>
+                      <th class="date">Last Login</th>
+                      <th class="access-level">Access Levels</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Add Modal -->
+          <div class="modal fade" id="add-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Admin</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <form id="add-admin-form" autocomplete="off">
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                      <div class="btn-group btn-group-toggle mx-auto mb-3" style="width:100%;" data-toggle="buttons">
+                        <label class="btn btn-outline-primary active">
+                          <input type="radio" name="options" id="existing-account-btn" autocomplete="off" checked> From Existing User
+                        </label>
+                        <label class="btn btn-outline-primary">
+                          <input type="radio" name="options" id="new-account-btn" autocomplete="off">  New Account
+                        </label>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="email" id="add-admin-email">User Account Email</label>
+                        <input type="email" aria-describedby="emailHelp" class="form-control form-control-user" name="email" required>
+                      </div>
+                      <div id="new-account-inputs" style="display: none;">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="first">Admin First Name</label>
+                            <input type="text" class="form-control form-control-user" name="first">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="last">Admin Last Name</label>
+                            <input type="text" class="form-control form-control-user" name="last">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="first">Password</label>
+                            <input type="password" class="form-control form-control-user" name="password">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="last">Password Repeat</label>
+                            <input type="password" class="form-control form-control-user" name="password-repeat">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="user-type">User Type</label>
+                          <select class="custom-select form-control" name="user-type" required>
+                            <option selected value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Visitor">Visitor</option>
+                            <option value="Community Member">Community Member</option>
+                            <option value="Outreach Partner">Outreach Partner</option>
+                          </select>
+                        </div>
+                      </div>
+
+
+                      <span>Access Levels</span>
+
+                      <div class="form-inline">
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-events-access" name="add-events-access" checked="checked">
+                            <label class="custom-control-label" for="add-events-access">Events</label>
+                          </div>
+                        </div>
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-materials-access" name="add-materials-access" checked="checked">
+                            <label class="custom-control-label" for="add-materials-access">Materials</label>
+                          </div>
+                        </div>
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-news-access" name="add-news-access" checked="checked">
+                            <label class="custom-control-label" for="add-news-access">News</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-inline">
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-reports-access" name="add-reports-access" checked="checked">
+                            <label class="custom-control-label" for="add-reports-access">Reports</label>
+                          </div>
+                        </div>
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-users-access" name="add-users-access" checked="checked">
+                            <label class="custom-control-label" for="add-users-access">Users</label>
+                          </div>
+                        </div>
+                        <div class="wrap">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="add-admins-access" name="add-admins-access" checked="checked">
+                            <label class="custom-control-label" for="add-admins-access">Admins</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Add Modal-->
+
+          <!-- Edit Modal -->
+          <div class="modal fade" id="edit-modal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Access Levels</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <form id="edit-admin-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <p>Modify what tables the selected admin is allowed to access.</p>
+
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-events-access" name="edit-events-access" checked="checked">
+                          <label class="custom-control-label" for="edit-events-access">Events</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-materials-access" name="edit-materials-access" checked="checked">
+                          <label class="custom-control-label" for="edit-materials-access">Materials</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-news-access" name="edit-news-access" checked="checked">
+                          <label class="custom-control-label" for="edit-news-access">News</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-inline">
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-reports-access" name="edit-reports-access" checked="checked">
+                          <label class="custom-control-label" for="edit-reports-access">Reports</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-users-access" name="edit-users-access" checked="checked">
+                          <label class="custom-control-label" for="edit-users-access">Users</label>
+                        </div>
+                      </div>
+                      <div class="wrap">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="edit-admins-access" name="edit-admins-access" checked="checked">
+                          <label class="custom-control-label" for="edit-admins-access">Admins</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-blue" value="Edit">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Edit Modal-->
+
+          <!-- Delete Modal -->
+          <div class="modal fade" id="delete-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Admin</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                  <form id="delete-admin-form" autocomplete="off">
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <p>Type <b>delete</b> to permanently delete the selected admins.</p>
+                      <input type="text" id="confirm-string" class="form-control form-control-user" name="confirm-string" required>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End of Delete Modal-->
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer Copyright &copy; -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Green TCNJ 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Stops users without permission to view admin page
+    <script src="js/page-lock.js"></script>
+  -->
+
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/datatables/datatables.buttons.min.js"></script>
+  <script src="vendor/datatables/datatables.select.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/admin-page-functions.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/tables/table-conversions.js"></script>
+  <script src="js/tables/admins-table.js"></script>
+
+</body>
+
+</html>

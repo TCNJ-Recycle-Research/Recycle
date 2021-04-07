@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="js/page-lock.js"></script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>FAQ - Green TCNJ</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.buttons.min.css" rel="stylesheet">
+  <link href="vendor/datatables/datatables.select.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Green TCNJ</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <div id="initiatives-tables-heading" class="d-none">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Initiatives Tables
+        </div>
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="d-none nav-item" id="events-link">
+        <a class="nav-link" href="events-table.html" aria-labelledby="headingEvents">
+          <span>Events</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="materials-link">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaterials" aria-expanded="true" aria-controls="collapseMaterials">
+          <span>Materials</span>
+        </a>
+        <div id="collapseMaterials" class="collapse" aria-labelledby="headingMaterials" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Materials</h6>
+            <a class="collapse-item" href="materials-table.html">View Materials</a>
+            <a class="collapse-item" href="material-requests-table.html">View Requests</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="d-none nav-item" id="news-link">
+        <a class="nav-link" href="news-table.html" aria-labelledby="headingNews">
+          <span>News</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="reports-link">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
+          <!-- <i class="fas fa-fw fa-wrench"></i> -->
+          <span>Reports</span>
+        </a>
+        <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Reports</h6>
+            <a class="collapse-item" href="view-graphs.html">View Graphs</a>
+            <a class="collapse-item" href="issues-table.html">View Issues</a>
+          </div>
+        </div>
+      </li>
+
+      <div id="account-tables-heading" class="d-none">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Account Tables
+        </div>
+
+      </div>
+
+
+      <!-- Nav Item - Accounts Menu -->
+      <li class="d-none nav-item" id="users-link">
+        <a class="nav-link" href="users-table.html" aria-labelledby="headingUsers">
+          <span>Users</span>
+        </a>
+      </li>
+
+      <li class="d-none nav-item" id="admins-link">
+        <a class="nav-link " href="admins-table.html" aria-labelledby="headingAdmins">
+          <span>Admins</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Help
+      </div>
+
+      <li class="nav-item">
+        <a class="nav-link " href="faq.html" aria-labelledby="headingAdmins">
+          <span>F.A.Q</span>
+        </a>
+      </li>
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Alerts Topbar -->
+          <div class="container d-none d-sm-inline-block my-2 my-md-0 mx-auto">
+            <div class="row justify-content-center ">
+              <div class="alert alert-success alert-dismissible animated--grow-in fade my-2" id="success-alert">
+                <strong id="success-alert-strong"></strong> <span id="success-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-center ">
+              <div class="alert alert-danger alert-dismissible animated--grow-in fade my-2" id="failure-alert">
+                <strong id="failure-alert-strong"></strong> <span id="failure-alert-text"></span>
+                <button type="button" class="close alert-close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="admin-name">Admin</span>
+                <div class="img-profile rounded-circle d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-2x m-auto"></i>
+                </div>
+              </a>
+              <!-- Dropdown - User Information -->
+               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Frequently Asked Questions</h1>
+          </div>
+
+          <!-- Events Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Events Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I make an event?</b></h5>
+              <p>Go to the events tab on the side bar. Click the green "Add Event" button
+              and fill out the form.</p>
+              <h5><b>How do I make edit an event?</b></h5>
+              <p>Go to the events tab on the side bar. Select an event from the table
+              and click the blue "Edit Event" button. Fill out the section of the form
+              you want to edit.</p>
+              <h5><b>How do I delete an event?</b></h5>
+              <p>Go to the events tab on the side bar. Select an event from
+              the table and click the red "Delete Event" button. Type "Delete"
+              to permanently remove an event.</p>
+              <h5><b>How do I generate a QR code for an event?</b></h5>
+              <p>Go to the events tab on the side bar. Select an event and
+              click the blue "QR Code" button.</p>
+              <h5><b>How do I view an event?</b></h5>
+              <p>Go to the events table on the side bar. Select an event and click
+              the green "View Event" button.</p>
+            </div>
+          </div>
+
+          <!-- Participants Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Participants Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add a participant?</b></h5>
+              <p>Go to the events table on the side bar. Select an event and click
+              the green "View Event" button. Click the green "Add Participant" button
+              and fill out the form.</p>
+              <h5><b>How do I edit the attendance of a participant?</b></h5>
+              <p>Go to the events table on the side bar. Select an event and click
+              the green "View Event" button. Select a participant and click the blue
+              "Edit Attendance" button and select either "Yes" or "No". </p>
+              <h5><b>How do I delete a participant?</b></h5>
+              <p>Go to the events table on the side bar. Select an event and click
+              the green "View Event" button. Select a participant from
+              the table and click the red "Delete Participant" button. Type "Delete"
+              to permanently remove a participant.</p>
+            </div>
+          </div>
+
+          <!-- Materials Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Materials Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add a material?</b></h5>
+              <p>Go to the materials tab on the side bar and click "View Materials".
+              Click the green "Add Materials" button and fill out the form.</p>
+              <h5><b>How do I make edit a material?</b></h5>
+              <p>Go to the materials tab on the side bar and click "View Materials".
+              Select a material from the table and click the blue "Edit Material" button. Fill out the section of the form
+              you want to edit.</p>
+              <h5><b>How do I delete a material?</b></h5>
+              <p>Go to the materials tab on the side bar and click "View Materials". Select a material from
+              the table and click the red "Delete Material" button. Type "Delete" to permanently remove a material.</p>
+            </div>
+          </div>
+
+          <!-- News Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">News Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add an article?</b></h5>
+              <p>Go to the news tab on the side bar. Click the green "Add Article" button
+              and fill out the form.</p>
+              <h5><b>How do I make edit an article?</b></h5>
+              <p>Go to the news tab on the side bar. Select an article from the table
+              and click the blue "Edit Article" button. Fill out the section of the form
+              you want to edit.</p>
+              <h5><b>How do I delete an article?</b></h5>
+              <p>Go to the news tab on the side bar. Select an article from
+              the table and click the red "Delete Article" button. Type "Delete"
+              to permanently remove an article.</p>
+            </div>
+          </div>
+
+          <!-- Graphs FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Graphs</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I view graphs</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Graphs".</p>
+            </div>
+          </div>
+
+          <!-- Materials Requests Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Material Requests Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add a request?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Requests".
+              Click the green "Add Requests" button and fill out the form.</p>
+              <h5><b>How do I resolve a request?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Requests".
+              Click the blue "Edit Resolved" button and fill out the form.</p>
+              <h5><b>How do I delete a request?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Requests".
+              Select a request from the table and click the red "Delete Request" button. Type "Delete"
+              to permanently remove a request.</p>
+            </div>
+          </div>
+
+          <!-- Issues Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Issues Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add an issue?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Issues".
+              Click the green "Add Issues" button and fill out the form.</p>
+              <h5><b>How do I resolve an issue?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Issues".
+              Click the blue "Edit Resolved" button and fill out the form.</p>
+              <h5><b>How do I delete an issue?</b></h5>
+              <p>Go to the reports tab on the side bar and click "View Issues".
+              Select an issue from the table and click the red "Delete Issue" button. Type "Delete"
+              to permanently remove a issue.</p>
+            </div>
+          </div>
+
+          <!-- Users Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Users Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add a user?</b></h5>
+              <p>Go to the users tab on the side bar. Click the green "Add User" button
+              and fill out the form.</p>
+              <h5><b>How do I delete a user?</b></h5>
+              <p>Go to the users tab on the side bar. Select a user from
+              the table and click the red "Delete User" button. Type "Delete"
+              to permanently remove a user.</p>
+            </div>
+          </div>
+
+          <!-- Admins Table FAQ -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Admins Table</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I add an admin?</b></h5>
+              <p>Go to the admins tab on the side bar. Click the green "Add Admin" button
+              and fill out the form.</p>
+              <h5><b>How do I edit access levels of an admin?</b></h5>
+              <p>Go to the admins tab on the side bar. Click the blue "Edit Access Levels" button
+              and fill out the form.</p>
+              <h5><b>How do I delete an admin?</b></h5>
+              <p>Go to the admins tab on the side bar. Select a admin from
+              the table and click the red "Delete Admin" button. Type "Delete"
+              to permanently remove a admin.</p>
+            </div>
+          </div>
+
+          <!-- Table Tips and Tricks-->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h5 class="m-0 font-weight-bold text-primary">Table Tips and Tricks</h5>
+            </div>
+            <div class="card-body">
+              <h5><b>How do I select a row?</b></h5>
+              <p>In order to select a row on a table, simply left click on it. If
+              the row is selected, it will be highlighted in a light green color. A
+              row must be selected in order to perform a certain functionality (EDIT, DELETE, etc).</p>
+              <h5><b>How do I select multiple rows?</b></h5>
+              <p>Select multiple rows by holding CTRL and then left clicking.</p>
+              <p>Select a whole range of rows by left clicking a row, then holding SHIFT
+              and clicking another row. The whole range of rows will be highlighted in a
+              light green color.</p>
+            </div>
+          </div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    <!-- Footer Copyright &copy; -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Green TCNJ 2020</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" onclick="logoutAdmin()">Logout</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/admin-page-functions.js"></script>
+    <script src="js/alerts.js"></script>
+
+    </body>
+
+  </html>
