@@ -2462,6 +2462,35 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
 }
 
+.btn-purple {
+  color: #fff;
+  background-color: #6f42c1;
+  border-color: #6610f2;
+
+  
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+}
+
+.btn-purple:hover {
+  color: #fff;
+  background-color: #6f42c1;
+  border-color: #6610f2;
+}
+
+.btn-purple:focus, .btn-purple.focus {
+  color: #fff;
+  background-color: #6f42c1;
+  border-color: #6610f2;
+  box-shadow: 0 0 0 0.2rem rgba(125, 55, 155, 0.5);
+}
+
+.btn-purple.disabled, .btn-purple:disabled {
+  color: #fff;
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+}
+
 .btn-secondary {
   color: #fff;
   background-color: #858796;

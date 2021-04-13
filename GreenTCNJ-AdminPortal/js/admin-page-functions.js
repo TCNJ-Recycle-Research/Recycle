@@ -102,7 +102,8 @@ $(document).ajaxError(function(event, jqxhr, settings, exception) {
 // Handle event when cell gains focus
 $('.table').on('key-focus.dt', function(e, datatable, cell, originalEvent){
 
-    if(!$('.modal').hasClass('show') && originalEvent != undefined && originalEvent.originalEvent.type != "click"){
+    if(!$('.modal').hasClass('show') && originalEvent != undefined 
+    && originalEvent.originalEvent != undefined && originalEvent.originalEvent.type != "click"){
 
         datatable.rows( { selected: true } ).deselect();
         

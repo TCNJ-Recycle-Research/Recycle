@@ -115,6 +115,18 @@ jQuery(function(){
                                 action: function () {
                                     $("#delete-modal").modal("toggle");
                                 }
+                            },
+                            {
+                                extend: 'print',
+                                text: '<span class="icon text-white-50"><i class="fas fa-print"></i></span><span class="text">Print Table</span>', 
+                                className: 'btn btn-purple btn-icon-split',
+                                exportOptions: {
+                                    format: {
+                                        body: function (data, rowIdx, columnIdx, node ) {
+                                            return $(node).text();
+                                        }
+                                    }
+                                }
                             }
                             
                             
