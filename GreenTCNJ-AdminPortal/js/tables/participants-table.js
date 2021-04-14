@@ -32,12 +32,12 @@
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["participant_id"] + '</td>';
-                html += '<td>' + response[i]["user_id"] + '</td>';
-                html += '<td>' + response[i]["user_email"] + '</td>';
-                html += '<td>' + response[i]["user_first_name"] + '</td>';
-                html += '<td>' + response[i]["user_last_name"] + '</td>';
-                html += '<td>' + response[i]["user_type"] + '</td>';
+                html += '<td>' + response[i]["participantID"] + '</td>';
+                html += '<td>' + response[i]["userID"] + '</td>';
+                html += '<td>' + response[i]["userEmail"] + '</td>';
+                html += '<td>' + response[i]["userFirstName"] + '</td>';
+                html += '<td>' + response[i]["userLastName"] + '</td>';
+                html += '<td>' + response[i]["userType"] + '</td>';
                 html += '<td>' + (response[i]["attended"] ? "Yes" : "No") + '</td>';
                 html += '</tr>';
                 

@@ -57,11 +57,11 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["article_id"] + '</td>';
-                html += '<td>' + response[i]["article_title"] + '</td>';
-                html += '<td>' + response[i]["article_author"] + '</td>';
-                html += '<td>' + response[i]["article_text"] + '</td>';
-                html += '<td>' + response[i]["publish_date"] + '</td>';
+                html += '<td>' + response[i]["articleID"] + '</td>';
+                html += '<td>' + response[i]["articleTitle"] + '</td>';
+                html += '<td>' + response[i]["articleAuthor"] + '</td>';
+                html += '<td>' + response[i]["articleText"] + '</td>';
+                html += '<td>' + response[i]["publishDate"] + '</td>';
                 html += '</tr>';
                 
             }

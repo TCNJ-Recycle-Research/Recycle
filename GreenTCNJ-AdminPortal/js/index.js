@@ -13,14 +13,14 @@ jQuery(function(){
 
         for(var i = 0; i < response.length; i++){
             eventsSource.push({
-                title: response[i]["event_name"], 
-                start: response[i]["event_date"] + "T" + response[i]["start_time"], 
+                title: response[i]["eventName"], 
+                start: response[i]["eventDate"] + "T" + response[i]["startTime"], 
                 extendedProps: {
-                    description: response[i]["event_description"],
-                    type: response[i]["event_type"],
-                    location: response[i]["event_location"],
-                    date: convertDate(response[i]["event_date"]),
-                    time: convertTime(response[i]["start_time"] + "-" + response[i]["end_time"]) 
+                    description: response[i]["eventDescription"],
+                    type: response[i]["eventType"],
+                    location: response[i]["eventLocation"],
+                    date: convertDate(response[i]["eventDate"]),
+                    time: convertTime(response[i]["startTime"] + "-" + response[i]["endTime"]) 
                 }
             });
         }
@@ -44,11 +44,11 @@ jQuery(function(){
 
     $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_topcard_stats"}), function(response) {
 
-        $("#event-signups").html(response["event_signups"]);
+        $("#event-signups").html(response["eventSignups"]);
 
         $("#issue-reports").html(response["issues"]);
 
-        $("#material-requests").html(response["material_requests"]);
+        $("#material-requests").html(response["materialRequests"]);
 
     }, "json");
 
@@ -59,7 +59,7 @@ jQuery(function(){
 
         $('#top-materials li').each(function(i)
         {
-            $(this).html(response["top_materials"][i]["material_name"]); 
+            $(this).html(response["topMaterials"][i]["materialName"]); 
             i++;
         });
 
@@ -114,7 +114,7 @@ jQuery(function(){
             
             if(response[i] == null) break;
 
-            $newsElements += $htmlStart + response[i]["article_title"] + '</h3><p> by ' + response[i]["article_author"] + '<strong> ' + response[i]["publish_date"] + $htmlEnd;
+            $newsElements += $htmlStart + response[i]["articleTitle"] + '</h3><p> by ' + response[i]["articleAuthor"] + '<strong> ' + response[i]["publishDate"] + $htmlEnd;
         }
 
         $("#news-list").html($newsElements);
