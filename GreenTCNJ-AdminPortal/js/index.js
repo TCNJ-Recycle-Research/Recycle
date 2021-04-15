@@ -76,7 +76,7 @@ jQuery(function(){
             data: {
                 labels: ["Student", "Faculty", "Staff", "Visitor", "Community Member", "Outreach Partner"],
                 datasets: [{
-                data: $.map(response["daily_users"]["active"], function(el) { return el }),
+                data: $.map(response["dailyUsers"]["active"], function(el) { return el }),
                 backgroundColor: ['#54A649' , '#1cc88a', '#f6c23e', '#6610f2', '#4e73df', '#36b9cc'],
                 hoverBackgroundColor: ['#43873a', '#13855c', '#dda20a','#6f42c1', '#2e59d9', '#258391' ],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",

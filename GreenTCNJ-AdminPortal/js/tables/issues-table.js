@@ -53,10 +53,10 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["issue_id"] + '</td>';
-                html += '<td>' + response[i]["user_email"] + '</td>';
-                html += '<td>' + response[i]["issue_description"] + '</td>';
-                html += '<td>' + response[i]["issue_date"] + '</td>';
+                html += '<td>' + response[i]["issueID"] + '</td>';
+                html += '<td>' + response[i]["userEmail"] + '</td>';
+                html += '<td>' + response[i]["issueDescription"] + '</td>';
+                html += '<td>' + response[i]["issueDate"] + '</td>';
                 html += '<td>' + (response[i]["resolved"] ? "Yes" : "No") + '</td>';
                 html += '</tr>';
                 

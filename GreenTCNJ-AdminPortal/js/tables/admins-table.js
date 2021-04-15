@@ -35,12 +35,12 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["admin_id"] + '</td>';
-                html += '<td>' + response[i]["admin_email"] + '</td>';
-                html += '<td>' + response[i]["admin_first_name"] + '</td>';
-                html += '<td>' + response[i]["admin_last_name"] + '</td>';
-                html += '<td>' + response[i]["date_created"] + '</td>';
-                html += '<td>' + response[i]["last_login"] + '</td>';
+                html += '<td>' + response[i]["adminID"] + '</td>';
+                html += '<td>' + response[i]["adminEmail"] + '</td>';
+                html += '<td>' + response[i]["adminFirstName"] + '</td>';
+                html += '<td>' + response[i]["adminLastName"] + '</td>';
+                html += '<td>' + response[i]["dateCreated"] + '</td>';
+                html += '<td>' + response[i]["lastLogin"] + '</td>';
                 html += '<td>' + getAccessBitstring(response[i]) + '</td>';
                 html += '</tr>';
                 
@@ -409,13 +409,13 @@ jQuery(function(){
         
         var bitString = 0;
 
-        if(response["events_access"] == 1)    { bitString += 1 << 0; }
-        if(response["materials_access"] == 1)    { bitString += 1 << 1; }
-        if(response["news_access"] == 1)      { bitString += 1 << 2; }
-        if(response["campus_resources_access"] == 1)      { bitString += 1 << 3; }
-        if(response["reports_access"] == 1)    { bitString += 1 << 4; }
-        if(response["users_access"] == 1)  { bitString += 1 << 5; }
-        if(response["admins_access"] == 1)   { bitString += 1 << 6; }
+        if(response["eventsAccess"] == 1)    { bitString += 1 << 0; }
+        if(response["materialsAccess"] == 1)    { bitString += 1 << 1; }
+        if(response["newsAccess"] == 1)      { bitString += 1 << 2; }
+        if(response["campusResourcesAccess"] == 1)      { bitString += 1 << 3; }
+        if(response["reportsAccess"] == 1)    { bitString += 1 << 4; }
+        if(response["usersAccess"] == 1)  { bitString += 1 << 5; }
+        if(response["adminsAccess"] == 1)   { bitString += 1 << 6; }
 
         return bitString;
     }

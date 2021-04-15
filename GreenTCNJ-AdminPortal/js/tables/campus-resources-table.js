@@ -36,9 +36,9 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["resource_id"] + '</td>';
-                html += '<td>' + response[i]["resource_name"] + '</td>';
-                html += '<td>' + response[i]["resource_link"] + '</td>';
+                html += '<td>' + response[i]["resourceID"] + '</td>';
+                html += '<td>' + response[i]["resourceName"] + '</td>';
+                html += '<td>' + response[i]["resourceLink"] + '</td>';
                 html += '</tr>';
                 
             }

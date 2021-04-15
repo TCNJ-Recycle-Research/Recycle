@@ -52,11 +52,11 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["request_id"] + '</td>';
-                html += '<td>' + response[i]["request_material"] + '</td>';
-                html += '<td>' + response[i]["request_description"] + '</td>';
-                html += '<td>' + response[i]["user_email"] + '</td>';
-                html += '<td>' + response[i]["request_date"] + '</td>';
+                html += '<td>' + response[i]["requestID"] + '</td>';
+                html += '<td>' + response[i]["requestMaterial"] + '</td>';
+                html += '<td>' + response[i]["requestDescription"] + '</td>';
+                html += '<td>' + response[i]["userEmail"] + '</td>';
+                html += '<td>' + response[i]["requestDate"] + '</td>';
                 html += '<td>' + (response[i]["resolved"] ? "Yes" : "No") + '</td>';
                 html += '</tr>';
                 

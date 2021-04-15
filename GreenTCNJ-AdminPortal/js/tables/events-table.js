@@ -53,26 +53,26 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["event_id"] + '</td>';
-                html += '<td>' + response[i]["event_name"] + '</td>';
+                html += '<td>' + response[i]["eventID"] + '</td>';
+                html += '<td>' + response[i]["eventName"] + '</td>';
                 
-                if(response[i]["event_type"] == null){
+                if(response[i]["eventType"] == null){
                     html += '<td>None</td>';
                 }
                 else{
-                    html += '<td>' + response[i]["event_type"] + '</td>';
+                    html += '<td>' + response[i]["eventType"] + '</td>';
                 } 
                     
-                if(response[i]["event_location"] == null){
+                if(response[i]["eventLocation"] == null){
                     html += '<td>None</td>';
                 }
                 else{
-                    html += '<td>' + response[i]["event_location"] + '</td>';
+                    html += '<td>' + response[i]["eventLocation"] + '</td>';
                 }
                     
-                html += '<td>' + response[i]["event_description"] + '</td>';
-                html += '<td>' + response[i]["event_date"] + '</td>';
-                html += '<td>' + response[i]["start_time"] + "-" + response[i]["end_time"] + '</td>';
+                html += '<td>' + response[i]["eventDescription"] + '</td>';
+                html += '<td>' + response[i]["eventDate"] + '</td>';
+                html += '<td>' + response[i]["startTime"] + "-" + response[i]["endTime"] + '</td>';
                 html += '<td>' + getUserTypes(response[i]) + '</td>';
                 html += '</tr>';
             }
@@ -538,12 +538,12 @@ jQuery(function(){
         
         var bitString = 0;
 
-        if(response["allow_student"] == 1)    { bitString += 1 << 0; }
-        if(response["allow_faculty"] == 1)    { bitString += 1 << 1; }
-        if(response["allow_staff"] == 1)      { bitString += 1 << 2; }
-        if(response["allow_visitor"] == 1)    { bitString += 1 << 3; }
-        if(response["allow_community"] == 1)  { bitString += 1 << 4; }
-        if(response["allow_outreach"] == 1)   { bitString += 1 << 5; }
+        if(response["allowStudent"] == 1)    { bitString += 1 << 0; }
+        if(response["allowFaculty"] == 1)    { bitString += 1 << 1; }
+        if(response["allowStaff"] == 1)      { bitString += 1 << 2; }
+        if(response["allowVisitor"] == 1)    { bitString += 1 << 3; }
+        if(response["allowCommunity"] == 1)  { bitString += 1 << 4; }
+        if(response["allowOutreach"] == 1)   { bitString += 1 << 5; }
 
         return bitString;
     }
