@@ -35,9 +35,9 @@ jQuery(function(){
 
       statsArray = $.extend(statsArray, response);
 
-      dailyUsers = statsArray["daily_users"];
-      weeklyUsers = statsArray["weekly_users"];
-      monthlyUsers = statsArray["monthly_users"];
+      dailyUsers = statsArray["dailyUsers"];
+      weeklyUsers = statsArray["weeklyUsers"];
+      monthlyUsers = statsArray["monthlyUsers"];
 
       loadActiveUsers(monthlyUsers);
       loadNewUsers(monthlyUsers);
@@ -55,20 +55,20 @@ jQuery(function(){
 
     $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_event_breakdown_stats"}), function(response) {
 
-      var breakdown = response["event_breakdown"];
+      var breakdown = response["eventBreakdown"];
 
       var sum;
 
       for(var key in eventBreakdown){
 
-        sum = parseInt(breakdown[key + "_water"]) + parseInt(breakdown[key + "_energy"]) + parseInt(breakdown[key + "_pollution"]) + parseInt(breakdown[key + "_recycling"]);
+        sum = parseInt(breakdown[key + "Water"]) + parseInt(breakdown[key + "Energy"]) + parseInt(breakdown[key + "Pollution"]) + parseInt(breakdown[key + "Recycling"]);
         
         sum /= 100;
 
-        breakdown[key + "_water"] = Math.round((breakdown[key + "_water"] / sum) * 100) / 100;
-        breakdown[key + "_energy"] = Math.round((breakdown[key + "_energy"] / sum) * 100) / 100;
-        breakdown[key + "_pollution"] = Math.round((breakdown[key + "_pollution"] / sum) * 100) / 100;
-        breakdown[key + "_recycling"] = Math.round((breakdown[key + "_recycling"] / sum) * 100) / 100;
+        breakdown[key + "Water"] = Math.round((breakdown[key + "Water"] / sum) * 100) / 100;
+        breakdown[key + "Energy"] = Math.round((breakdown[key + "Energy"] / sum) * 100) / 100;
+        breakdown[key + "Pollution"] = Math.round((breakdown[key + "Pollution"] / sum) * 100) / 100;
+        breakdown[key + "Recycling"] = Math.round((breakdown[key + "Recycling"] / sum) * 100) / 100;
 
       }
 
@@ -80,13 +80,13 @@ jQuery(function(){
 
     function loadTopcardStats(){
 
-      $("#event-signups").html(statsArray["event_signups"]);
+      $("#event-signups").html(statsArray["eventSignups"]);
 
-      $("#event-attendance").html(statsArray["event_attendance"] * 100 + "%");
+      $("#event-attendance").html(statsArray["eventAttendance"] * 100 + "%");
 
-      $('#event-attendance-progressbar').attr('aria-valuenow', statsArray["event_attendance"] * 100).css("width", statsArray["event_attendance"] * 100 + "%");
+      $('#event-attendance-progressbar').attr('aria-valuenow', statsArray["eventAttendance"] * 100).css("width", statsArray["eventAttendance"] * 100 + "%");
 
-      $("#material-requests").html(statsArray["material_requests"]);
+      $("#material-requests").html(statsArray["materialRequests"]);
 
       $("#issue-reports").html(statsArray["issues"]);
 
@@ -184,7 +184,7 @@ jQuery(function(){
               borderColor: userPrimaryColors[key],
               borderWidth: 1.25,
               lineTension: 0.2,
-              data: [statsArray[key + "_water"], statsArray[key + "_energy"], statsArray[key + "_pollution"], statsArray[key + "_recycling"]],
+              data: [statsArray[key + "Water"], statsArray[key + "Energy"], statsArray[key + "Pollution"], statsArray[key + "Recycling"]],
               label: key.charAt(0).toUpperCase() + key.slice(1)
               
             });
@@ -257,7 +257,7 @@ jQuery(function(){
 
       $('#top-materials li').each(function(i)
       {
-        $(this).html(statsArray["top_materials"][i]["material_name"]); 
+        $(this).html(statsArray["topMaterials"][i]["materialName"]); 
         i++;
       });
       
@@ -265,11 +265,11 @@ jQuery(function(){
       var monthNames = [];
       var monthData = [];
 
-      for(var i = 0; i < statsArray["materials_viewed"].length; i++){
+      for(var i = 0; i < statsArray["materialsViewed"].length; i++){
 
-        d = new Date(statsArray["materials_viewed"][i]["month"] + ' 00:00');
+        d = new Date(statsArray["materialsViewed"][i]["month"] + ' 00:00');
         monthNames.push(d.toLocaleString('default', { month: 'short' }));
-        monthData.push(statsArray["materials_viewed"][i]["total_views"]);
+        monthData.push(statsArray["materialsViewed"][i]["totalViews"]);
 
       }
 
