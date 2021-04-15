@@ -55,11 +55,11 @@ jQuery(function(){
             for(i = 0; i < response.length; i++){
 
                 html += '<tr>';
-                html += '<td>' + response[i]["material_id"] + '</td>';
-                html += '<td>' + response[i]["material_name"] + '</td>';
-                html += '<td>' + response[i]["material_type"] + '</td>';
-                html += '<td>' + response[i]["material_description"] + '</td>';
-                html += '<td>' + response[i]["image_path"] + '</td>';
+                html += '<td>' + response[i]["materialID"] + '</td>';
+                html += '<td>' + response[i]["materialName"] + '</td>';
+                html += '<td>' + response[i]["materialType"] + '</td>';
+                html += '<td>' + response[i]["materialDescription"] + '</td>';
+                html += '<td>' + response[i]["imagePath"] + '</td>';
                 html += '</tr>';
                 
             }
