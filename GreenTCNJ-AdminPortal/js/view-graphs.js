@@ -47,7 +47,6 @@ jQuery(function(){
     $.post("https://recycle.hpc.tcnj.edu/php/graphs-handler.php", JSON.stringify({func: "get_material_stats"}), function(response) {
 
       statsArray = $.extend(statsArray, response);
-      console.log(statsArray);
       
       loadMaterialStats();
 
@@ -82,7 +81,7 @@ jQuery(function(){
 
       $("#event-signups").html(statsArray["eventSignups"]);
 
-      $("#event-attendance").html(statsArray["eventAttendance"] * 100 + "%");
+      $("#event-attendance").html((statsArray["eventAttendance"] * 100).toFixed(2) + "%");
 
       $('#event-attendance-progressbar').attr('aria-valuenow', statsArray["eventAttendance"] * 100).css("width", statsArray["eventAttendance"] * 100 + "%");
 

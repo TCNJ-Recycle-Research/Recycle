@@ -192,11 +192,10 @@ jQuery(function(){
             $("#add-article-form")[0].reset();
             
 
-        }, "json");           
-
+        }, "json");  
         
     });
-    
+
     // --------------EDIT article MODAL------------------
 
     // OPEN Edit modal

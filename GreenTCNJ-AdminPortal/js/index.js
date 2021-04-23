@@ -57,7 +57,7 @@ jQuery(function(){
 
         var i = 0;
 
-        $('#top-materials li').each(function(i)
+        $('#top-materials li').each(function()
         {
             $(this).html(response["topMaterials"][i]["materialName"]); 
             i++;
