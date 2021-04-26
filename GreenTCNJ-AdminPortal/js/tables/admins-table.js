@@ -194,15 +194,14 @@ jQuery(function(){
         }
 
         var obj;
-
         // If firstName is empty string that means it's not required for form submission 
         // e.g. we're making an existing user account an admin instead of creating a user+admin account at the same time
         if(firstName == ""){
             obj = {func: "add_admin", email: adminEmail, accessLevels: accessLevels};
         }
-        else{
-            obj = {func: "add_admin_and_user", email: adminEmail, firstName: firstName, lastName: lastName, password: pwd, passwordRepeat: pwdRepeat, accessLevels: accessLevels, userType: userType};
-        }
+         else{
+              obj = {func: "add_admin_and_user", email: adminEmail, firstName: firstName, lastName: lastName, password: pwd, passwordRepeat: pwdRepeat, accessLevels: accessLevels, userType: userType};
+         }
         
         $.post("https://recycle.hpc.tcnj.edu/php/admins-handler.php", JSON.stringify(obj), function(response) {
 
@@ -215,6 +214,9 @@ jQuery(function(){
                 {    successAlert("Add Request Completed!", "The admin account specified was created!", true);   }
                 else
                 {   successAlert("Add Request Completed!", "The admin and user account specified were created!", true);   }
+            }
+            else if (response["missingPasswordRequirements"]){
+                failureAlert("Add Request Failed!", "Missing password requirements. Password must include an uppercase letter, a number, and be 8-30 characters long.", true);
             }
             else{
 

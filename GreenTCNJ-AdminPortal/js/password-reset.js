@@ -31,6 +31,22 @@ jQuery(function(){
                 printError("password-error", "Please enter your password");
                 isValid = false;
             }
+            else if (!(/[A-Z]/.test(password))){
+                printError("password-error", "Please include an uppercase letter in your password");
+                isValid = false;
+            }
+            else if (!(/\d/).test(password)){
+                printError("password-error", "Please include a number in your password");
+                isValid = false;
+            }
+            else if (password.length < 8){
+                printError("password-error", "Your password is too short. It must be 8-30 characters long.");
+                isValid = false;
+            }
+            else if (password.length > 30){
+                printError("password-error", "Your password is too long. It must be 8-30 characters long.");
+                isValid = false;
+            }
             else{
                 printError("password-error", "");
             }
@@ -42,6 +58,7 @@ jQuery(function(){
             else{
                 printError("password-repeat-error", "");
             }
+
 
             if(!(password === passwordRepeat)){
                 printError("password-error", "Passwords don't match");
