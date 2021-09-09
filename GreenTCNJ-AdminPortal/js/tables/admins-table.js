@@ -197,7 +197,7 @@ jQuery(function(){
 
         // If firstName is empty string that means it's not required for form submission 
         // e.g. we're making an existing user account an admin instead of creating a user+admin account at the same time
-        if(firstName == ""){
+        if(document.getElementById('existing-account-btn').checked){
             obj = {func: "add_admin", email: adminEmail, accessLevels: accessLevels};
         }
         else{
@@ -211,17 +211,23 @@ jQuery(function(){
             }
             else if(response["addSuccess"]){
 
-                if(firstName == "")
+                if(document.getElementById('existing-account-btn').checked)
                 {    successAlert("Add Request Completed!", "The admin account specified was created!", true);   }
                 else
                 {   successAlert("Add Request Completed!", "The admin and user account specified were created!", true);   }
             }
+            else if (document.getElementById('new-account-btn').checked && response["passwordMismatch"]){
+                failureAlert("Add Request Failed!", "Make sure your passwords match.", true);
+            }
+            else if (document.getElementById('new-account-btn'.checked) && response["missingPasswordRequirements"]){
+                failureAlert("Add Request Failed!", "Missing password requirements. Password must include an uppercase letter, a number, and be 8-30 characters long.", true);
+            }
             else{
 
-                if(firstName == "")
+                if(document.getElementById('existing-account-btn').checked)
                 {    failureAlert("Add Request Failed!", "Make sure a user account with that email exists and no admin account uses it!", true);   }
                 else
-                {   failureAlert("Add Request Failed!", "Make sure there are no existing accounts with that email and that the passwords match!", true);   }
+                {   failureAlert("Add Request Failed!", "Make sure there are no existing accounts with that email!", true);   }
 
             }
 
