@@ -163,6 +163,9 @@ jQuery(function(){
             else if(response["addSuccess"]){
                 successAlert("Add Request Completed!", "The user account specified was created!", true);
             }
+            else if(response["passwordMismatch"]){
+                failureAlert("Add Request Failed!", "Make sure your passwords match.", true);
+            }
             else{
                 failureAlert("Add Request Failed!", "Make sure the email is not already taken and that the passwords match!", true);
             }
